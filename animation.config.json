@@ -1,0 +1,23 @@
+{
+  "width": 1080,
+  "height": 1920,
+  "fps": 60,
+  "scenes": {
+    "intro": 3,
+    "workspace": 4,
+    "modules": 5,
+    "ecosystem": 4,
+    "finale": 4
+  },
+  "expressiveness": {
+    "surprise": 1.0,
+    "hopHeight": 1.0
+  },
+  "text": {
+    "claudeCard": "Claude",
+    "tagline": ["Think.", "Create.", "Solve."],
+    "modules": ["Claude.ai", "Projects + Skills", "Connectors + Search", "Real-world workflows", "Claude Academy"],
+    "title": ["CLAUDE", "ACADEMY"],
+    "subtitle": "Aprende a trabajar con Claude"
+  }
+}

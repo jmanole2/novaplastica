@@ -1,0 +1,22 @@
+# Claude Academy — animated intro
+
+A 20-second vertical (1080×1920, 60 fps) paper-cut intro, built only with code:
+Canvas 2D (`src/anim.js`) rendered frame-by-frame in headless Chromium (Playwright), encoded with ffmpeg.
+
+Output: `out/claude-academy.mp4`. Mascot reference: `reference/mascot.png`.
+
+```bash
+npm install
+npm run render                                   # full MP4
+node render.mjs --stills 3.5,9,18.6               # single frames -> out/stills/
+node render.mjs --sheet --step 0.5 --from 7 --to 12   # contact sheet -> out/contact-sheet.png
+```
+
+## Tweaking
+`animation.config.json`:
+- `scenes` — seconds per scene (intro, workspace, modules, ecosystem, finale). Everything inside a scene stretches with it, so `"finale": 6` slows the ending down.
+- `expressiveness.surprise` / `hopHeight` — how big the mascot's reactions and jumps are.
+- `text` — every on-screen string.
+- `fps`.
+
+Choreography lives in `src/anim.js`, authored on a 20 s base timeline (`mascotState`, `boardRect`, `ITEMS`, `CARD_*`, `ENVS`).
