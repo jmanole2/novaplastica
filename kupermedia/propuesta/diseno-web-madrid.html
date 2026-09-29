@@ -73,7 +73,10 @@ img,svg{display:block}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 0 0 rgba(63,208,255,.6);animation:pulse 2.4s infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(63,208,255,.55)}70%{box-shadow:0 0 0 10px rgba(63,208,255,0)}100%{box-shadow:0 0 0 0 rgba(63,208,255,0)}}
 .label{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
-.outline{color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.78)}
+/* Texto en contorno: se usa un filtro SVG (#kp-outline) en lugar de -webkit-text-stroke,
+   porque text-stroke dibuja los trazos internos superpuestos de las fuentes variables
+   (SF, Inter) y aparecen cruces dentro de N, M, A… El filtro solo dibuja la silueta exterior. */
+.outline{color:#fff;filter:url(#kp-outline)}
 .grad-text{background:linear-gradient(90deg,var(--magenta),var(--violet) 45%,var(--sky));-webkit-background-clip:text;background-clip:text;color:transparent}
 
 .btn{display:inline-flex;align-items:center;gap:12px;height:54px;padding:0 26px;border-radius:999px;font-weight:700;font-size:14px;letter-spacing:.04em;transition:transform .35s var(--ease),background .3s,border-color .3s}
@@ -179,8 +182,8 @@ img,svg{display:block}
 .clients .label{display:block;text-align:center;margin-bottom:22px}
 .track{display:flex;gap:64px;width:max-content;animation:marquee 38s linear infinite}
 .track span{font-size:clamp(28px,4vw,56px);font-weight:900;letter-spacing:-.03em;text-transform:uppercase;white-space:nowrap}
-.track span:nth-child(even){color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.5)}
-.track .sep{color:var(--violet)!important;-webkit-text-stroke:0!important}
+.track span:nth-child(even){color:#fff;filter:url(#kp-outline-thin)}
+.track .sep{color:var(--violet)!important;filter:none!important}
 @keyframes marquee{to{transform:translateX(-50%)}}
 .clients:hover .track{animation-play-state:paused}
 
@@ -326,6 +329,7 @@ footer a:hover{color:#fff}
   .scroll-hint{display:none}
 }
 @media (max-width:620px){
+  .outline{filter:url(#kp-outline-sm)}
   .features{grid-template-columns:1fr}
   .feat{min-height:280px}
   .projects{grid-template-columns:1fr}
@@ -346,6 +350,28 @@ footer a:hover{color:#fff}
 </head>
 <body>
 <script>document.documentElement.classList.add('js')</script>
+<!-- Filtros de contorno limpio: dilata la silueta de la letra y le resta el relleno,
+     dejando solo un anillo exterior del grosor indicado. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <filter id="kp-outline" x="-2%" y="-10%" width="104%" height="120%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="1.5" result="grow"/>
+    <feComposite in="grow" in2="SourceAlpha" operator="out" result="ring"/>
+    <feFlood flood-color="#fff" flood-opacity=".82"/>
+    <feComposite in2="ring" operator="in"/>
+  </filter>
+  <filter id="kp-outline-sm" x="-2%" y="-10%" width="104%" height="120%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="1" result="grow"/>
+    <feComposite in="grow" in2="SourceAlpha" operator="out" result="ring"/>
+    <feFlood flood-color="#fff" flood-opacity=".85"/>
+    <feComposite in2="ring" operator="in"/>
+  </filter>
+  <filter id="kp-outline-thin"x="-2%" y="-10%" width="104%" height="120%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="1" result="grow"/>
+    <feComposite in="grow" in2="SourceAlpha" operator="out" result="ring"/>
+    <feFlood flood-color="#fff" flood-opacity=".55"/>
+    <feComposite in2="ring" operator="in"/>
+  </filter>
+</svg>
 
 <header class="hdr" id="hdr">
   <a class="logo" href="https://kuper.media/" aria-label="Kuper Media, inicio">
