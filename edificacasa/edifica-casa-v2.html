@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Edifica Casa | Préstamos por inmueble</title>
+<meta name="description" content="Préstamos con garantía de casa, departamento o terreno. 40 años de experiencia. Sin buró de crédito y sin comisión por apertura.">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+
+<style>
+:root{--bg:#161616;--gray:#8a8a8a;--tan:#fe833d;--line:#383838;--ease:cubic-bezier(.2,.7,.2,1);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{background:var(--bg);scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:#fff;font-family:Montserrat,system-ui,sans-serif;line-height:1.35;letter-spacing:-.01em;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--tan);outline-offset:3px}
+.mark{width:30px;height:30px;fill:currentColor;display:block}
+.ph{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;transform:scale(1.1);transition:transform 1.8s var(--ease)}
+.f.in .ph,.ph.in{transform:scale(1)}
+.js .f{opacity:0;transform:translateY(30px);transition:opacity 1.1s var(--ease) var(--d,0s),transform 1.1s var(--ease) var(--d,0s)}
+.js .f.in{opacity:1;transform:none}
+.gr{color:var(--gray)}.tn{color:var(--tan)}
+.btn{display:inline-block;border:1px solid currentColor;border-radius:14px;padding:.85rem 1.5rem;font-size:.9rem;font-weight:600;transition:background .25s,color .25s}
+.btn:hover{background:#fff;color:#111}
+
+/* HERO */
+.hero{position:relative;margin:.6rem;border-radius:28px;overflow:hidden;aspect-ratio:2/1;min-height:560px;color:#111;background:linear-gradient(180deg,#eceef2,#e2e5ea)}
+.hero .h1 h1 { text-align: left; text-shadow: 0 0 6px #c4c4c4;}
+.himg{position:absolute;inset:0;display:flex;justify-content:center}
+.himg div{position:relative;height:100%;aspect-ratio:463/742;-webkit-mask-image:linear-gradient(90deg,transparent,#000 16%,#000 84%,transparent);mask-image:linear-gradient(90deg,transparent,#000 16%,#000 84%,transparent);overflow:hidden}
+.big{position:absolute;left:0;right:0;bottom:5%;text-align:center;font-weight:800;font-size:19.5vw;line-height:.75;letter-spacing:-.045em;color:#0d0d0d;white-space:nowrap;text-transform:uppercase}
+.logo{position:absolute;left:2.2rem;top:.9rem;color:#111;z-index:3}
+.logo img { max-width: 300px;}
+.top{position:absolute;top:1.6rem;z-index:3;display:flex;gap:.5rem}
+.top.l{left:20%}.top.r{right:2.4%}
+.pill{background:rgba(255,255,255,.92);color:#111;border-radius:14px;padding:.8rem 1.3rem;font-size:.9rem;font-weight:500;box-shadow:0 2px 12px rgba(0,0,0,.05);border:0;font-family:inherit;cursor:pointer;transition:transform .25s}
+.pill:hover{transform:translateY(-2px)}
+.pill.dk{background:#111;color:#fff;display:flex;align-items:center;gap:1rem;padding:.4rem 1.5rem .4rem .4rem;outline:2px solid #fff;outline-offset:-2px}
+.pill.dk i{width:34px;height:34px;border-radius:9px;background:#fff;display:grid;place-content:center;gap:4px}
+.pill.dk i b{display:block;width:12px;height:1.5px;background:#111}
+.menuwrap{position:relative}
+.panel{position:absolute;top:calc(100% + .5rem);right:0;background:#111;border-radius:14px;padding:.6rem;min-width:290px;z-index:5;display:none;flex-direction:column}
+.panel.on{display:flex}
+.panel a{padding:.7rem .9rem;font-size:.9rem;border-radius:9px;color:#fff}.panel a:hover{background:#2a2a2a}
+.soc{position:absolute;left:2.2rem;top:8.2rem;z-index:3;display:flex;flex-direction:column;gap:.55rem}
+.soc a{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.9);color:#111;display:grid;place-items:center}
+.soc svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linejoin:round}
+.h1{position:absolute;left:12.6%;top:21%;z-index:3}
+.h1 h1{margin:0 0 1.3rem;font-size:clamp(1.9rem,3.4vw,3.5rem);line-height:.98;letter-spacing:-.045em;font-weight:500;text-align:center; font-family: "Fredoka", sans-serif;   font-weight: 400;}
+.h1 .btn{margin-left:0;color:#111;padding:.85rem 1.6rem}
+.h1 .btn:hover{background:#111;color:#fff}
+.side{position:absolute;right:9%;top:22%;z-index:1;width:min(27%,380px)}
+.side::before{content:"";position:absolute;right:100%;top:.9rem;width:4vw;height:1px;background:#a8a8a8;margin-right:.3rem}
+.side::after{content:"";position:absolute;right:calc(100% + 4vw + .3rem);top:calc(.9rem - 3px);width:7px;height:7px;border:1px solid #a8a8a8;border-radius:50%}
+.side h3{margin:0 0 .7rem;font-size:.9rem;font-weight:600;line-height:1.45;letter-spacing:-.02em}
+.side p{margin:0 0 .9rem;font-size:.9rem;color:#6d6d6d;line-height:1.35}
+.cards{display:flex;gap:.4rem}
+.cards .bi { margin-bottom: 20px ; font-size: 26px;}
+.cards a{flex:1;background:#fff;border-radius:18px;padding:1rem .6rem;text-align:center;font-size:.9rem;line-height:1.2;box-shadow:0 6px 24px rgba(0,0,0,.06);transition:transform .3s var(--ease)}
+.cards a:hover{transform:translateY(-4px)}
+.cards a:nth-child(2){transition-delay:.05s}
+.cards svg{width:14px;height:14px;fill:none;stroke:#888;stroke-width:1.5;margin-bottom:.5rem}
+.cards b{display:block;font-weight:600; margin-top: 10px;}
+.cards small{display:none}
+
+/* STRIP */
+.strip{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;padding:1.7rem 2.2rem;font-size:.9rem;font-weight:500}
+.tags{display:flex;gap:.4rem;flex-wrap:wrap}.tags span{border:1px solid #777;border-radius:999px;padding:.55rem 1.5rem;font-size:.9rem;font-weight:500;letter-spacing:.01em}
+.meta{display:flex;gap:.9rem;flex-wrap:wrap;align-items:center;color:#cfcfcf}.meta b{color:#fff;font-weight:600;margin:0 .9rem 0 .2rem}
+
+
+/* SECTION 1 */
+.sec{text-align:center;padding:4.5rem 1.5rem 0}
+.sec .mark{margin:0 auto 1.6rem}
+.sec h2{margin:0 auto;font-weight:500;font-size:clamp(2rem,4vw,3.9rem);line-height:.98;letter-spacing:-.045em;max-width:1100px}
+.sec p{margin:1.8rem auto 0;font-size:.9rem;color:#cfcfcf;max-width:460px;line-height:1.4}
+.gal{display:grid;grid-template-columns:1fr minmax(0,578px) 1fr;gap:1.5rem;max-width:1300px;margin:3.5rem auto 0;padding:0 2.2rem;align-items:center}
+.sm{width:min(100%,232px)}.sm.r{justify-self:end}
+.sm .im{position:relative;aspect-ratio:1/1.03;border-radius:42px;overflow:hidden;background:#222}
+.lab{margin-top:1rem;font-size:.9rem;line-height:1.15;text-align:left}
+.lab i{display:inline-block;font-style:normal;border:1px solid #777;border-radius:999px;padding:.3rem 1rem;font-size:.9rem;margin-bottom:1rem}
+.lab span{display:block;color:#a9a9a9}.lab b{font-weight:600}
+.big-card{position:relative;aspect-ratio:1/1;border-radius:70px;overflow:hidden;background:#222}
+.big-card .tr{position:absolute;right:8%;top:6%;z-index:2;text-align:left;font-size:.9rem;line-height:1.15;color:#777;width:46%}
+.big-card .tr i{display:inline-block;font-style:normal;border:1px solid #999;border-radius:999px;padding:.3rem .8rem;font-size:.9rem;margin-bottom:1.6rem}
+.glass{position:absolute;left:5%;z-index:2;width:36%;aspect-ratio:1/.95;border-radius:26px;padding:1rem 1rem;background:linear-gradient(160deg,rgba(90,90,90,.6),rgba(40,40,40,.62));backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column;justify-content:space-between;text-align:left;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.glass.a{top:30%}.glass.b{top:66%;aspect-ratio:1/.8}
+.glass b{font-size:clamp(2rem,3.2vw,3rem);font-weight:500;letter-spacing:-.05em;line-height:1}
+.glass small{font-size:.9rem;line-height:1.15;color:#e2e2e2}
+
+/* SECTION 2 */
+.sec2{padding-top:8.5rem}
+.sec2 h2{font-size:clamp(2.3rem,5.2vw,5rem);max-width:1150px}
+.sec2 p{max-width:460px}
+.trio{display:grid;grid-template-columns:1fr minmax(0,400px) 1fr;gap:3rem;max-width:1200px;margin:2.5rem auto 0;padding:0 2.2rem;align-items:center}
+.tall{position:relative;overflow:hidden;aspect-ratio:398/503;background:#161616 center/cover no-repeat}
+.tall .ph{background-color:#161616}
+.mini{width:210px;justify-self:end;margin-top:6rem}
+.mini .im{position:relative;aspect-ratio:1;border-radius:22px;overflow:hidden}
+.mini .lab{margin-top:.9rem}
+.copy{text-align:left}
+.copy h3{margin:0;font-size:clamp(1.4rem,2.3vw,2.1rem);font-weight:600;line-height:1.05;letter-spacing:-.045em}
+.copy p{margin:1.1rem 0 1.5rem;font-size:.9rem;color:#cfcfcf}
+.copy .row{display:flex;gap:.4rem;flex-wrap:wrap}
+.copy .btn{border-color:#777;padding:.85rem 1.5rem;border-radius:12px}
+.ppl{display:flex;align-items:center;gap:1rem;margin-top:3.2rem;font-size:.9rem;color:#bdbdbd;max-width:440px;line-height:1.4}
+.av{display:flex}.av i{width:38px;height:38px;border-radius:50%;border:2px solid var(--bg);margin-left:-8px;background:linear-gradient(135deg,#fe833d,#7a3a12)}
+.av i:first-child{margin:0}.av i:nth-child(2){background:linear-gradient(135deg,#9a9a9a,#333)}.av i:nth-child(3){background:linear-gradient(135deg,#ffc29b,#c05a1c)}
+
+/* FOOTER */
+.foot{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:2rem;max-width:1300px;margin:6rem auto 0;padding:3rem 2.2rem 1rem;border-top:1px solid var(--line);font-size:.9rem;color:#bdbdbd}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:.7rem;align-content:start}
+.foot a:hover{color:var(--tan)}.foot b{color:#fff;font-weight:600}
+.copyr{text-align:center;font-size:.9rem;color:#777;padding:1rem 1rem 2rem}
+
+@media(max-width:1300px){.top.l{display:none}.top.r .pill:not(.dk){display:none}.h1{left:6%}.side{right:5%;width:30%}}
+@media(max-width:900px){
+.hero{aspect-ratio:auto;min-height:640px}
+.top.l{display:none}.top.r{right:1rem}.top.r .pill:not(.dk){display:none}
+.soc{top:auto;bottom:.9rem;flex-direction:row}
+.h1{left:1.5rem;top:6.5rem}.h1 .btn{margin-left:0}.h1 h1{text-align:left}
+.side{display:none}
+.big{font-size:22vw;bottom:14%}
+.himg div{height:82%;align-self:flex-end}
+.strip{padding:.9rem}.meta{gap:.6rem}.meta b{margin-left:.8rem}
+.gal{grid-template-columns:1fr;padding:0 .9rem}.sm,.sm.r{justify-self:center}
+.big-card{border-radius:44px}.glass{padding:.7rem}.glass b{font-size:1.6rem}.big-card .tr{font-size:.9rem}
+.trio{grid-template-columns:1fr;padding:0 .9rem;gap:2rem}.mini{display:none}.tall{max-width:360px;margin:0 auto;width:100%}
+.foot{grid-template-columns:1fr 1fr}
+}
+@media(prefers-reduced-motion:reduce){.js .f,.ph{transition:none!important;opacity:1!important;transform:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="k" viewBox="0 0 40 40"><path d="M4 22 26 4l-6 14 16 4-20 14 4-12z"/></symbol></svg>
+
+<header class="hero" id="inicio">
+  <div class="himg f"><div><span class="ph" style="background-image:url(edificasa_inicio.jpeg)"></span></div></div>
+  <div class="big f" style="--d:.15s" aria-hidden="true">Edifica</div>
+  <a class="logo f" href="https://edificacasa.mx/index.html" aria-label="Edifica Casa">
+    <img src="edifica-casa-logo.png" alt="">
+  </a>
+  <!--
+  <nav class="top l f" style="--d:.3s">
+    <a class="pill" href="https://wa.me/525579576446">Construyamos tu solución</a></nav>-->
+  <nav class="top r f" style="--d:.3s">
+    <div class="menuwrap"><button class="pill dk" id="mb" aria-expanded="false" aria-controls="mp"><i><b></b><b></b><b></b></i>Menú</button>
+      <div class="panel" id="mp"><a href="https://edificacasa.mx/index.html">Inicio</a><a href="https://edificacasa.mx/prestamos-por-casa-prestamos-por-departamento-prestamos-por-terreno-hipotecar-una-casa.html">Préstamo por inmueble</a>
+
+        <a href="https://edificacasa.mx/prestamo-por-casa-hipotecar-una-casa-prestamo-por-auto-preguntas-frecuentes.html">Preguntas frecuentes</a><a href="https://edificacasa.mx/prestamos-por-casa-hipotecar-una-casa-prestamos-por-auto-contacto.html">Programa una llamada</a></div></div>
+    <a class="pill" href="https://edificacasa.mx/prestamos-por-casa-prestamos-por-departamento-prestamos-por-terreno-hipotecar-una-casa.html">(55) 5394 6000</a><a class="pill" href="https://edificacasa.mx/prestamo-por-casa-hipotecar-una-casa-prestamo-por-auto-preguntas-frecuentes.html"> (55) 7957 6446</a>
+  </nav>
+  <div class="soc f" style="--d:.45s">
+    <a href="https://www.instagram.com/edifica_casa" aria-label="Instagram">
+      <i class="bi bi-instagram"></i>
+    </a>
+    <a href="https://www.facebook.com/edificacasamx" aria-label="Facebook">
+      <i class="bi bi-facebook"></i>
+    </a>
+    <a href="https://wa.me/525579576446" aria-label="WhatsApp">
+      <i class="bi bi-whatsapp"></i>
+    </a>
+  </div>
+  <div class="h1 f" style="--d:.35s"><h1>Tu patrimonio <span class="tn">te respalda</span><br>nosotros te impulsamos</h1><a class="btn" href="#confianza">Descubre más</a></div>
+  <aside class="side f" style="--d:.55s">
+    <h3>Sin trámites,<br>Sin buró,<br>Sin comisión</h3>
+    <p>Utiliza tu casa, departamento o terreno para obtener un préstamo, con procesos claros y atención personalizada.</p>
+    <div class="cards">
+      <a href="https://edificacasa.mx/prestamos-por-casa-prestamos-por-departamento-prestamos-por-terreno-hipotecar-una-casa.html">
+        <i class="bi bi-geo-alt"></i><b>Consulta los<br>requisitos</b><small>Todo lo que<br>necesitas</small></a>
+      <a href="https://wa.me/525579576446">
+        <i class="bi bi-crosshair"></i>
+        <b>Habla con<br>un asesor</b><small>Atención por<br>WhatsApp</small></a>
+    </div>
+  </aside>
+</header>
+
+<div class="strip f"><div class="tags"><span>SIN BURÓ</span><span>SIN COMISIÓN</span><span>TRANSPARENCIA</span></div>
+  <div class="meta"><span>Garantía</span><b>Casa, depto o terreno</b><span>Atención</span><b>Personalizada</b></div></div>
+
+<section class="sec" id="confianza">
+  <svg class="mark f"><use href="#k"/></svg>
+  <h2 class="f" style="--d:.1s"><span><span data-n="40">40</span> años</span> <span class="gr">de experiencia</span><br><span class="tn">en préstamos con garantía</span></h2>
+  <p class="f" style="--d:.2s">Somos una empresa mexicana que apoya a los mexicanos en momentos de gran importancia.</p>
+
+  <div class="gal">
+    <figure class="sm f" style="margin:0"><div class="im"><span class="ph" style="background-image:url(prestamos_edifica_5.jpeg)"></span></div>
+      <figcaption class="lab"><i>casa</i><span>Edifica Casa</span><b>Préstamo por casa</b></figcaption></figure>
+    <div class="big-card f" style="--d:.15s"><span class="ph" style="background-image:url(prestamos_edifica_1.jpeg)"></span>
+      <div class="tr"><i>confianza</i><br>Edifica Casa<br>Préstamo por<br>inmueble</div>
+      <div class="glass a"><b><span data-n="40" data-s="+">40+</span></b><small>Años de experiencia</small></div>
+      <div class="glass b"><b><span data-n="100" data-s="%">100%</span></b><small>Del avalúo devuelto</small></div>
+    </div>
+    <figure class="sm r f" style="--d:.3s;margin:0"><div class="im"><span class="ph" style="background-image:url(prestamos_edifica_4.jpeg)"></span></div>
+      <figcaption class="lab"><i>departamento</i><span>Edifica Casa</span><b>Préstamo por departamento</b></figcaption></figure>
+  </div>
+</section>
+
+<section class="sec sec2">
+  <svg class="mark f"><use href="#k"/></svg>
+  <h2 class="f" style="--d:.1s">Edifica Casa — <span class="gr">una empresa mexicana</span> <span class="tn">enfocada en confianza y trato humano</span></h2>
+  <p class="f" style="--d:.2s">Sin letras chiquitas, sin cargos extra y sin gastos ocultos.</p>
+
+  <div class="trio">
+    <figure class="mini f" style="--d:.2s;margin:0 0 0 auto"><div class="im"><span class="ph" style="background-image:url(prestamos_edifica_4.jpeg)"></span></div>
+      <figcaption class="lab"><span>Edifica Casa</span><b>Terreno y<br>garantía</b></figcaption></figure>
+    <div class="tall f" style="--d:.1s"><span class="ph" style="background-image:url(prestamos_edifica_2.png)"></span></div>
+    <div class="copy f" style="--d:.3s">
+      <h3>Pedir un préstamo<br><span class="gr">no debería ser complicado.</span></h3>
+      <p>Es contar con claridad, respaldo y una atención personalizada.</p>
+      <div class="row"><a class="btn" href="https://edificacasa.mx/prestamos-por-casa-prestamos-por-departamento-prestamos-por-terreno-hipotecar-una-casa.html">Requisitos</a><a class="btn" href="https://edificacasa.mx/prestamo-por-casa-hipotecar-una-casa-prestamo-por-auto-preguntas-frecuentes.html">Preguntas</a></div>
+      <div class="ppl"><div class="av"><i></i><i></i><i></i></div><span>Te atendemos por WhatsApp, teléfono y en nuestras oficinas de Azcapotzalco, CDMX.</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="strip f" style="margin-top:5rem"><div class="tags"><span>SIN BURÓ</span><span>SIN COMISIÓN</span><span>TRANSPARENCIA</span></div>
+  <div class="meta"><span>Garantía</span><b>Casa, depto o terreno</b><span>Atención</span><b>Personalizada</b></div></div>
+
+<footer class="foot f">
+  <div><svg class="mark" style="margin-bottom:1rem;color:#fff"><use href="#k"/></svg><b>Edifica Casa</b><br>Av. de las Granjas 772, Col. Santa Catarina,<br>Azcapotzalco, CDMX, CP 02250</div>
+  <ul><li><a href="tel:+525553946000">(55) 5394 6000</a></li><li><a href="tel:+525553946011">(55) 5394 6011</a></li><li><a href="https://wa.me/525579576446">WhatsApp (55) 7957 6446</a></li><li><a href="mailto:ventas@edificacasa.mx">ventas@edificacasa.mx</a></li></ul>
+  <ul><li><a href="https://edificacasa.mx/index.html">Inicio</a></li><li><a href="https://edificacasa.mx/prestamos-por-casa-prestamos-por-departamento-prestamos-por-terreno-hipotecar-una-casa.html">Préstamo por inmueble</a></li>
+  </ul>
+  <ul><li><a href="https://edificacasa.mx/prestamo-por-casa-hipotecar-una-casa-prestamo-por-auto-preguntas-frecuentes.html">Preguntas frecuentes</a></li><li><a href="https://edificacasa.mx/aviso_privacidad.pdf">Aviso de privacidad</a></li><li><a href="https://www.facebook.com/edificacasamx">Facebook</a></li><li><a href="https://www.instagram.com/edifica_casa">Instagram</a></li></ul>
+</footer>
+<p class="copyr">© Edifica Casa · Préstamos por inmueble</p>
+
+<script>
+(function(){
+var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function count(el){var n=+el.dataset.n,s=el.dataset.s||'',t0=null,d=2200;
+  function st(t){if(!t0)t0=t;var p=Math.min((t-t0)/d,1),e=1-Math.pow(1-p,4);el.textContent=Math.round(n*e)+s;if(p<1)requestAnimationFrame(st)}
+  el.textContent='0'+s;requestAnimationFrame(st)}
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;
+  e.target.classList.add('in');
+  if(!rm)e.target.querySelectorAll('[data-n]').forEach(count);
+  io.unobserve(e.target)})},{threshold:.15,rootMargin:'0px 0px -6% 0px'});
+document.querySelectorAll('.f').forEach(function(el){io.observe(el)});
+var b=document.getElementById('mb'),p=document.getElementById('mp');
+b.addEventListener('click',function(){var o=p.classList.toggle('on');b.setAttribute('aria-expanded',o)});
+document.addEventListener('click',function(e){if(!e.target.closest('.menuwrap')){p.classList.remove('on');b.setAttribute('aria-expanded',false)}});
+})();
+</script>
+</body>
+</html>
