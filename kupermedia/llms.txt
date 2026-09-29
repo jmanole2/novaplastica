@@ -1,0 +1,23 @@
+# Kuper Media
+
+> Estudio digital con equipo en Ciudad de México y Madrid. Diseñamos y desarrollamos sitios web, creamos agentes de IA a medida y trabajamos branding, redes sociales, marketing digital y SEO/GEO para marcas en México, España y de forma remota.
+
+Contacto: contacto@kuper.media · WhatsApp +34 694 221 737
+
+## Sitio
+
+- [Inicio](https://kuper.media/): presentación del estudio y sus servicios
+- [Servicios](https://kuper.media/#servicios): diseño y desarrollo web, agentes de IA a medida, branding e identidad, redes sociales, marketing digital, SEO y GEO
+- [Proyectos](https://kuper.media/#proyectos): Dr. Raúl López Infante (branding), Aemara (diseño web), Natalia Lafourcade (diseño web), Señor Taco (agente de IA), Miami Ad School (marketing)
+- [Agentes de IA](https://kuper.media/#ia): agentes entrenados para atención al cliente, ventas y operaciones de cada negocio
+- [Contacto](https://kuper.media/#contacto): formulario, correo y WhatsApp
+
+## Perfiles
+
+- [Instagram](https://www.instagram.com/kupermedia)
+- [LinkedIn](https://www.linkedin.com/company/kupermedia)
+- [Facebook](https://www.facebook.com/kupermedia)
+
+## Optional
+
+- [Sitemap](https://kuper.media/sitemap.xml)

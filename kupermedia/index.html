@@ -1355,6 +1355,10 @@ const NAV_SECTIONS = [
 
 let scene, scene2, camera, camera2, renderer, renderer2, group;
 let bgMesh, vignetteMesh, floor, darkOverlay, bg2Mesh;
+let bgVideo2 = null, bgVideo2Started = false;
+// En móvil: sin antialias y resolución máxima 1.5× (la GPU trabaja ~45% menos píxeles).
+const IS_MOBILE = window.innerWidth <= 768;
+const MAX_DPR = IS_MOBILE ? 1.5 : 2;
 let scrollY = 0;
 let touchStartY = null;
 let touchLastY = null;
@@ -1457,24 +1461,37 @@ function videoSources(src) {
   return sources.join('');
 }
 
-uiCarouselTrack.innerHTML = PROJECTS.map((p, i) => {
-  const media = isVideo(p.img)
-    ? `<video aria-label="${p.name}" autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture>${videoSources(p.img)}</video>`
-    : `<img src="${p.img}" alt="${p.name}">`;
-  return `<div class="ui-carousel-slide">${media}</div>`;
-}).join('');
-
 // tiras laterales: el set de proyectos repetido varias veces para que se vea continuo
 const FILM_ITEM_W = 150, FILM_ITEM_GAP = 16;
 const FILM_ITEM_FULL = FILM_ITEM_W + FILM_ITEM_GAP;
-const filmHTML = PROJECTS.map(p => {
-  const media = isVideo(p.img)
-    ? `<video aria-label="${p.name}" autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture>${videoSources(p.img)}</video>`
-    : `<img src="${p.img}" alt="${p.name}">`;
-  return `<div class="ui-filmstrip-item">${media}</div>`;
-}).join('');
-uiFilmLeftTrack.innerHTML  = filmHTML;
-uiFilmRightTrack.innerHTML = filmHTML;
+
+// Rendimiento: los medios de proyectos (3 videos × 3 copias: carrusel + 2 tiras) ya no se
+// cargan al abrir la página. Se insertan cuando el scroll se acerca a la sección de
+// proyectos, así no compiten con el video de fondo ni retrasan el primer pintado (LCP).
+let projectMediaBuilt = false;
+function buildProjectMedia() {
+  if (projectMediaBuilt) return;
+  projectMediaBuilt = true;
+
+  uiCarouselTrack.innerHTML = PROJECTS.map((p, i) => {
+    const media = isVideo(p.img)
+      ? `<video aria-label="${p.name}" autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture>${videoSources(p.img)}</video>`
+      : `<img src="${p.img}" alt="${p.name}" decoding="async">`;
+    return `<div class="ui-carousel-slide">${media}</div>`;
+  }).join('');
+
+  // Las tiras laterales son miniaturas oscurecidas: basta con cargar los metadatos.
+  const filmHTML = PROJECTS.map(p => {
+    const media = isVideo(p.img)
+      ? `<video aria-hidden="true" autoplay muted loop playsinline webkit-playsinline preload="metadata" disablepictureinpicture>${videoSources(p.img)}</video>`
+      : `<img src="${p.img}" alt="" decoding="async">`;
+    return `<div class="ui-filmstrip-item">${media}</div>`;
+  }).join('');
+  uiFilmLeftTrack.innerHTML  = filmHTML;
+  uiFilmRightTrack.innerHTML = filmHTML;
+
+  forcePlayInlineVideos();
+}
 
 // Algunos navegadores móviles (sobre todo iOS Safari) ignoran el atributo
 // "autoplay" si el video se inserta vía innerHTML después de cargar la página,
@@ -1494,7 +1511,6 @@ function forcePlayInlineVideos() {
   window.addEventListener('touchstart', retryOnGesture, { once: true, passive: true });
   window.addEventListener('pointerdown', retryOnGesture, { once: true });
 }
-forcePlayInlineVideos();
 
 let projIndex = 0;
 let trackOffsetPx = 0;
@@ -1521,8 +1537,13 @@ if (contactForm && /TU_ID_AQUI/.test(contactForm.getAttribute('action') || '')) 
   });
 }
 
-init();
-animate();
+// Rendimiento: three.js (2 escenas WebGL, entorno PMREM, videos de fondo) bloquea el hilo
+// principal varios segundos en móvil. Arrancamos después de que el navegador pinte el
+// HTML (logo, tarjeta y textos), para que FCP y LCP no esperen a la escena 3D.
+function start() { init(); animate(); }
+function startAfterPaint() { requestAnimationFrame(() => setTimeout(start, 0)); }
+if (document.readyState === 'complete') startAfterPaint();
+else window.addEventListener('load', startAfterPaint, { once: true });
 
 function init() {
   // ── SCENE 1: FONDOS (canvas z-index 0) ──
@@ -1530,8 +1551,8 @@ function init() {
   camera = new THREE.PerspectiveCamera(110, window.innerWidth / window.innerHeight, 0.1, 100);
   camera.position.set(0, 0, 10);
 
-  renderer = new THREE.WebGLRenderer({ antialias: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer = new THREE.WebGLRenderer({ antialias: !IS_MOBILE });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, MAX_DPR));
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.25;
@@ -1611,8 +1632,8 @@ function init() {
 
   scene2.add(new THREE.AmbientLight(0xffffff, 0.4));
 
-  renderer2 = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-  renderer2.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer2 = new THREE.WebGLRenderer({ antialias: !IS_MOBILE, alpha: true });
+  renderer2.setPixelRatio(Math.min(window.devicePixelRatio, MAX_DPR));
   renderer2.setSize(window.innerWidth, window.innerHeight);
   renderer2.toneMapping = THREE.ACESFilmicToneMapping;
   renderer2.toneMappingExposure = 1.25;
@@ -2204,10 +2225,13 @@ function buildBackgroundsAndOverlays() {
   bgMesh.position.set(0,0,bgZ);
   scene.add(bgMesh);
 
+  // Rendimiento: este video solo se ve desde la sección de servicios. No se descarga al
+  // abrir la página; animate() lo arranca cuando el scroll se acerca (ver bgVideo2Started).
   const video2 = document.createElement('video');
+  video2.preload = 'none';
   video2.src = 'kuper-media-fondo.mp4'; video2.loop=true; video2.muted=true;
-  video2.playsInline=true; video2.autoplay=true;
-  video2.play().catch(()=>{ window.addEventListener('pointerdown',()=>video2.play(),{once:true}); });
+  video2.playsInline=true;
+  bgVideo2 = video2;
   const video2Tex = new THREE.VideoTexture(video2);
   video2Tex.colorSpace = THREE.SRGBColorSpace;
   video2Tex.wrapS = THREE.ClampToEdgeWrapping;
@@ -2514,6 +2538,13 @@ if(group){
   uiRightS4.style.transform=`translateY(calc(-50% + ${36*(1-s4Reveal)}px))`;
   uiRightS4.style.filter=`blur(${12*(1-s4Reveal)}px)`;
 
+  if (!bgVideo2Started && bgVideo2 && scrollY >= PHASE4_START - 6.0) {
+    bgVideo2Started = true;
+    bgVideo2.play().catch(()=>{ window.addEventListener('pointerdown',()=>bgVideo2.play(),{once:true}); });
+  }
+  if (!projectMediaBuilt && scrollY >= PHASE5_START) {
+    buildProjectMedia();
+  }
   if(scrollY>=PHASE5_START-1.0 && !bg5Built){
     buildSection5Background();
   }
