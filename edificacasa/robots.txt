@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /prestamos-por-casa-hipotecar-una-casa-prestamos-por-por-auto-confirmacion.html
+
+Sitemap: https://edificacasa.mx/sitemap.xml

@@ -1,0 +1,64 @@
+# ------------------------------------------------------------------
+# Edifica Casa - configuración Apache (hosting compartido)
+# Probar en un entorno de pruebas o revisar con el proveedor de hosting
+# antes de publicar. Si algo falla (error 500), comentar el bloque
+# correspondiente y avisar al hosting.
+# ------------------------------------------------------------------
+
+DirectoryIndex index.html
+
+# Página 404 real (debe responder con código HTTP 404, no 200)
+ErrorDocument 404 /error404.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # --- 1) Forzar HTTPS y dominio sin www (una sola redirección 301) ---
+  # Requiere que el certificado SSL cubra edificacasa.mx y www.edificacasa.mx.
+  # Si el hosting usa un proxy/CDN que termina SSL, la variable HTTPS puede
+  # venir vacía; en ese caso usar la condición X-Forwarded-Proto comentada.
+  RewriteCond %{HTTPS} off [OR]
+  # RewriteCond %{HTTP:X-Forwarded-Proto} !https [OR]
+  RewriteCond %{HTTP_HOST} ^www\. [NC]
+  RewriteRule ^ https://edificacasa.mx%{REQUEST_URI} [L,R=301,NE]
+
+  # --- 2) /index.html -> /  (evita contenido duplicado) ---
+  # Se usa THE_REQUEST (la petición original del navegador) para no crear
+  # un bucle con DirectoryIndex, que internamente sirve / como /index.html.
+  RewriteCond %{THE_REQUEST} \s/+index\.html[\s?] [NC]
+  RewriteRule ^index\.html$ https://edificacasa.mx/ [L,R=301]
+
+  # --- 3) /edifica-casa-v2.html -> /  (URL de pruebas del nuevo inicio) ---
+  RewriteCond %{THE_REQUEST} \s/+edifica-casa-v2\.html[\s?] [NC]
+  RewriteRule ^edifica-casa-v2\.html$ https://edificacasa.mx/ [L,R=301]
+</IfModule>
+
+# --- Páginas que no deben aparecer en Google ---
+<IfModule mod_headers.c>
+  <Files "prestamos-por-casa-hipotecar-una-casa-prestamos-por-por-auto-confirmacion.html">
+    Header set X-Robots-Tag "noindex, follow"
+  </Files>
+  <Files "error404.html">
+    Header set X-Robots-Tag "noindex"
+  </Files>
+</IfModule>
+
+# --- Caché del navegador para imágenes, CSS y JS ---
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType image/webp "access plus 1 month"
+  ExpiresByType image/svg+xml "access plus 1 month"
+  ExpiresByType image/x-icon "access plus 1 year"
+  ExpiresByType image/vnd.microsoft.icon "access plus 1 year"
+  ExpiresByType text/css "access plus 1 week"
+  ExpiresByType application/javascript "access plus 1 week"
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+
+# --- Compresión (si el servidor la soporta) ---
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml application/xml text/xml text/plain
+</IfModule>
