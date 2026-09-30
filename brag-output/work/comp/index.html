@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<title>Kuper AI — brag</title>
+<link rel="stylesheet" href="kchat.css">
+<style>
+@font-face{font-family:Inter;font-weight:400;src:url(fonts/inter-latin-400-normal.woff2)}
+@font-face{font-family:Inter;font-weight:500;src:url(fonts/inter-latin-500-normal.woff2)}
+@font-face{font-family:Inter;font-weight:600;src:url(fonts/inter-latin-600-normal.woff2)}
+@font-face{font-family:Inter;font-weight:700;src:url(fonts/inter-latin-700-normal.woff2)}
+@font-face{font-family:Inter;font-weight:800;src:url(fonts/inter-latin-800-normal.woff2)}
+*{box-sizing:border-box}
+html,body{margin:0;width:1920px;height:1080px;overflow:hidden;background:#03070d;font-family:Inter,sans-serif;color:#fff}
+#frame{position:absolute;inset:0;overflow:hidden;background:#03070d}
+/* stage = the real page at 1:1, moved by the camera */
+#stage{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0}
+#site{position:absolute;inset:0;background:url(site.png) 0 0/1920px 1080px}
+#site-mask{position:absolute;left:1500px;top:1036px;width:420px;height:30px;background:#000}
+#site-dim{position:absolute;inset:0;background:#03070d;opacity:0}
+/* the chat overrides only what the video needs: font (site uses the system UI font) and JS-driven animation */
+#kchat,#kchat *{font-family:Inter,-apple-system,sans-serif !important}
+#kchat{transition:none !important;right:14px;bottom:104px;height:560px}
+#kchat input{font-family:Inter,sans-serif !important}
+.kmsg,.klead{transition:none}
+#kchat-chips button.press{background:rgba(255,255,255,.22)}
+.caret{display:inline-block;width:1.5px;height:17px;background:#fff;vertical-align:-3px;margin-left:1px}
+.fakeinput{width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:12px;color:#fff;font-size:16px;padding:10px 12px;min-height:42px;white-space:nowrap}
+.fakeinput.focus{border-color:#fff}
+.fakeinput .ph{color:rgba(255,255,255,.45)}
+/* real site tooltip */
+#orb-tooltip{position:absolute;right:24px;bottom:90px;max-width:260px;padding:14px 18px;border-radius:26px;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(16px);
+  font:600 14px/1.4 Inter,sans-serif;letter-spacing:.01em;color:#fff;box-shadow:0 8px 32px rgba(124,77,255,.35),0 2px 8px rgba(0,0,0,.2);opacity:0}
+#orb-tooltip::after{content:'';position:absolute;bottom:-11px;right:22px;border-left:10px solid transparent;border-right:10px solid transparent;border-top:10px solid #ffffff17}
+/* screen-space layers */
+#shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(3,7,13,.92) 0%,rgba(3,7,13,.75) 38%,rgba(3,7,13,0) 62%);opacity:0;pointer-events:none}
+#orb{position:absolute;left:0;top:0;width:512px;height:512px;transform-origin:0 0;filter:drop-shadow(0 0 38px rgba(124,77,255,.45))}
+#bigtip{position:absolute;left:960px;top:0;transform-origin:50% 0;padding:22px 34px;border-radius:40px;white-space:nowrap;
+  background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.2);backdrop-filter:blur(16px);
+  font:600 38px/1.3 Inter,sans-serif;letter-spacing:.005em;box-shadow:0 14px 60px rgba(124,77,255,.4);opacity:0}
+.cap{position:absolute;left:120px;top:0;width:760px;opacity:0}
+.eyebrow{font:700 22px/1 Inter,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#b69cff;margin-bottom:26px}
+.title{font:800 76px/1.06 Inter,sans-serif;letter-spacing:-.025em}
+.title.xl{font-size:150px;letter-spacing:-.04em;line-height:1}
+.sub{font:500 34px/1.35 Inter,sans-serif;color:rgba(255,255,255,.72);margin-top:24px}
+.grad{background:linear-gradient(135deg,#c9b3ff,#9b6dff 55%,#7c4dff);-webkit-background-clip:text;background-clip:text;color:transparent}
+#cursor{position:absolute;left:0;top:0;width:44px;height:44px;opacity:0;transform-origin:4px 4px;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5))}
+#ripple{position:absolute;left:0;top:0;width:80px;height:80px;margin:-40px 0 0 -40px;border-radius:50%;border:3px solid rgba(255,255,255,.9);opacity:0}
+#outro{position:absolute;inset:0;opacity:0}
+#outro .line{position:absolute;left:0;right:0;text-align:center}
+#o-title{top:585px;font:800 80px/1 Inter,sans-serif;letter-spacing:-.03em}
+#o-logo{position:absolute;left:50%;top:720px;width:300px;margin-left:-150px}
+#o-url{top:852px;font:600 30px/1 Inter,sans-serif;letter-spacing:.14em;color:rgba(255,255,255,.6)}
+#vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 45%,rgba(0,0,0,0) 55%,rgba(0,0,0,.45) 100%)}
+</style></head>
+<body>
+<div id="frame">
+  <div id="stage">
+    <div id="site"></div><div id="site-mask"></div><div id="site-dim"></div>
+    <div id="orb-tooltip">Soy Kuper AI. Chatea conmigo.</div>
+    <div id="kchat" role="dialog" aria-label="Chat con Kuper AI">
+      <header>
+        <div><b>Kuper AI</b><small>Resuelve dudas al instante · Gratis · Guardamos la conversación para atenderte mejor</small></div>
+        <button type="button" id="kchat-close" aria-label="Cerrar chat">×</button>
+      </header>
+      <div id="kchat-list" aria-live="polite">
+        <div class="kmsg bot" id="m-greet">¡Hola! Soy Kuper AI. Puedo resolver tus dudas sobre diseño web, agentes de IA, branding, SEO y marketing. ¿En qué te ayudo?</div>
+        <div class="kmsg user" id="m-q">¿Cuánto cuesta una web?</div>
+        <div class="kmsg bot typing" id="m-typing">Escribiendo…</div>
+        <div class="kmsg bot" id="m-a">Cada proyecto se cotiza según alcance (páginas, funciones, integraciones). Cuéntanos qué necesitas por WhatsApp y te enviamos una propuesta.</div>
+        <div class="klead" id="m-lead">
+          <p>¿Quieres que alguien del equipo te escriba con una propuesta? Déjanos tus datos.</p>
+          <div class="fakeinput" id="in-name"></div>
+          <div class="fakeinput" id="in-phone"></div>
+          <div class="row"><button type="button" class="go" id="btn-go">Que me contacten</button><button type="button" class="skip">Ahora no</button></div>
+        </div>
+        <div class="kmsg bot" id="m-thanks">¡Gracias, Laura! Te escribimos pronto por WhatsApp. Mientras tanto, sigo aquí para lo que necesites.</div>
+      </div>
+      <div id="kchat-chips">
+        <button type="button">¿Qué servicios ofrecen?</button><button type="button">¿Hacen agentes de IA?</button><button type="button" id="chip-price">¿Cuánto cuesta una web?</button><button type="button">¿Dónde están?</button>
+      </div>
+      <a id="kchat-wa">Continuar en WhatsApp</a>
+      <form autocomplete="off" onsubmit="return false">
+        <input type="text" name="q" placeholder="Escribe tu pregunta…" maxlength="500" aria-label="Tu mensaje">
+        <button type="submit">Enviar</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="shade"></div>
+
+  <div class="cap" id="cap-intro">
+    <div class="eyebrow">Nuevo en kuper.media</div>
+    <div class="title xl"><span class="grad">Kuper AI</span></div>
+    <div class="sub">Tu web ahora responde.</div>
+  </div>
+  <div class="cap" id="cap1"><div class="eyebrow">Kuper AI</div><div class="title">Resuelve dudas<br>al instante.</div></div>
+  <div class="cap" id="cap2"><div class="eyebrow">Kuper AI</div><div class="title">Y convierte<br>la visita en <span class="grad">cliente.</span></div></div>
+  <div class="cap" id="cap3"><div class="eyebrow">Kuper AI</div><div class="title">Siempre a un toque<br>de WhatsApp.</div></div>
+
+  <div id="outro">
+    <div class="line" id="o-title">Chatea con <span class="grad">Kuper AI</span></div>
+    <img id="o-logo" src="logo.svg" alt="Kuper Media">
+    <div class="line" id="o-url">KUPER.MEDIA</div>
+  </div>
+
+  <canvas id="orb" width="512" height="512"></canvas>
+  <div id="bigtip">Soy Kuper AI. Chatea conmigo.</div>
+  <div id="ripple"></div>
+  <svg id="cursor" viewBox="0 0 24 24"><path d="M3 2.5 L3 19.5 L7.6 15.3 L10.6 21.8 L13.6 20.4 L10.7 14.1 L17 14.1 Z" fill="#fff" stroke="#0a0e16" stroke-width="1.3" stroke-linejoin="round"/></svg>
+  <div id="vignette"></div>
+</div>
+
+<script>
+// ───────── helpers ─────────
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const lerp=(a,b,k)=>a+(b-a)*k;
+const seg=(t,a,b)=>clamp((t-a)/(b-a));
+const eio=k=>k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2;          // easeInOutCubic
+const eout=k=>1-Math.pow(1-k,3);                              // easeOutCubic
+const eback=k=>{const c=1.5;return 1+(c+1)*Math.pow(k-1,3)+c*Math.pow(k-1,2);};
+const $=id=>document.getElementById(id);
+const fadeIn=(t,a,d=.3)=>eout(seg(t,a,a+d));
+const win=(t,a,b,din=.35,dout=.25)=>Math.min(eout(seg(t,a,a+din)),1-eio(seg(t,b-dout,b)));
+
+// ───────── orb (WebGL recreation of the site's WebGPU liquid-glass orb, palette from its shader uniforms) ─────────
+const cv=$('orb'); const gl=cv.getContext('webgl',{premultipliedAlpha:true,preserveDrawingBuffer:true,alpha:true,antialias:true});
+const vs=`attribute vec2 p;void main(){gl_Position=vec4(p,0,1);}`;
+const fs=`precision highp float;uniform float t;uniform vec2 res;
+float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}
+float fbm(vec2 p){float v=0.,a=.5;mat2 m=mat2(1.6,1.2,-1.2,1.6);for(int i=0;i<5;i++){v+=a*n(p);p=m*p;a*=.5;}return v;}
+void main(){
+ vec2 uv=(gl_FragCoord.xy/res)*2.-1.; uv*=1.06; float r=length(uv);
+ float a=smoothstep(1.0,0.988,r); if(a<=0.){gl_FragColor=vec4(0);return;}
+ float z=sqrt(max(0.,1.-r*r)); vec3 N=vec3(uv,z);
+ vec2 p=uv*(1.+.42*(1.-z));
+ vec3 core=vec3(.035,.012,.055),gr=vec3(.173,.808,.584),bl=vec3(.361,.529,1.),vi=vec3(.482,.325,1.),pk=vec3(1.,.851,.941);
+ vec2 q=p*1.35; float T=t*.32;
+ vec2 w=vec2(fbm(q+vec2(0.,T)),fbm(q+vec2(5.2,1.3)-T));
+ vec2 w2=vec2(fbm(q+2.2*w+vec2(1.7,9.2)+T*.7),fbm(q+2.2*w+vec2(8.3,2.8)-T*.6));
+ float f=fbm(q+2.4*w2);
+ vec3 c=mix(core,vi,smoothstep(.25,.62,f));
+ c=mix(c,bl,smoothstep(.45,.8,f+.18*sin(3.*q.x+T*2.)));
+ c=mix(c,gr,.85*smoothstep(.58,.86,w2.x));
+ c+=pk*.7*pow(smoothstep(.62,.95,f),2.5);
+ c*=.5+.65*z;
+ float fr=pow(1.-z,2.6); c+=vec3(.72,.78,1.)*fr*.85;
+ c.r+=smoothstep(.9,1.,r)*.18; c.b+=smoothstep(.94,1.,r)*.25;
+ vec3 L=normalize(vec3(-.55,.62,.75)); float sp=pow(max(dot(reflect(-L,N),vec3(0,0,1)),0.),38.); c+=sp*.95;
+ vec3 L2=normalize(vec3(.6,-.5,.65)); c+=pow(max(dot(reflect(-L2,N),vec3(0,0,1)),0.),14.)*vec3(.55,.45,1.)*.35;
+ gl_FragColor=vec4(c*a,a);
+}`;
+function sh(type,src){const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw gl.getShaderInfoLog(s);return s;}
+const prog=gl.createProgram();gl.attachShader(prog,sh(gl.VERTEX_SHADER,vs));gl.attachShader(prog,sh(gl.FRAGMENT_SHADER,fs));gl.linkProgram(prog);gl.useProgram(prog);
+const buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+const loc=gl.getAttribLocation(prog,'p');gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+const uT=gl.getUniformLocation(prog,'t'),uR=gl.getUniformLocation(prog,'res');
+function drawOrb(t){gl.viewport(0,0,512,512);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);gl.uniform1f(uT,t);gl.uniform2f(uR,512,512);gl.drawArrays(gl.TRIANGLES,0,3);}
+
+// ───────── camera ─────────
+const ORB_STAGE={x:1826,y:986,s:80};                     // real #orb rect on the site (right:14 bottom:14, 80px)
+let R={}; // measured stage-space rects
+function measure(){
+  const st=$('stage'); st.style.transform='none';
+  const k=$('kchat'); k.classList.add('open'); k.style.opacity=1; k.style.transform='none';
+  const r=el=>{const b=el.getBoundingClientRect();return {x:b.left,y:b.top,w:b.width,h:b.height,cx:b.left+b.width/2,cy:b.top+b.height/2};};
+  R.panel=r(k); R.wa=r($('kchat-wa'));
+}
+function camAt(t){
+  const ident={f:[960,540],s:1,g:[960,540]};
+  const panel={f:[R.panel.cx,R.panel.cy],s:1.75,g:[1340,540]};
+  const wa={f:[R.wa.cx,R.wa.cy],s:2.2,g:[1400,560]};
+  let A=ident,B=ident,k=0;
+  if(t<6.45){A=B=ident;}
+  else if(t<7.45){A=ident;B=panel;k=eio(seg(t,6.45,7.45));}
+  else if(t<15.2){A=B=panel;}
+  else if(t<16.0){A=panel;B=wa;k=eio(seg(t,15.2,16.0));}
+  else {A=B=wa;}
+  // interpolate in log-scale for a natural zoom
+  const s=Math.exp(lerp(Math.log(A.s),Math.log(B.s),k));
+  const fx=lerp(A.f[0],B.f[0],k),fy=lerp(A.f[1],B.f[1],k),gx=lerp(A.g[0],B.g[0],k),gy=lerp(A.g[1],B.g[1],k);
+  // slow drift for life
+  const d=t>7.45&&t<15.2?(t-7.45)*.004:0;
+  const S=s*(1+d);
+  return {s:S,tx:gx-fx*S,ty:gy-fy*S};
+}
+const toScreen=(c,x,y)=>[x*c.s+c.tx,y*c.s+c.ty];
+
+// ───────── cursor path (screen space; targets resolved live from DOM) ─────────
+const center=el=>{const b=el.getBoundingClientRect();return [b.left+b.width/2,b.top+b.height/2];};
+function cursorTarget(name,c){
+  switch(name){
+    case 'orb': return toScreen(c,ORB_STAGE.x+40,ORB_STAGE.y+40);
+    case 'chip': return center($('chip-price'));
+    case 'name': return center($('in-name'));
+    case 'phone': return center($('in-phone'));
+    case 'go': return center($('btn-go'));
+    case 'wa': return center($('kchat-wa'));
+  }
+  return name;
+}
+const PATH=[ // [t, target, holdUntil]
+  [5.7,[1480,700]],[6.35,'orb'],[6.55,'orb'],[7.6,[1180,860]],[8.1,[1180,860]],[8.5,'chip'],[8.7,'chip'],
+  [9.3,[1000,930]],[11.45,[1000,930]],[11.85,'name'],[12.3,'name'],[12.5,'phone'],[13.1,'phone'],[13.45,'go'],[13.7,'go'],[14.4,[1230,1000]],
+];
+const CLICKS=[6.45,8.58,11.87,12.52,13.5];
+function cursorAt(t,c){
+  if(t<=PATH[0][0]) return cursorTarget(PATH[0][1],c);
+  for(let i=0;i<PATH.length-1;i++){
+    const [t0,a]=PATH[i],[t1,b]=PATH[i+1];
+    if(t<=t1){const k=eio(seg(t,t0,t1));const A=cursorTarget(a,c),B=cursorTarget(b,c);
+      // gentle arc
+      const arc=Math.sin(k*Math.PI)*Math.min(60,Math.hypot(B[0]-A[0],B[1]-A[1])*.12);
+      return [lerp(A[0],B[0],k),lerp(A[1],B[1],k)-arc];}
+  }
+  return cursorTarget(PATH[PATH.length-1][1],c);
+}
+
+// ───────── typing helpers ─────────
+function typed(el,text,t,a,b,ph,focusA,focusB){
+  const n=Math.round(clamp((t-a)/(b-a))*text.length);
+  const on=t>=focusA&&t<focusB;
+  el.classList.toggle('focus',on);
+  const blink=on&&(n<text.length||Math.floor(t*2.2)%2===0);
+  el.innerHTML=(n?text.slice(0,n).replace(/</g,'&lt;'):'')+(blink?'<span class="caret"></span>':'')+(n?'':`<span class="ph">${ph}</span>`);
+}
+const show=(el,v,dy=8)=>{el.style.display=v>0?'':'none';el.style.opacity=v;el.style.transform=`translateY(${(1-v)*dy}px)`;};
+
+// ───────── main seek ─────────
+window.seek=function(t){
+  const c=camAt(t);
+  const st=$('stage'); st.style.transform=`translate(${c.tx}px,${c.ty}px) scale(${c.s})`;
+  // stage visibility & dimming
+  const stageIn=eout(seg(t,3.0,3.9)), stageOut=1-eio(seg(t,17.35,17.8));
+  st.style.opacity=stageIn*stageOut;
+  const zoomK=eio(seg(t,6.45,7.45));
+  $('site').style.filter=`blur(${zoomK*5}px)`;
+  $('site-dim').style.opacity=.15+zoomK*.5;
+  $('shade').style.opacity=Math.max(eout(seg(t,3.6,4.4))*(1-seg(t,6.4,6.7))*.9, zoomK)*stageOut;
+
+  // chat panel
+  const k=$('kchat'); const open=eout(seg(t,6.5,6.85));
+  k.classList.toggle('open',open>0); k.style.opacity=open; k.style.transform=`translateY(${(1-open)*14}px) scale(${.97+.03*open})`;
+  show($('m-greet'),fadeIn(t,6.6,.3));
+  const chipsVis=t<8.62; const chips=$('kchat-chips'); chips.style.display=chipsVis?'':'none';
+  [...chips.children].forEach((b,i)=>{const v=fadeIn(t,6.8+i*.07,.25);b.style.opacity=v;b.style.transform=`translateY(${(1-v)*6}px)`;});
+  $('chip-price').classList.toggle('press',t>8.5&&t<8.62);
+  show($('m-q'),t>=8.62?fadeIn(t,8.62,.2):0);
+  show($('m-typing'),t>=8.8&&t<10.35?fadeIn(t,8.8,.2)*(.75+.25*Math.sin(t*9)):0);
+  show($('m-a'),t>=10.35?fadeIn(t,10.35,.3):0);
+  const leadOn=t>=10.95&&t<13.98;
+  show($('m-lead'),leadOn?fadeIn(t,10.95,.35):0,12);
+  typed($('in-name'),'Laura',t,11.95,12.35,'Tu nombre',11.87,12.52);
+  typed($('in-phone'),'+52 55 1234 5678',t,12.6,13.3,'Tu WhatsApp (con código de país)',12.52,13.5);
+  const go=$('btn-go'); const sending=t>=13.5; go.textContent=sending?'Enviando…':'Que me contacten'; go.style.opacity=sending?.5:1;
+  show($('m-thanks'),t>=14.0?fadeIn(t,14.0,.3):0);
+  const list=$('kchat-list'); list.scrollTop=list.scrollHeight;
+  // WhatsApp pulse
+  const pulse=t>15.6?(.5-.5*Math.cos((t-15.6)*Math.PI*1.6)):0;
+  const wa=$('kchat-wa'); wa.style.boxShadow=`0 0 ${10+26*pulse}px ${4*pulse}px rgba(37,211,102,${.25+.4*pulse})`; wa.style.transform=`scale(${1+.03*pulse})`;
+
+  // site tooltip (real) while orb waits in its corner
+  const tip=$('orb-tooltip'); const tv=win(t,4.5,6.5,.25,.2); tip.style.opacity=tv; tip.style.transform=`translateY(${(1-tv)*8}px) scale(${.96+.04*tv})`;
+
+  // orb placement (screen space)
+  let ox,oy,os;
+  const big=380, bx=960-big/2, by=455-big/2;
+  if(t<3.0){const g=eback(seg(t,.05,.95)); os=big*g; ox=960-os/2; oy=455-os/2+Math.sin(t*1.6)*6;}
+  else if(t<4.4){const k2=eio(seg(t,3.0,4.4)); const [sx,sy]=toScreen(c,ORB_STAGE.x,ORB_STAGE.y); os=lerp(big,ORB_STAGE.s*c.s,k2); ox=lerp(bx,sx,k2); oy=lerp(by+Math.sin(3*1.6)*6,sy,k2);}
+  else if(t<17.6){const [sx,sy]=toScreen(c,ORB_STAGE.x,ORB_STAGE.y); os=ORB_STAGE.s*c.s; ox=sx; oy=sy;
+    const press=t>6.42&&t<6.62?Math.sin(seg(t,6.42,6.62)*Math.PI)*.08:0; ox+=os*press/2; oy+=os*press/2; os*=1-press;}
+  else {const g=eback(seg(t,17.8,18.6)); os=210*g; ox=960-os/2; oy=330-os/2+Math.sin(t*1.6)*4;}
+  cv.style.display=os>1?'':'none';
+  cv.style.transform=`translate(${ox}px,${oy}px) scale(${os/512})`;
+  // hide the corner orb while the camera crops it (panel view), bring it back for the WhatsApp view
+  let oa=1;
+  if(t>=6.6&&t<17.8) oa=Math.max(1-eio(seg(t,6.6,7.1)), eio(seg(t,15.5,16.1)));
+  if(t>=17.35&&t<17.8) oa*=1-eio(seg(t,17.35,17.6));
+  cv.style.opacity=oa;
+  drawOrb(t);
+
+  // big hook tooltip
+  const bt=$('bigtip'); const bv=win(t,1.0,3.05,.4,.3);
+  bt.style.opacity=bv; bt.style.transform=`translate(-50%,${690+(1-bv)*16}px) scale(${.94+.06*eback(seg(t,1.0,1.45))})`;
+
+  // captions
+  const cap=(id,a,b,y)=>{const e=$(id);const v=win(t,a,b,.45,.3);e.style.opacity=v;e.style.transform=`translateY(${y-e.offsetHeight/2+(1-v)*24}px)`;};
+  cap('cap-intro',3.9,6.5,540); cap('cap1',7.35,10.95,540); cap('cap2',11.2,15.15,540); cap('cap3',15.45,17.5,540);
+
+  // outro
+  const ov=fadeIn(t,17.9,.5); $('outro').style.opacity=ov;
+  $('o-title').style.transform=`translateY(${(1-fadeIn(t,18.25,.5))*20}px)`; $('o-title').style.opacity=fadeIn(t,18.25,.5);
+  $('o-logo').style.opacity=fadeIn(t,18.6,.5); $('o-logo').style.transform=`translateY(${(1-fadeIn(t,18.6,.5))*16}px)`;
+  $('o-url').style.opacity=fadeIn(t,18.85,.5);
+
+  // cursor
+  const cur=$('cursor'); const cvis=win(t,5.75,14.9,.3,.5);
+  const [cx,cy]=cursorAt(t,c);
+  let press=0; for(const ct of CLICKS){ if(t>=ct-.06&&t<ct+.14) press=Math.sin(seg(t,ct-.06,ct+.14)*Math.PI); }
+  cur.style.opacity=cvis; cur.style.transform=`translate(${cx-4}px,${cy-4}px) scale(${1-.12*press})`;
+  const rp=$('ripple'); let rv=0,rs=0;
+  for(const ct of CLICKS){ if(t>=ct&&t<ct+.5){const k3=seg(t,ct,ct+.5); rv=(1-k3)*.9; rs=.3+k3*.9;} }
+  rp.style.opacity=rv*cvis; rp.style.transform=`translate(${cx}px,${cy}px) scale(${rs})`;
+};
+window.ready=(async()=>{await document.fonts.ready; await new Promise(r=>{const i=$('o-logo'); i.complete?r():i.onload=r;});
+  const img=new Image(); img.src='site.png'; await img.decode(); measure(); seek(0); return true;})();
+</script>
+</body></html>
