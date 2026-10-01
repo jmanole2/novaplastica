@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Web Design Studio in Madrid & Mexico City | Kuper Media</title>
+<meta name="description" content="Web design studio in Madrid and Mexico City: custom, fast websites built for SEO and AI search. Strategy, design, development and AI agents in one team.">
+<link rel="canonical" href="https://kuper.media/en/web-design/">
+<link rel="alternate" hreflang="es-ES" href="https://kuper.media/diseno-web-madrid/">
+<link rel="alternate" hreflang="es-MX" href="https://kuper.media/diseno-web-cdmx/">
+<link rel="alternate" hreflang="en" href="https://kuper.media/en/web-design/">
+<link rel="alternate" hreflang="x-default" href="https://kuper.media/en/web-design/">
+<meta name="theme-color" content="#03070d">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Web Design Studio in Madrid & Mexico City | Kuper Media">
+<meta property="og:description" content="Custom, fast websites built for SEO and AI search. Teams in Madrid and Mexico City.">
+<meta property="og:url" content="https://kuper.media/en/web-design/">
+<meta property="og:image" content="https://kuper.media/og-image.jpg">
+<meta property="og:locale" content="en_US">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://kuper.media/en/web-design/#service",
+      "name": "Web design in Madrid and Mexico City",
+      "serviceType": "Web design and development",
+      "provider": {
+        "@id": "https://kuper.media/#organization"
+      },
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Madrid"
+        },
+        {
+          "@type": "City",
+          "name": "Mexico City"
+        }
+      ],
+      "description": "Custom websites: strategy, UX/UI design, high-performance development and technical SEO from day one.",
+      "inLanguage": "en"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://kuper.media/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Web design",
+          "item": "https://kuper.media/en/web-design/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+:root{
+  --bg:#03070d; --bg-2:#060c16;
+  --ink:#fff; --muted:rgba(255,255,255,.64); --faint:rgba(255,255,255,.38);
+  --glass:rgba(255,255,255,.06); --glass-2:rgba(255,255,255,.10);
+  --stroke:rgba(255,255,255,.14); --stroke-2:rgba(255,255,255,.26);
+  --magenta:#fa47b8; --violet:#8c40f2; --blue:#2673fa; --sky:#59a6ff; --cyan:#3fd0ff;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter","Helvetica Neue",Arial,sans-serif;
+  --r-lg:28px; --r-md:20px; --r-sm:14px;
+  --pad:clamp(20px,4vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{background:var(--bg);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.5}
+a{color:inherit;text-decoration:none}
+img,svg{display:block}
+:focus-visible{outline:2px solid var(--sky);outline-offset:3px;border-radius:6px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* ── utilidades de vidrio ── */
+.glass{
+  background:linear-gradient(160deg,rgba(255,255,255,.11),rgba(255,255,255,.035));
+  border:1px solid var(--stroke);
+  backdrop-filter:blur(22px) saturate(140%);
+  -webkit-backdrop-filter:blur(22px) saturate(140%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 20px 60px rgba(0,0,0,.35);
+}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;padding:8px 14px 8px 10px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.82)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 0 0 rgba(63,208,255,.6);animation:pulse 2.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(63,208,255,.55)}70%{box-shadow:0 0 0 10px rgba(63,208,255,0)}100%{box-shadow:0 0 0 0 rgba(63,208,255,0)}}
+.label{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+/* Texto en contorno: se usa un filtro SVG (#kp-outline) en lugar de -webkit-text-stroke,
+   porque text-stroke dibuja los trazos internos superpuestos de las fuentes variables
+   (SF, Inter) y aparecen cruces dentro de N, M, A… El filtro solo dibuja la silueta exterior. */
+.outline{color:#fff;filter:url(#kp-outline)}
+.grad-text{background:linear-gradient(90deg,var(--magenta),var(--violet) 45%,var(--sky));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+.btn{display:inline-flex;align-items:center;gap:12px;height:54px;padding:0 26px;border-radius:999px;font-weight:700;font-size:14px;letter-spacing:.04em;transition:transform .35s var(--ease),background .3s,border-color .3s}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:#fff;color:#070b14}
+.btn-primary .arrow{width:30px;height:30px;border-radius:50%;background:#070b14;color:#fff;display:grid;place-items:center;transition:transform .35s var(--ease)}
+.btn-primary:hover .arrow{transform:rotate(-45deg)}
+.btn-ghost{border:1px solid var(--stroke-2);color:#fff}
+.btn-ghost:hover{background:rgba(255,255,255,.08)}
+
+/* ── reveal ── */
+.js .rv{opacity:0;transform:translateY(34px);filter:blur(10px);transition:opacity 1s var(--ease) var(--d,0s),transform 1s var(--ease) var(--d,0s),filter 1s var(--ease) var(--d,0s)}
+.js .rv.in{opacity:1;transform:none;filter:none}
+
+/* ── HEADER ── */
+.hdr{position:fixed;inset:0 0 auto 0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:22px var(--pad);transition:padding .4s var(--ease)}
+.hdr::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,7,13,.72),rgba(3,7,13,0));pointer-events:none;opacity:0;transition:opacity .4s}
+.hdr.scrolled::before{opacity:1}
+.logo{position:relative;display:flex;align-items:center;gap:10px}
+.logo svg{width:118px;height:auto}
+.logo small{font-size:9px;letter-spacing:.42em;color:var(--muted);font-weight:600;align-self:flex-end;margin-bottom:-2px}
+.nav{position:relative;display:flex;align-items:center;gap:6px;padding:6px;border-radius:999px}
+.nav a{padding:10px 16px;border-radius:999px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.8);transition:background .25s,color .25s}
+.nav a:hover,.nav a[aria-current]{background:rgba(255,255,255,.1);color:#fff}
+.nav .cta{background:#fff;color:#070b14}
+.nav .cta:hover{background:#e9eefb;color:#070b14}
+.menu-btn{display:none}
+
+/* ── HERO ── */
+.hero{position:relative;min-height:100svh;display:grid;align-items:center;padding:140px var(--pad) 90px;overflow:hidden;isolation:isolate}
+.aurora{position:absolute;inset:-10%;z-index:-3;filter:blur(40px) saturate(120%)}
+.aurora i{position:absolute;border-radius:50%;mix-blend-mode:screen;opacity:.75;animation:float 18s ease-in-out infinite}
+.aurora i:nth-child(1){width:52vw;height:52vw;left:48%;top:-8%;background:radial-gradient(circle,var(--violet),transparent 62%)}
+.aurora i:nth-child(2){width:44vw;height:44vw;left:66%;top:34%;background:radial-gradient(circle,var(--blue),transparent 62%);animation-delay:-6s}
+.aurora i:nth-child(3){width:38vw;height:38vw;left:36%;top:48%;background:radial-gradient(circle,var(--magenta),transparent 60%);opacity:.55;animation-delay:-11s}
+.aurora i:nth-child(4){width:30vw;height:30vw;left:82%;top:-4%;background:radial-gradient(circle,var(--sky),transparent 60%);opacity:.45;animation-delay:-3s}
+@keyframes float{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(-4vw,3vw) scale(1.08)}66%{transform:translate(3vw,-2vw) scale(.94)}}
+/* vidrio acanalado, el mismo recurso del fondo de contacto de la portada */
+.flutes{position:absolute;inset:0;z-index:-2;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,.055) 0,rgba(255,255,255,0) 10px,rgba(0,0,0,.22) 36px,rgba(255,255,255,.055) 46px);
+  backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 38%);mask-image:linear-gradient(90deg,transparent 0%,#000 38%)}
+.grain{position:absolute;inset:0;z-index:-1;opacity:.08;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.hero::after{content:"";position:absolute;inset:auto 0 0 0;height:30%;z-index:-1;background:linear-gradient(180deg,transparent,var(--bg))}
+
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:40px;align-items:center;max-width:1440px;width:100%;margin:0 auto}
+.crumbs{display:flex;gap:10px;font-size:12px;color:var(--faint);margin-bottom:26px;letter-spacing:.04em}
+.crumbs a:hover{color:#fff}
+.h1{margin:22px 0 0;font-weight:900;text-transform:uppercase;font-size:clamp(48px,8.4vw,132px);line-height:.88;letter-spacing:-.035em}
+.h1 .l2{display:block}
+.lead{max-width:470px;margin:30px 0 38px;font-size:clamp(16px,1.25vw,19px);color:var(--muted);line-height:1.6}
+.lead b{color:#fff;font-weight:600}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px}
+
+.stage{position:relative;height:min(64vh,620px);min-height:460px}
+/* centrado con left/top (no con transform) para no chocar con la animación de entrada */
+.chev{--w:min(22vw,300px);position:absolute;width:var(--w);left:calc(46% - var(--w) / 2);top:calc(52% - var(--w) * .7333);filter:drop-shadow(0 30px 60px rgba(40,90,255,.35))}
+.chev .bar{animation:bob 7s ease-in-out infinite}
+.chev .bar:nth-child(2){animation-delay:-1.2s}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+.card-project{position:absolute;right:0;top:4%;width:min(24vw,330px);border-radius:var(--r-lg);padding:12px}
+.screen{position:relative;aspect-ratio:4/3;border-radius:18px;overflow:hidden;background:
+  radial-gradient(120% 90% at 20% 10%,#ff7ad1 0,transparent 55%),
+  radial-gradient(90% 80% at 90% 80%,#3d7bff 0,transparent 60%),
+  linear-gradient(135deg,#1c0f3a,#0a1a3d)}
+.screen::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.08) 0,transparent 8px,rgba(0,0,0,.18) 22px,rgba(255,255,255,.08) 30px);mix-blend-mode:overlay}
+.screen .bar-ui{position:absolute;left:12px;right:12px;top:12px;height:22px;border-radius:999px;background:rgba(255,255,255,.14);backdrop-filter:blur(8px);display:flex;align-items:center;gap:5px;padding:0 10px}
+.screen .bar-ui i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.55)}
+.screen .big{position:absolute;left:16px;bottom:14px;font-weight:900;font-size:clamp(18px,1.9vw,28px);letter-spacing:-.03em;text-transform:uppercase;line-height:.9}
+.card-project .meta{display:flex;justify-content:space-between;align-items:end;padding:14px 8px 6px}
+.card-project .meta b{display:block;font-size:17px;letter-spacing:-.01em}
+.card-project .meta span{font-size:12px;color:var(--faint)}
+.round{width:40px;height:40px;border-radius:50%;border:1px solid var(--stroke-2);display:grid;place-items:center;flex:0 0 auto;transition:background .3s,transform .35s var(--ease)}
+.round:hover{background:#fff;color:#070b14;transform:rotate(-45deg)}
+
+.card-mini{position:absolute;left:0;bottom:10%;width:min(19vw,250px);border-radius:var(--r-md);padding:18px 20px}
+.card-mini .label{margin-bottom:12px;display:block}
+.card-mini p{margin:0;font-size:15px;font-weight:600;line-height:1.35}
+.bars{display:flex;align-items:flex-end;gap:5px;height:34px;margin-top:16px}
+.bars i{flex:1;border-radius:4px;background:linear-gradient(180deg,var(--sky),rgba(89,166,255,.15));animation:eq 2.6s var(--ease) infinite}
+.bars i:nth-child(1){height:40%;animation-delay:-.2s}.bars i:nth-child(2){height:75%;animation-delay:-.9s}.bars i:nth-child(3){height:55%;animation-delay:-1.4s}.bars i:nth-child(4){height:95%;animation-delay:-.5s}.bars i:nth-child(5){height:65%;animation-delay:-1.8s}
+@keyframes eq{50%{transform:scaleY(.72)}}
+.bars i{transform-origin:bottom}
+
+.card-chip{position:absolute;right:6%;bottom:6%;display:flex;align-items:center;gap:12px;padding:10px 18px 10px 10px;border-radius:999px;font-size:13px;font-weight:600}
+.card-chip .av{display:flex}
+.card-chip .av i{width:28px;height:28px;border-radius:50%;border:2px solid #0b1220;margin-left:-8px;background:linear-gradient(135deg,var(--magenta),var(--violet))}
+.card-chip .av i:first-child{margin:0}.card-chip .av i:nth-child(2){background:linear-gradient(135deg,var(--sky),var(--blue))}.card-chip .av i:nth-child(3){background:linear-gradient(135deg,#ffd3a8,#ff7a59)}
+
+/* llamada punteada, como la línea de la fase 7 de la portada */
+.callout{position:absolute;left:12%;top:18%;display:flex;align-items:center;gap:10px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.8)}
+.callout::before{content:"";width:9px;height:9px;border-radius:50%;background:#fff;box-shadow:0 0 18px #fff}
+.callout span{display:inline-block;width:90px;height:1px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.6) 0 5px,transparent 5px 10px)}
+
+.scroll-hint{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);display:flex;align-items:center;gap:12px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.72)}
+.scroll-hint i{width:30px;height:30px;border-radius:50%;border:1px dashed rgba(255,255,255,.5);display:grid;place-items:center;animation:spin 8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── MARQUEE ── */
+.clients{padding:40px 0 20px;border-block:1px solid rgba(255,255,255,.06);overflow:hidden}
+.clients .label{display:block;text-align:center;margin-bottom:22px}
+.track{display:flex;gap:64px;width:max-content;animation:marquee 38s linear infinite}
+.track span{font-size:clamp(28px,4vw,56px);font-weight:900;letter-spacing:-.03em;text-transform:uppercase;white-space:nowrap}
+.track span:nth-child(even){color:#fff;filter:url(#kp-outline-thin)}
+.track .sep{color:var(--violet)!important;filter:none!important}
+@keyframes marquee{to{transform:translateX(-50%)}}
+.clients:hover .track{animation-play-state:paused}
+
+/* ── SECCIONES ── */
+section.blk{position:relative;padding:clamp(90px,12vw,170px) var(--pad);max-width:1440px;margin:0 auto}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:40px;align-items:end;margin-bottom:64px}
+.h2{margin:14px 0 0;font-weight:900;text-transform:uppercase;font-size:clamp(38px,5.6vw,86px);line-height:.92;letter-spacing:-.03em}
+.sec-head p{margin:0;color:var(--muted);font-size:17px}
+
+.features{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.feat{position:relative;border-radius:var(--r-lg);padding:28px 26px 30px;min-height:360px;display:flex;flex-direction:column;overflow:hidden;transition:transform .5s var(--ease),border-color .4s}
+.feat::before{content:"";position:absolute;inset:auto -40% -60% -40%;height:80%;background:radial-gradient(circle,var(--glow,rgba(140,64,242,.45)),transparent 60%);opacity:.0;transition:opacity .6s var(--ease)}
+.feat:hover{transform:translateY(-6px);border-color:var(--stroke-2)}
+.feat:hover::before{opacity:1}
+.feat .num{font-size:14px;font-weight:800;color:var(--faint);letter-spacing:.06em}
+.feat h3{margin:auto 0 12px;font-size:24px;line-height:1.1;letter-spacing:-.02em;position:relative}
+.feat p{margin:0 0 18px;color:var(--muted);font-size:15px;position:relative}
+.tags{display:flex;flex-wrap:wrap;gap:6px;position:relative}
+.tags span{font-size:11px;font-weight:600;padding:6px 10px;border-radius:999px;border:1px solid var(--stroke);color:rgba(255,255,255,.75)}
+.feat .ico{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;margin-top:18px;background:rgba(255,255,255,.08);border:1px solid var(--stroke)}
+
+/* proceso */
+.process{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;padding-top:40px}
+.process::before{content:"";position:absolute;left:0;right:0;top:12px;height:1px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.45) 0 6px,transparent 6px 12px)}
+.step{position:relative}
+.step::before{content:"";position:absolute;top:-34px;left:0;width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid #fff;box-shadow:0 0 0 6px rgba(255,255,255,.06)}
+.step:first-child::before{background:#fff;box-shadow:0 0 22px #fff}
+.step .label{display:block;margin-bottom:12px}
+.step h3{margin:0 0 10px;font-size:22px;letter-spacing:-.02em}
+.step p{margin:0;color:var(--muted);font-size:15px;max-width:290px}
+
+/* proyectos */
+.projects{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:16px}
+.proj{position:relative;border-radius:var(--r-lg);overflow:hidden;min-height:520px;isolation:isolate;border:1px solid var(--stroke)}
+.proj .img{position:absolute;inset:0;z-index:-2;transition:transform 1.2s var(--ease)}
+.proj:hover .img{transform:scale(1.06)}
+.proj .img::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.06) 0,transparent 12px,rgba(0,0,0,.2) 34px,rgba(255,255,255,.06) 46px)}
+.p1 .img{background:radial-gradient(90% 70% at 30% 20%,#ff9bd6,transparent 60%),radial-gradient(80% 70% at 80% 90%,#7c3aed,transparent 60%),linear-gradient(160deg,#2a0f3d,#0b0a1f)}
+.p2 .img{background:radial-gradient(90% 70% at 70% 20%,#5bc0ff,transparent 60%),radial-gradient(80% 70% at 10% 90%,#2046ff,transparent 60%),linear-gradient(160deg,#07203d,#040b1a)}
+.p3 .img{background:radial-gradient(90% 70% at 40% 30%,#ffb36b,transparent 55%),radial-gradient(80% 70% at 90% 90%,#ff4f7b,transparent 60%),linear-gradient(160deg,#3a120c,#120709)}
+.proj::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,transparent 40%,rgba(3,7,13,.75))}
+.proj .top{position:absolute;left:18px;right:18px;top:18px;display:flex;justify-content:space-between;align-items:center}
+.pill{padding:8px 14px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.proj .ttl{position:absolute;left:18px;right:18px;bottom:18px;border-radius:var(--r-md);padding:18px 18px 16px;display:flex;justify-content:space-between;align-items:end;gap:12px}
+.proj .ttl b{display:block;font-size:22px;letter-spacing:-.02em;line-height:1.1}
+.proj .ttl span{display:block;font-size:13px;color:var(--muted);margin-top:4px}
+.proj .word{position:absolute;left:22px;top:42%;font-weight:900;font-size:clamp(34px,3.6vw,56px);line-height:.86;text-transform:uppercase;letter-spacing:-.04em;mix-blend-mode:overlay;color:#fff;opacity:.9}
+
+/* FAQ */
+.faq-wrap{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:60px;align-items:start}
+.faq{display:grid;gap:10px}
+.faq details{border-radius:var(--r-md);padding:0 24px;transition:background .3s}
+.faq details[open]{background:linear-gradient(160deg,rgba(255,255,255,.14),rgba(255,255,255,.05))}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 0;font-size:18px;font-weight:600;letter-spacing:-.01em}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .pm{width:34px;height:34px;flex:0 0 auto;border-radius:50%;border:1px solid var(--stroke-2);position:relative;transition:transform .4s var(--ease),background .3s}
+.faq summary .pm::before,.faq summary .pm::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1.5px;background:#fff;transform:translate(-50%,-50%)}
+.faq summary .pm::after{transform:translate(-50%,-50%) rotate(90deg);transition:transform .4s var(--ease)}
+.faq details[open] .pm{background:#fff}
+.faq details[open] .pm::before,.faq details[open] .pm::after{background:#070b14}
+.faq details[open] .pm::after{transform:translate(-50%,-50%) rotate(0)}
+.faq details p{margin:0;padding:0 0 22px;color:var(--muted);max-width:620px}
+
+/* CTA final */
+.cta-final{position:relative;margin:0 var(--pad) 40px;border-radius:40px;overflow:hidden;isolation:isolate;padding:clamp(60px,9vw,130px) clamp(24px,6vw,90px);min-height:520px;display:flex;flex-direction:column;justify-content:flex-end}
+.cta-final .aurora{inset:-20%}
+.cta-final .flutes{-webkit-mask-image:none;mask-image:none}
+.cta-final h2{margin:0;font-weight:900;text-transform:uppercase;font-size:clamp(64px,13vw,210px);line-height:.82;letter-spacing:-.05em}
+.cta-final .row{display:flex;flex-wrap:wrap;gap:32px;justify-content:space-between;align-items:end;margin-top:34px}
+.cta-final .row p{margin:0;max-width:430px;color:rgba(255,255,255,.8);font-size:18px}
+
+footer{max-width:1440px;margin:0 auto;padding:40px var(--pad) 120px;display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;color:var(--faint);font-size:13px}
+footer nav{display:flex;flex-wrap:wrap;gap:22px}
+footer a:hover{color:#fff}
+
+/* ── KUPER AI: asistente en la esquina ── */
+.ai{position:fixed;right:24px;bottom:24px;z-index:60;font-family:var(--font)}
+.orb{position:relative;width:34px;height:34px;border-radius:50%;flex:0 0 auto;overflow:hidden;isolation:isolate}
+.orb::before{content:"";position:absolute;inset:-35%;background:conic-gradient(from 0deg,var(--magenta),var(--violet),var(--blue),var(--cyan),#b6df4b,var(--magenta));animation:spin 5s linear infinite;filter:blur(5px)}
+.orb::after{content:"";position:absolute;inset:22%;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,rgba(255,255,255,.2) 45%,transparent 70%);mix-blend-mode:screen}
+.ai-launch{display:flex;align-items:center;gap:12px;height:58px;padding:0 22px 0 12px;border-radius:999px;color:#fff;font:inherit;font-size:14px;font-weight:600;cursor:pointer;position:relative;transition:transform .4s var(--ease),opacity .3s}
+.ai-launch::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:conic-gradient(from var(--a,0deg),rgba(250,71,184,.9),rgba(38,115,250,.9),rgba(63,208,255,.9),rgba(250,71,184,.9));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:rot 4s linear infinite;pointer-events:none}
+@property --a{syntax:"<angle>";initial-value:0deg;inherits:false}
+@keyframes rot{to{--a:360deg}}
+.ai-launch::after{content:"";position:absolute;inset:-18px;border-radius:inherit;background:radial-gradient(closest-side,rgba(89,120,255,.35),transparent);z-index:-1;filter:blur(10px);animation:breathe 3.6s ease-in-out infinite}
+@keyframes breathe{50%{opacity:.4;transform:scale(.94)}}
+.ai-launch:hover{transform:translateY(-3px)}
+.ai-launch small{display:block;font-size:11px;font-weight:500;color:var(--faint);margin-top:1px}
+.ai-launch .txt{text-align:left;line-height:1.15}
+.ai.open .ai-launch{opacity:0;transform:scale(.9);pointer-events:none}
+
+.ai-panel{position:absolute;right:0;bottom:0;width:390px;height:min(620px,calc(100svh - 48px));border-radius:28px;display:flex;flex-direction:column;overflow:hidden;
+  opacity:0;transform:translateY(16px) scale(.96);transform-origin:bottom right;pointer-events:none;transition:opacity .45s var(--ease),transform .45s var(--ease);
+  background:linear-gradient(170deg,rgba(28,34,58,.72),rgba(8,12,24,.82))}
+.ai.open .ai-panel{opacity:1;transform:none;pointer-events:auto}
+.ai-panel::before{content:"";position:absolute;inset:-30% -30% auto auto;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(140,64,242,.45),transparent 65%);filter:blur(20px);z-index:-1}
+.ai-head{display:flex;align-items:center;gap:12px;padding:18px 18px 16px;border-bottom:1px solid rgba(255,255,255,.08)}
+.ai-head .orb{width:40px;height:40px}
+.ai-head b{display:block;font-size:15px}
+.ai-head span{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.ai-head span i{width:6px;height:6px;border-radius:50%;background:#43e39b;box-shadow:0 0 8px #43e39b}
+.ai-close{margin-left:auto;width:36px;height:36px;border-radius:50%;border:1px solid var(--stroke);background:transparent;color:#fff;cursor:pointer;display:grid;place-items:center}
+.ai-close:hover{background:rgba(255,255,255,.1)}
+.ai-body{flex:1;overflow-y:auto;padding:20px 18px;display:flex;flex-direction:column;gap:12px;scrollbar-width:thin}
+.msg{max-width:86%;padding:12px 15px;border-radius:18px;font-size:14px;line-height:1.5;animation:msgIn .45s var(--ease)}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px)}}
+.msg.bot{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.08);border-bottom-left-radius:6px}
+.msg.me{align-self:flex-end;background:#fff;color:#070b14;border-bottom-right-radius:6px;font-weight:500}
+.msg a{text-decoration:underline;text-underline-offset:3px}
+.typing{display:flex;gap:4px;padding:14px 16px}
+.typing i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.7);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes blink{0%,60%,100%{opacity:.25;transform:none}30%{opacity:1;transform:translateY(-3px)}}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.chips button{font:inherit;font-size:13px;font-weight:500;color:#fff;background:rgba(255,255,255,.04);border:1px solid var(--stroke-2);border-radius:999px;padding:8px 13px;cursor:pointer;transition:background .25s,border-color .25s}
+.chips button:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.45)}
+.ai-form{display:flex;gap:8px;padding:12px;margin:0 12px 10px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid var(--stroke)}
+.ai-form input{flex:1;min-width:0;background:transparent;border:0;outline:0;color:#fff;font:inherit;font-size:14px;padding:0 8px}
+.ai-form input::placeholder{color:var(--faint)}
+.ai-form button{width:40px;height:40px;border-radius:50%;border:0;background:#fff;color:#070b14;cursor:pointer;display:grid;place-items:center;flex:0 0 auto}
+.ai-note{text-align:center;font-size:11px;color:var(--faint);padding:0 16px 14px}
+
+/* ── responsive ── */
+@media (max-width:1100px){
+  .features{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .projects{grid-template-columns:1fr 1fr}.projects .p1{grid-column:1/-1}
+}
+@media (max-width:900px){
+  .nav{display:none}
+  .menu-btn{display:grid;place-items:center;width:48px;height:48px;border-radius:50%;border:1px solid var(--stroke-2);background:rgba(255,255,255,.04);color:#fff;cursor:pointer;backdrop-filter:blur(12px)}
+  .hero{padding-top:120px;align-items:start}
+  .hero-grid{grid-template-columns:1fr}
+  .stage{height:430px;min-height:0;margin-top:10px}
+  .chev{--w:min(40vw,200px);left:calc(40% - var(--w) / 2)}
+  .card-project{width:56vw;max-width:280px;right:0;top:0}
+  .card-mini{width:52vw;max-width:240px;bottom:4%}
+  .card-chip{display:none}
+  .callout{display:none}
+  .sec-head{grid-template-columns:1fr;gap:18px;margin-bottom:40px}
+  .process{grid-template-columns:1fr 1fr;row-gap:56px}
+  .process::before{display:none}
+  .faq-wrap{grid-template-columns:1fr;gap:30px}
+  .scroll-hint{display:none}
+}
+@media (max-width:620px){
+  .outline{filter:url(#kp-outline-sm)}
+  .features{grid-template-columns:1fr}
+  .feat{min-height:280px}
+  .projects{grid-template-columns:1fr}
+  .proj{min-height:440px}
+  .process{grid-template-columns:1fr}
+  .cta-final{border-radius:28px;min-height:460px}
+  .ai{right:14px;bottom:14px}
+  .ai-launch{width:58px;padding:0;justify-content:center}
+  .ai-launch .txt{display:none}
+  .ai-panel{position:fixed;inset:auto 0 0 0;width:100%;height:88svh;border-radius:28px 28px 0 0}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .js .rv{opacity:1;transform:none;filter:none}
+  html{scroll-behavior:auto}
+}
+
+/* ── selector de región / idioma ── */
+.hdr-right{position:relative;display:flex;align-items:center;gap:10px}
+.lang{position:relative;display:flex;gap:2px;padding:5px;border-radius:999px}
+.lang a{display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:999px;font-size:12px;font-weight:600;letter-spacing:.04em;color:rgba(255,255,255,.72);transition:background .3s,color .3s}
+.lang a b{font-size:10px;font-weight:800;letter-spacing:.1em;opacity:.55}
+.lang a:hover{background:rgba(255,255,255,.1);color:#fff}
+.lang a[aria-current]{background:#fff;color:#070b14}
+.lang a[aria-current] b{opacity:.7}
+.lang .short{display:none}
+body{transition:opacity .32s var(--ease),filter .32s var(--ease)}
+body.leaving{opacity:0;filter:blur(8px)}
+@media (max-width:1180px){.lang .full{display:none}.lang .short{display:inline}.lang a b{display:none}}
+@media (max-width:900px){.lang a{height:36px;padding:0 13px}}
+
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js')</script>
+<!-- Filtros de contorno limpio: dilata la silueta de la letra y le resta el relleno,
+     dejando solo un anillo exterior del grosor indicado. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <filter id="kp-outline" x="-2%" y="-10%" width="104%" height="120%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="1.5" result="grow"/>
+    <feComposite in="grow" in2="SourceAlpha" operator="out" result="ring"/>
+    <feFlood flood-color="#fff" flood-opacity=".82"/>
+    <feComposite in2="ring" operator="in"/>
+  </filter>
+  <filter id="kp-outline-sm" x="-2%" y="-10%" width="104%" height="120%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="1" result="grow"/>
+    <feComposite in="grow" in2="SourceAlpha" operator="out" result="ring"/>
+    <feFlood flood-color="#fff" flood-opacity=".85"/>
+    <feComposite in2="ring" operator="in"/>
+  </filter>
+  <filter id="kp-outline-thin" x="-2%" y="-10%" width="104%" height="120%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="1" result="grow"/>
+    <feComposite in="grow" in2="SourceAlpha" operator="out" result="ring"/>
+    <feFlood flood-color="#fff" flood-opacity=".55"/>
+    <feComposite in2="ring" operator="in"/>
+  </filter>
+</svg>
+
+<header class="hdr" id="hdr">
+  <a class="logo" href="https://kuper.media/" aria-label="Kuper Media, home">
+    <!-- wordmark reconstruido con los trazos reales del logo (chevron + UPER) -->
+    <svg viewBox="0 -10 3390 850" aria-hidden="true" fill="#fff">
+      <path d="M550.4 3.1 202.1 347.8H4L351.4 3.1Z"/><path d="M352.5 832.4 1.6 477.6h195.3l350.3 350.4Z"/>
+      <path d="M1304.8 483.6c0 95.2-33.1 177-101.5 244.3-67.3 67.3-150.1 100.4-244.4 100.4-94.2 0-176-33.1-243.3-100.4-67.3-67.3-100.4-150.1-100.4-244.4V0h137.7v483.6c0 57 19.7 105.6 59 144.9 40.4 41.4 90.1 61.1 147 61.1 56.9 0 105.6-20.7 146-61.1 40.4-40.4 62.1-89 62.1-144.9Z"/>
+      <path d="M2057.1 276.5c0 75.6-25.9 141.9-80.8 195.7-53.8 53.8-119.1 80.8-194.7 80.8h-276.4v275.4h-137.7V414.2h414.2c37.3 0 69.4-13.5 96.3-40.4 26.9-26.9 41.4-59 41.4-97.3 0-37.3-13.5-70.4-41.4-97.3-26.9-26.9-59-40.4-96.3-40.4h-276.5L1367.4 0h414.2c75.6 0 140.8 26.9 194.7 80.8 53.8 54.9 80.8 120.1 80.8 195.7Z"/>
+      <path d="M2256.4 689.6h414.2v138.8h-551.9V817Zm0-343.8h414.2v137.7h-551.9V345.8ZM2670.6 0v138.8h-414.2L2118.7 0Z"/>
+      <path d="m3203.3 531.2 169.8 297.2h-158.4l-240.2-415.2 123.2 1c37.3 0 69.4-13.5 96.3-40.4 28-26.9 41.4-60 41.4-98.4 0-37.3-13.5-69.4-41.4-96.3-26.9-26.9-59-40.4-96.3-40.4h-276.5l-15.5-15.5L2734.2 0h363.4c75.6 0 140.8 26.9 194.7 80.8 53.8 54.9 80.8 119.1 80.8 194.7 0 58-15.5 109.8-48.7 156.4-32.1 46.6-72.5 79.7-121.1 99.4Z"/>
+    </svg>
+    <small>MEDIA</small>
+  </a>
+  <div class="hdr-right">
+    <nav class="nav glass" aria-label="Main navigation">
+      <a href="https://kuper.media/#servicios">Services</a>
+      <a href="#proyectos">Work</a>
+      <a href="#proceso">Process</a>
+      <a href="#preguntas">FAQ</a>
+      <a class="cta" href="#contacto">Let's talk</a>
+    </nav>
+    <!-- Selector de región/idioma: cada versión es una URL propia (indexable), no un cambio por JS -->
+    <nav class="lang glass" aria-label="Region and language">
+      <a href="/diseno-web-madrid/" hreflang="es-ES" lang="es-ES"><b>ES</b><span class="full">Madrid</span><span class="short">ES</span></a>
+      <a href="/diseno-web-cdmx/" hreflang="es-MX" lang="es-MX"><b>MX</b><span class="full">CDMX</span><span class="short">MX</span></a>
+      <a href="/en/web-design/" hreflang="en" lang="en" aria-current="page"><span class="full">English</span><span class="short">EN</span></a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- ═════ HERO ═════ -->
+<section class="hero" aria-labelledby="h1">
+  <div class="aurora" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="flutes" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <div class="hero-grid">
+    <div>
+      <nav class="crumbs rv" aria-label="Breadcrumb"><a href="https://kuper.media/">Home</a><span aria-hidden="true">/</span><span aria-current="page">Web design</span></nav>
+      <span class="eyebrow glass rv" style="--d:.05s"><span class="dot"></span>Studio in Madrid · Mexico City</span>
+      <h1 class="h1 rv" id="h1" style="--d:.12s">Web design<span class="l2 outline">studio</span></h1>
+      <p class="lead rv" style="--d:.2s">Custom websites that <b>look incredible, load fast</b> and are ready for Google and AI search from day one. Strategy, design, development and AI agents in one team.</p>
+      <div class="cta-row rv" style="--d:.28s">
+        <a class="btn btn-primary" href="#contacto">Tell us about your project <span class="arrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 6h10M6 1l5 5-5 5"/></svg></span></a>
+        <a class="btn btn-ghost" href="#proyectos">See our work</a>
+      </div>
+    </div>
+
+    <div class="stage" aria-hidden="true">
+      <svg class="chev rv" style="--d:.2s" viewBox="-20 -20 600 880">
+        <defs>
+          <linearGradient id="gA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4d8ff" stop-opacity=".95"/><stop offset=".5" stop-color="#9fb6ff" stop-opacity=".55"/><stop offset="1" stop-color="#6c5cff" stop-opacity=".35"/></linearGradient>
+          <linearGradient id="gB" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#b9e4ff" stop-opacity=".9"/><stop offset=".55" stop-color="#6d8dff" stop-opacity=".5"/><stop offset="1" stop-color="#c46bff" stop-opacity=".3"/></linearGradient>
+          <linearGradient id="gEdge" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity=".15"/></linearGradient>
+        </defs>
+        <g class="bar"><path d="M550.4 3.1 202.1 347.8H4L351.4 3.1Z" fill="url(#gA)" stroke="url(#gEdge)" stroke-width="3"/></g>
+        <g class="bar"><path d="M352.5 832.4 1.6 477.6h195.3l350.3 350.4Z" fill="url(#gB)" stroke="url(#gEdge)" stroke-width="3"/></g>
+      </svg>
+
+      <span class="callout rv" style="--d:.5s">Custom built<span></span></span>
+
+      <article class="card-project glass rv" style="--d:.35s">
+        <div class="screen"><div class="bar-ui"><i></i><i></i><i></i></div><div class="big">Aemara</div></div>
+        <div class="meta"><div><b>Aemara</b><span>Web design & development</span></div><a class="round" href="#proyectos" tabindex="-1"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 10 10 2M4 2h6v6"/></svg></a></div>
+      </article>
+
+      <div class="card-mini glass rv" style="--d:.45s">
+        <span class="label">Built for</span>
+        <p>Core Web Vitals, technical SEO and AI search</p>
+        <div class="bars"><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+
+      <div class="card-chip glass rv" style="--d:.55s"><span class="av"><i></i><i></i><i></i></span>Teams in Madrid & Mexico City</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint" aria-hidden="true"><i><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></i>Scroll to explore</div>
+</section>
+
+<!-- ═════ MARCAS ═════ -->
+<div class="clients" aria-label="Brands we've worked with">
+  <span class="label">Brands that trusted Kuper</span>
+  <div class="track" aria-hidden="true">
+    <span>Natalia Lafourcade</span><span class="sep">✦</span><span>Miami Ad School</span><span class="sep">✦</span><span>Señor Taco</span><span class="sep">✦</span><span>Aemara</span><span class="sep">✦</span><span>Dr. Raúl López Infante</span><span class="sep">✦</span>
+    <span>Natalia Lafourcade</span><span class="sep">✦</span><span>Miami Ad School</span><span class="sep">✦</span><span>Señor Taco</span><span class="sep">✦</span><span>Aemara</span><span class="sep">✦</span><span>Dr. Raúl López Infante</span><span class="sep">✦</span>
+  </div>
+  <p class="sr-only">Natalia Lafourcade, Miami Ad School, Señor Taco, Aemara and Dr. Raúl López Infante.</p>
+</div>
+
+<!-- ═════ QUÉ INCLUYE ═════ -->
+<section class="blk" id="incluye" aria-labelledby="h-incluye">
+  <div class="sec-head">
+    <div class="rv"><span class="label">What's included</span><h2 class="h2" id="h-incluye">Looks good.<br><span class="outline">Works better.</span></h2></div>
+    <p class="rv" style="--d:.1s">No templates. Every project is designed for your brand and built to sell, load fast and show up on Google and in AI answers.</p>
+  </div>
+  <div class="features">
+    <article class="feat glass rv" style="--glow:rgba(250,71,184,.45)">
+      <span class="num">#01</span>
+      <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".6" fill="#fff"/></svg></div>
+      <h3>Strategy & UX</h3>
+      <p>We understand your business and your customers before drawing a single pixel.</p>
+      <div class="tags"><span>Architecture</span><span>Wireframes</span><span>Copy</span></div>
+    </article>
+    <article class="feat glass rv" style="--d:.08s;--glow:rgba(140,64,242,.5)">
+      <span class="num">#02</span>
+      <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><path d="M4 20 14 10M14 10l3-6 3 3-6 3Z"/><path d="M4 20l2-5 3 3Z"/></svg></div>
+      <h3>Custom design</h3>
+      <p>Interfaces with character, motion and detail, aligned with your identity.</p>
+      <div class="tags"><span>UI</span><span>Motion</span><span>Branding</span></div>
+    </article>
+    <article class="feat glass rv" style="--d:.16s;--glow:rgba(38,115,250,.55)">
+      <span class="num">#03</span>
+      <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><path d="M13 2 4 14h7l-1 8 9-12h-7Z"/></svg></div>
+      <h3>High-performance development</h3>
+      <p>Clean, fast, accessible code. 3D experiences when they add value, not weight.</p>
+      <div class="tags"><span>Core Web Vitals</span><span>WebGL</span><span>CMS</span></div>
+    </article>
+    <article class="feat glass rv" style="--d:.24s;--glow:rgba(63,208,255,.45)">
+      <span class="num">#04</span>
+      <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></div>
+      <h3>SEO & GEO from day one</h3>
+      <p>Structure, data and content ready for Google and for ChatGPT, Gemini or Perplexity.</p>
+      <div class="tags"><span>Technical SEO</span><span>Schema</span><span>AI</span></div>
+    </article>
+  </div>
+</section>
+
+<!-- ═════ PROCESO ═════ -->
+<section class="blk" id="proceso" aria-labelledby="h-proceso" style="padding-top:0">
+  <div class="sec-head">
+    <div class="rv"><span class="label">How we work</span><h2 class="h2" id="h-proceso">From brief<br><span class="outline">to launch</span></h2></div>
+    <p class="rv" style="--d:.1s">A clear process with visible deliverables at every stage and one team from start to finish.</p>
+  </div>
+  <!-- TODO: confirmar que estas 4 etapas reflejan el proceso real del estudio -->
+  <ol class="process" role="list" style="list-style:none;margin:0;padding-left:0">
+    <li class="step rv"><span class="label">Stage 01</span><h3>Discovery</h3><p>Call, goals, competitors and scope. You leave with a clear proposal.</p></li>
+    <li class="step rv" style="--d:.08s"><span class="label">Stage 02</span><h3>Design</h3><p>Visual direction and a clickable prototype you review before we write code.</p></li>
+    <li class="step rv" style="--d:.16s"><span class="label">Stage 03</span><h3>Development</h3><p>Build, content, technical SEO and testing on mobile and desktop.</p></li>
+    <li class="step rv" style="--d:.24s"><span class="label">Stage 04</span><h3>Launch</h3><p>Go live, measurement and ongoing support to keep growing.</p></li>
+  </ol>
+</section>
+
+<!-- ═════ PROYECTOS ═════ -->
+<section class="blk" id="proyectos" aria-labelledby="h-proyectos" style="padding-top:0">
+  <div class="sec-head">
+    <div class="rv"><span class="label">Selected work</span><h2 class="h2" id="h-proyectos">Our<br><span class="outline">work</span></h2></div>
+    <p class="rv" style="--d:.1s">Projects for artists, creative schools and brands that want to stand out.</p>
+  </div>
+  <!-- TODO: sustituir los degradados por capturas o videos reales de cada proyecto -->
+  <div class="projects">
+    <a class="proj p1 rv" href="#" aria-label="Natalia Lafourcade, Web design">
+      <div class="img" aria-hidden="true"></div>
+      <div class="top"><span class="pill glass">Web design</span><span class="round glass" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="1.6"><path d="M2 10 10 2M4 2h6v6"/></svg></span></div>
+      <span class="word" aria-hidden="true">Natalia<br>Lafourcade</span>
+      <div class="ttl glass"><div><b>Natalia Lafourcade</b><span>Official site · Design & development</span></div></div>
+    </a>
+    <a class="proj p2 rv" style="--d:.08s" href="#" aria-label="Miami Ad School, Marketing">
+      <div class="img" aria-hidden="true"></div>
+      <div class="top"><span class="pill glass">Marketing</span><span class="round glass" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="1.6"><path d="M2 10 10 2M4 2h6v6"/></svg></span></div>
+      <span class="word" aria-hidden="true">Miami<br>Ad School</span>
+      <div class="ttl glass"><div><b>Miami Ad School</b><span>Digital marketing</span></div></div>
+    </a>
+    <a class="proj p3 rv" style="--d:.16s" href="#" aria-label="Señor Taco, AI agent">
+      <div class="img" aria-hidden="true"></div>
+      <div class="top"><span class="pill glass">AI agent</span><span class="round glass" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="1.6"><path d="M2 10 10 2M4 2h6v6"/></svg></span></div>
+      <span class="word" aria-hidden="true">Señor<br>Taco</span>
+      <div class="ttl glass"><div><b>Señor Taco</b><span>AI agent · Web</span></div></div>
+    </a>
+  </div>
+</section>
+
+<!-- ═════ PREGUNTAS ═════ -->
+<section class="blk" id="preguntas" aria-labelledby="h-faq" style="padding-top:0">
+  <div class="faq-wrap">
+    <div class="rv"><span class="label">FAQ</span><h2 class="h2" id="h-faq">What people<br><span class="outline">ask us</span></h2></div>
+    <div class="faq">
+      <!-- TODO: completar precios y plazos reales (rangos o "desde") -->
+      <details class="glass rv"><summary>How much does a custom website cost?<span class="pm" aria-hidden="true"></span></summary><p>It depends on scope: number of pages, animations, integrations and whether it includes AI agents or e-commerce. After a 30-minute call we send you a fixed-price proposal, no surprises.</p></details>
+      <details class="glass rv" style="--d:0.05s"><summary>How long does a project take?<span class="pm" aria-hidden="true"></span></summary><p>We set the timeline in the proposal based on scope, with dates for each stage: discovery, design, development and launch.</p></details>
+      <details class="glass rv" style="--d:0.10s"><summary>Do you work in person or remotely?<span class="pm" aria-hidden="true"></span></summary><p>Both. We have teams in Madrid and Mexico City, and we work remotely with clients in other countries.</p></details>
+      <details class="glass rv" style="--d:0.15s"><summary>Does the website include SEO?<span class="pm" aria-hidden="true"></span></summary><p>Yes. Every site ships with technical SEO, structured data and a structure built for Google and AI search engines. If you want to go further, we offer SEO and GEO services.</p></details>
+      <details class="glass rv" style="--d:0.20s"><summary>Can you add an AI agent to my website?<span class="pm" aria-hidden="true"></span></summary><p>Yes, it's one of our services: agents trained on your business information for customer support, sales or operations. The assistant on this page is an example.</p></details>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ═════ CTA FINAL ═════ -->
+<section class="cta-final" id="contacto" aria-labelledby="h-cta">
+  <div class="aurora" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="flutes" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <span class="label rv" style="color:rgba(255,255,255,.7)">Ready to start?</span>
+  <h2 class="rv" id="h-cta" style="--d:.08s">Let's talk</h2>
+  <div class="row rv" style="--d:.16s">
+    <p>Tell us what you want to build and we'll get back to you with next steps.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="mailto:contacto@kuper.media">contacto@kuper.media <span class="arrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 6h10M6 1l5 5-5 5"/></svg></span></a>
+      <a class="btn btn-ghost" href="https://wa.me/34694221737" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Kuper Media · Madrid · Mexico City</span>
+  <nav aria-label="Footer"><a href="https://kuper.media/">Home</a><a href="https://www.instagram.com/kupermedia" target="_blank" rel="noopener">Instagram</a><a href="https://www.linkedin.com/company/kupermedia" target="_blank" rel="noopener">LinkedIn</a><a href="https://www.facebook.com/kupermedia" target="_blank" rel="noopener">Facebook</a></nav>
+</footer>
+
+<!-- ═════ KUPER AI ═════ -->
+<div class="ai" id="ai">
+  <button class="ai-launch glass" id="ai-launch" aria-expanded="false" aria-controls="ai-panel">
+    <span class="orb" aria-hidden="true"></span>
+    <span class="txt">Ask Kuper AI<small>Instant answers</small></span>
+  </button>
+  <div class="ai-panel glass" id="ai-panel" role="dialog" aria-modal="false" aria-labelledby="ai-title">
+    <div class="ai-head">
+      <span class="orb" aria-hidden="true"></span>
+      <div><b id="ai-title">Kuper AI</b><span><i></i>Online · Built by Kuper Media</span></div>
+      <button class="ai-close" id="ai-close" aria-label="Close assistant"><svg width="12" height="12" viewBox="0 0 12 12" stroke="#fff" stroke-width="1.6"><path d="M1 1l10 10M11 1 1 11"/></svg></button>
+    </div>
+    <div class="ai-body" id="ai-body" aria-live="polite"></div>
+    <form class="ai-form" id="ai-form">
+      <label for="ai-input" class="sr-only">Type your question</label>
+      <input id="ai-input" autocomplete="off" placeholder="Type your question…">
+      <button aria-label="Send"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 12V2M2 7l5-5 5 5"/></svg></button>
+    </form>
+    <div class="ai-note">This assistant is an example of the AI agents we build.</div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // reveals
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12, rootMargin: '0px 0px -6% 0px' });
+  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+  // header al hacer scroll
+  const hdr = document.getElementById('hdr');
+  const onScroll = () => hdr.classList.toggle('scrolled', scrollY > 30);
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  // selector de región/idioma: transición suave antes de cambiar de página
+  document.querySelectorAll('.lang a:not([aria-current])').forEach(a => a.addEventListener('click', e => {
+    if (rm || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    e.preventDefault();
+    document.body.classList.add('leaving');
+    setTimeout(() => { location.href = a.href; }, 320);
+  }));
+  addEventListener('pageshow', () => document.body.classList.remove('leaving'));
+
+  // parallax suave del escenario del hero
+  const stage = document.querySelector('.stage');
+  if (stage && !rm && matchMedia('(pointer:fine)').matches) {
+    const layers = [['.chev', 14], ['.card-project', -22], ['.card-mini', 18], ['.card-chip', -12]].map(([s, k]) => [stage.querySelector(s), k]);
+    addEventListener('mousemove', e => {
+      const x = e.clientX / innerWidth - .5, y = e.clientY / innerHeight - .5;
+      layers.forEach(([el, k]) => { if (el && el.classList.contains('in')) el.style.translate = `${x * k}px ${y * k}px`; });
+    });
+  }
+
+  // ── Kuper AI (demo con respuestas guionizadas; en producción se conecta al agente real) ──
+  const T = {"greeting": "Hi! 👋 I'm Kuper AI. Ask me anything about web design, SEO or AI agents.", "chips": ["How much does a website cost?", "How long does it take?", "Do you build AI agents?", "I'd like to book a call"], "fallback": "Good question. To give you a precise answer, let's talk it through: email us at <a href=\"mailto:contacto@kuper.media\">contacto@kuper.media</a> and we'll get back to you with next steps.", "kb": [["(price|cost|how much|budget|quote|pricing)", "Every website is quoted based on scope: pages, animations, integrations and whether it includes AI. After a 30-minute call we send you a fixed-price proposal. Want to <a href=\"#contacto\">book that call</a>?"], ["(how long|time|timeline|when|weeks|deadline)", "We set the timeline in the proposal, with dates for discovery, design, development and launch, so you know exactly what you get and when."], ["(\\bai\\b|agent|chatbot|bot|artificial)", "Yes, we build AI agents trained on your business information: customer support, sales or operations. This assistant is an example of what we build."], ["(seo|google|rank|geo|chatgpt)", "Every website we build ships with technical SEO, structured data and a structure designed for Google and AI search engines like ChatGPT or Perplexity."], ["(madrid|mexico|cdmx|where|office|in person|remote)", "We have teams in Madrid and Mexico City. We work in person or remotely, including with clients in other countries."], ["(project|portfolio|clients|work|examples)", "We have worked with Natalia Lafourcade, Miami Ad School, Señor Taco, Aemara and Dr. Raúl López Infante, among others. See them in <a href=\"#proyectos\">our work</a>."], ["(call|contact|talk|book|meeting|whatsapp|email)", "Great. Email us at <a href=\"mailto:contacto@kuper.media\">contacto@kuper.media</a> or message us on <a href=\"https://wa.me/34694221737\" target=\"_blank\" rel=\"noopener\">WhatsApp</a> and we'll get back to you with next steps."]]};
+  const ai = document.getElementById('ai'), launch = document.getElementById('ai-launch'),
+        closeBtn = document.getElementById('ai-close'), body = document.getElementById('ai-body'),
+        form = document.getElementById('ai-form'), input = document.getElementById('ai-input');
+  const KB = T.kb.map(([p, a]) => ({ k: new RegExp(p, 'i'), a }));
+
+  function add(html, who = 'bot') {
+    const m = document.createElement('div'); m.className = 'msg ' + who; m.innerHTML = html;
+    body.appendChild(m); body.scrollTop = body.scrollHeight; return m;
+  }
+  function chips() {
+    const c = document.createElement('div'); c.className = 'chips';
+    T.chips.forEach(t => { const b = document.createElement('button'); b.type = 'button'; b.textContent = t; b.onclick = () => ask(t); c.appendChild(b); });
+    body.appendChild(c);
+  }
+  function reply(q) { const hit = KB.find(x => x.k.test(q)); return hit ? hit.a : T.fallback; }
+  function ask(q) {
+    q = q.trim(); if (!q) return;
+    body.querySelectorAll('.chips').forEach(c => c.remove());
+    add(q.replace(/[<>&]/g, s => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[s])), 'me');
+    const t = add('<span class="typing"><i></i><i></i><i></i></span>'); t.style.padding = '0';
+    setTimeout(() => { t.remove(); add(reply(q)); }, rm ? 0 : 900);
+  }
+  let started = false;
+  function setOpen(o) {
+    ai.classList.toggle('open', o); launch.setAttribute('aria-expanded', String(o));
+    if (o && !started) { started = true; add(T.greeting); chips(); }
+    if (o) setTimeout(() => input.focus({ preventScroll: true }), 300); else launch.focus({ preventScroll: true });
+  }
+  launch.addEventListener('click', () => setOpen(true));
+  closeBtn.addEventListener('click', () => setOpen(false));
+  addEventListener('keydown', e => { if (e.key === 'Escape' && ai.classList.contains('open')) setOpen(false); });
+  form.addEventListener('submit', e => { e.preventDefault(); ask(input.value); input.value = ''; });
+  body.addEventListener('click', e => { if (e.target.closest('a[href^="#"]')) setOpen(false); });
+})();
+</script>
+</body>
+</html>

@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-ES">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Diseño web en Madrid | Kuper Media</title>
 <meta name="description" content="Estudio de diseño web en Madrid: sitios a medida, rápidos y preparados para SEO e IA. Estrategia, diseño, desarrollo y agentes de IA en un solo equipo.">
 <link rel="canonical" href="https://kuper.media/diseno-web-madrid/">
+<link rel="alternate" hreflang="es-ES" href="https://kuper.media/diseno-web-madrid/">
+<link rel="alternate" hreflang="es-MX" href="https://kuper.media/diseno-web-cdmx/">
+<link rel="alternate" hreflang="en" href="https://kuper.media/en/web-design/">
+<link rel="alternate" hreflang="x-default" href="https://kuper.media/en/web-design/">
 <meta name="theme-color" content="#03070d">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Diseño web en Madrid | Kuper Media">
@@ -26,15 +30,31 @@
       "@id": "https://kuper.media/diseno-web-madrid/#service",
       "name": "Diseño web en Madrid",
       "serviceType": "Diseño y desarrollo web",
-      "provider": { "@id": "https://kuper.media/#organization" },
-      "areaServed": { "@type": "City", "name": "Madrid" },
-      "description": "Sitios web a medida: estrategia, diseño UX/UI, desarrollo de alto rendimiento y SEO técnico desde el primer día."
+      "provider": {
+        "@id": "https://kuper.media/#organization"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Madrid"
+      },
+      "description": "Sitios web a medida: estrategia, diseño UX/UI, desarrollo de alto rendimiento y SEO técnico desde el primer día.",
+      "inLanguage": "es-ES"
     },
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://kuper.media/" },
-        { "@type": "ListItem", "position": 2, "name": "Diseño web en Madrid", "item": "https://kuper.media/diseno-web-madrid/" }
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Inicio",
+          "item": "https://kuper.media/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Diseño web en Madrid",
+          "item": "https://kuper.media/diseno-web-madrid/"
+        }
       ]
     }
   ]
@@ -346,6 +366,21 @@ footer a:hover{color:#fff}
   .js .rv{opacity:1;transform:none;filter:none}
   html{scroll-behavior:auto}
 }
+
+/* ── selector de región / idioma ── */
+.hdr-right{position:relative;display:flex;align-items:center;gap:10px}
+.lang{position:relative;display:flex;gap:2px;padding:5px;border-radius:999px}
+.lang a{display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:999px;font-size:12px;font-weight:600;letter-spacing:.04em;color:rgba(255,255,255,.72);transition:background .3s,color .3s}
+.lang a b{font-size:10px;font-weight:800;letter-spacing:.1em;opacity:.55}
+.lang a:hover{background:rgba(255,255,255,.1);color:#fff}
+.lang a[aria-current]{background:#fff;color:#070b14}
+.lang a[aria-current] b{opacity:.7}
+.lang .short{display:none}
+body{transition:opacity .32s var(--ease),filter .32s var(--ease)}
+body.leaving{opacity:0;filter:blur(8px)}
+@media (max-width:1180px){.lang .full{display:none}.lang .short{display:inline}.lang a b{display:none}}
+@media (max-width:900px){.lang a{height:36px;padding:0 13px}}
+
 </style>
 </head>
 <body>
@@ -365,7 +400,7 @@ footer a:hover{color:#fff}
     <feFlood flood-color="#fff" flood-opacity=".85"/>
     <feComposite in2="ring" operator="in"/>
   </filter>
-  <filter id="kp-outline-thin"x="-2%" y="-10%" width="104%" height="120%" color-interpolation-filters="sRGB">
+  <filter id="kp-outline-thin" x="-2%" y="-10%" width="104%" height="120%" color-interpolation-filters="sRGB">
     <feMorphology in="SourceAlpha" operator="dilate" radius="1" result="grow"/>
     <feComposite in="grow" in2="SourceAlpha" operator="out" result="ring"/>
     <feFlood flood-color="#fff" flood-opacity=".55"/>
@@ -385,14 +420,21 @@ footer a:hover{color:#fff}
     </svg>
     <small>MEDIA</small>
   </a>
-  <nav class="nav glass" aria-label="Navegación principal">
-    <a href="https://kuper.media/#servicios">Servicios</a>
-    <a href="#proyectos">Proyectos</a>
-    <a href="#proceso">Proceso</a>
-    <a href="#preguntas">Preguntas</a>
-    <a class="cta" href="#contacto">Hablemos</a>
-  </nav>
-  <button class="menu-btn" aria-label="Abrir menú"><svg width="18" height="12" viewBox="0 0 18 12" fill="none" stroke="#fff" stroke-width="1.4"><path d="M0 1h18M0 6h18M8 11h10"/></svg></button>
+  <div class="hdr-right">
+    <nav class="nav glass" aria-label="Navegación principal">
+      <a href="https://kuper.media/#servicios">Servicios</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#proceso">Proceso</a>
+      <a href="#preguntas">Preguntas</a>
+      <a class="cta" href="#contacto">Hablemos</a>
+    </nav>
+    <!-- Selector de región/idioma: cada versión es una URL propia (indexable), no un cambio por JS -->
+    <nav class="lang glass" aria-label="Región e idioma">
+      <a href="/diseno-web-madrid/" hreflang="es-ES" lang="es-ES" aria-current="page"><b>ES</b><span class="full">Madrid</span><span class="short">ES</span></a>
+      <a href="/diseno-web-cdmx/" hreflang="es-MX" lang="es-MX"><b>MX</b><span class="full">CDMX</span><span class="short">MX</span></a>
+      <a href="/en/web-design/" hreflang="en" lang="en"><span class="full">English</span><span class="short">EN</span></a>
+    </nav>
+  </div>
 </header>
 
 <main>
@@ -516,19 +558,19 @@ footer a:hover{color:#fff}
   </div>
   <!-- TODO: sustituir los degradados por capturas o videos reales de cada proyecto -->
   <div class="projects">
-    <a class="proj p1 rv" href="#" aria-label="Natalia Lafourcade, diseño web">
+    <a class="proj p1 rv" href="#" aria-label="Natalia Lafourcade, Diseño web">
       <div class="img" aria-hidden="true"></div>
       <div class="top"><span class="pill glass">Diseño web</span><span class="round glass" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="1.6"><path d="M2 10 10 2M4 2h6v6"/></svg></span></div>
       <span class="word" aria-hidden="true">Natalia<br>Lafourcade</span>
       <div class="ttl glass"><div><b>Natalia Lafourcade</b><span>Sitio oficial · Diseño y desarrollo</span></div></div>
     </a>
-    <a class="proj p2 rv" style="--d:.08s" href="#" aria-label="Miami Ad School, marketing">
+    <a class="proj p2 rv" style="--d:.08s" href="#" aria-label="Miami Ad School, Marketing">
       <div class="img" aria-hidden="true"></div>
       <div class="top"><span class="pill glass">Marketing</span><span class="round glass" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="1.6"><path d="M2 10 10 2M4 2h6v6"/></svg></span></div>
       <span class="word" aria-hidden="true">Miami<br>Ad School</span>
       <div class="ttl glass"><div><b>Miami Ad School</b><span>Marketing digital</span></div></div>
     </a>
-    <a class="proj p3 rv" style="--d:.16s" href="#" aria-label="Señor Taco, agente de IA">
+    <a class="proj p3 rv" style="--d:.16s" href="#" aria-label="Señor Taco, Agente de IA">
       <div class="img" aria-hidden="true"></div>
       <div class="top"><span class="pill glass">Agente de IA</span><span class="round glass" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="1.6"><path d="M2 10 10 2M4 2h6v6"/></svg></span></div>
       <span class="word" aria-hidden="true">Señor<br>Taco</span>
@@ -544,10 +586,10 @@ footer a:hover{color:#fff}
     <div class="faq">
       <!-- TODO: completar precios y plazos reales (rangos o "desde") -->
       <details class="glass rv"><summary>¿Cuánto cuesta una web a medida en Madrid?<span class="pm" aria-hidden="true"></span></summary><p>Depende del alcance: número de páginas, animaciones, integraciones y si incluye agentes de IA o tienda. Tras una llamada de 30 minutos te enviamos una propuesta cerrada, sin sorpresas.</p></details>
-      <details class="glass rv" style="--d:.05s"><summary>¿Cuánto tarda el proyecto?<span class="pm" aria-hidden="true"></span></summary><p>El plazo se fija en la propuesta según el alcance, con fechas para cada etapa: descubrimiento, diseño, desarrollo y lanzamiento.</p></details>
-      <details class="glass rv" style="--d:.1s"><summary>¿Trabajáis en persona o en remoto?<span class="pm" aria-hidden="true"></span></summary><p>Las dos cosas. Tenemos equipo en Madrid y en Ciudad de México, y trabajamos en remoto con clientes de otros países.</p></details>
-      <details class="glass rv" style="--d:.15s"><summary>¿La web incluye SEO?<span class="pm" aria-hidden="true"></span></summary><p>Sí. Cada sitio sale con SEO técnico, datos estructurados y una estructura pensada para Google y para los buscadores con IA. Si quieres ir más allá, tenemos servicio de posicionamiento SEO y GEO.</p></details>
-      <details class="glass rv" style="--d:.2s"><summary>¿Podéis añadir un agente de IA a mi web?<span class="pm" aria-hidden="true"></span></summary><p>Sí, es uno de nuestros servicios: agentes entrenados con la información de tu negocio para atención al cliente, ventas u operaciones. El asistente de esta página es un ejemplo.</p></details>
+      <details class="glass rv" style="--d:0.05s"><summary>¿Cuánto tarda el proyecto?<span class="pm" aria-hidden="true"></span></summary><p>El plazo se fija en la propuesta según el alcance, con fechas para cada etapa: descubrimiento, diseño, desarrollo y lanzamiento.</p></details>
+      <details class="glass rv" style="--d:0.10s"><summary>¿Trabajáis en persona o en remoto?<span class="pm" aria-hidden="true"></span></summary><p>Las dos cosas. Tenemos equipo en Madrid y en Ciudad de México, y trabajamos en remoto con clientes de otros países.</p></details>
+      <details class="glass rv" style="--d:0.15s"><summary>¿La web incluye SEO?<span class="pm" aria-hidden="true"></span></summary><p>Sí. Cada sitio sale con SEO técnico, datos estructurados y una estructura pensada para Google y para los buscadores con IA. Si quieres ir más allá, tenemos servicio de posicionamiento SEO y GEO.</p></details>
+      <details class="glass rv" style="--d:0.20s"><summary>¿Podéis añadir un agente de IA a mi web?<span class="pm" aria-hidden="true"></span></summary><p>Sí, es uno de nuestros servicios: agentes entrenados con la información de tu negocio para atención al cliente, ventas u operaciones. El asistente de esta página es un ejemplo.</p></details>
     </div>
   </div>
 </section>
@@ -561,7 +603,7 @@ footer a:hover{color:#fff}
   <span class="label rv" style="color:rgba(255,255,255,.7)">¿Empezamos?</span>
   <h2 class="rv" id="h-cta" style="--d:.08s">Hablemos</h2>
   <div class="row rv" style="--d:.16s">
-    <p>Cuéntanos qué quieres construir y te respondemos en menos de 24 horas con los siguientes pasos.</p>
+    <p>Cuéntanos qué quieres construir y te respondemos con los siguientes pasos.</p>
     <div class="cta-row">
       <a class="btn btn-primary" href="mailto:contacto@kuper.media">contacto@kuper.media <span class="arrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 6h10M6 1l5 5-5 5"/></svg></span></a>
       <a class="btn btn-ghost" href="https://wa.me/34694221737" target="_blank" rel="noopener">WhatsApp</a>
@@ -609,6 +651,15 @@ footer a:hover{color:#fff}
   const onScroll = () => hdr.classList.toggle('scrolled', scrollY > 30);
   addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
+  // selector de región/idioma: transición suave antes de cambiar de página
+  document.querySelectorAll('.lang a:not([aria-current])').forEach(a => a.addEventListener('click', e => {
+    if (rm || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    e.preventDefault();
+    document.body.classList.add('leaving');
+    setTimeout(() => { location.href = a.href; }, 320);
+  }));
+  addEventListener('pageshow', () => document.body.classList.remove('leaving'));
+
   // parallax suave del escenario del hero
   const stage = document.querySelector('.stage');
   if (stage && !rm && matchMedia('(pointer:fine)').matches) {
@@ -620,27 +671,11 @@ footer a:hover{color:#fff}
   }
 
   // ── Kuper AI (demo con respuestas guionizadas; en producción se conecta al agente real) ──
+  const T = {"greeting": "¡Hola! 👋 Soy Kuper AI. Pregúntame lo que quieras sobre diseño web, SEO o agentes de IA.", "chips": ["¿Cuánto cuesta una web?", "¿Cuánto tarda?", "¿Hacéis agentes de IA?", "Quiero agendar una llamada"], "fallback": "Buena pregunta. Para darte una respuesta precisa, lo mejor es que lo veamos juntos: escríbenos a <a href=\"mailto:contacto@kuper.media\">contacto@kuper.media</a> y te respondemos con los siguientes pasos.", "kb": [["(precio|cuesta|cuánto|cuanto|presupuesto|coste|costo)", "Cada web se presupuesta según su alcance: páginas, animaciones, integraciones y si lleva IA. Tras una llamada de 30 minutos te enviamos una propuesta cerrada. ¿Quieres que <a href=\"#contacto\">agendemos esa llamada</a>?"], ["(tarda|tiempo|plazo|cuándo|semanas)", "Fijamos el plazo en la propuesta, con fechas para descubrimiento, diseño, desarrollo y lanzamiento. Así sabes exactamente qué recibes y cuándo."], ["(\\bia\\b|agente|chatbot|bot|inteligencia)", "Sí, diseñamos agentes de IA entrenados con la información de tu negocio: atención al cliente, ventas u operaciones. Este asistente es un ejemplo de lo que construimos."], ["(seo|google|posicion|geo|chatgpt)", "Todas nuestras webs salen con SEO técnico, datos estructurados y una estructura pensada para Google y para buscadores con IA como ChatGPT o Perplexity."], ["(madrid|méxico|mexico|cdmx|dónde|donde|oficina|presencial)", "Tenemos equipo en Madrid y en Ciudad de México. Trabajamos en persona o en remoto, también con clientes de otros países."], ["(proyecto|portafolio|clientes|trabajos|ejemplos)", "Hemos trabajado con Natalia Lafourcade, Miami Ad School, Señor Taco, Aemara y el Dr. Raúl López Infante, entre otros. Puedes verlos en <a href=\"#proyectos\">nuestro trabajo</a>."], ["(llamada|contacto|hablar|agendar|reunión|whatsapp|correo)", "Perfecto. Escríbenos a <a href=\"mailto:contacto@kuper.media\">contacto@kuper.media</a> o por <a href=\"https://wa.me/34694221737\" target=\"_blank\" rel=\"noopener\">WhatsApp</a> y te respondemos con los siguientes pasos."]]};
   const ai = document.getElementById('ai'), launch = document.getElementById('ai-launch'),
         closeBtn = document.getElementById('ai-close'), body = document.getElementById('ai-body'),
         form = document.getElementById('ai-form'), input = document.getElementById('ai-input');
-
-  const KB = [
-    { k: /(precio|cuesta|cuánto|cuanto|presupuesto|coste|costo)/i,
-      a: 'Cada web se presupuesta según su alcance: páginas, animaciones, integraciones y si lleva IA. Tras una llamada de 30 minutos te enviamos una propuesta cerrada. ¿Quieres que <a href="#contacto">agendemos esa llamada</a>?' },
-    { k: /(tarda|tiempo|plazo|cuándo|semanas)/i,
-      a: 'Fijamos el plazo en la propuesta, con fechas para descubrimiento, diseño, desarrollo y lanzamiento. Así sabes exactamente qué recibes y cuándo.' },
-    { k: /(ia|agente|chatbot|bot|inteligencia)/i,
-      a: 'Sí, diseñamos agentes de IA entrenados con la información de tu negocio: atención al cliente, ventas u operaciones. Este asistente es un ejemplo de lo que construimos.' },
-    { k: /(seo|google|posicion|geo|chatgpt)/i,
-      a: 'Todas nuestras webs salen con SEO técnico, datos estructurados y una estructura pensada para Google y para buscadores con IA como ChatGPT o Perplexity.' },
-    { k: /(madrid|méxico|mexico|cdmx|dónde|donde|oficina|presencial)/i,
-      a: 'Tenemos equipo en Madrid y en Ciudad de México. Trabajamos en persona o en remoto, también con clientes de otros países.' },
-    { k: /(proyecto|portafolio|clientes|trabajos|ejemplos)/i,
-      a: 'Hemos trabajado con Natalia Lafourcade, Miami Ad School, Señor Taco, Aemara y el Dr. Raúl López Infante, entre otros. Puedes verlos en <a href="#proyectos">nuestro trabajo</a>.' },
-    { k: /(llamada|contacto|hablar|agendar|reunión|whatsapp|correo)/i,
-      a: 'Perfecto. Escríbenos a <a href="mailto:contacto@kuper.media">contacto@kuper.media</a> o por <a href="https://wa.me/34694221737" target="_blank" rel="noopener">WhatsApp</a> y te respondemos en menos de 24 horas.' },
-  ];
-  const CHIPS = ['¿Cuánto cuesta una web?', '¿Cuánto tarda?', '¿Hacéis agentes de IA?', 'Quiero agendar una llamada'];
+  const KB = T.kb.map(([p, a]) => ({ k: new RegExp(p, 'i'), a }));
 
   function add(html, who = 'bot') {
     const m = document.createElement('div'); m.className = 'msg ' + who; m.innerHTML = html;
@@ -648,13 +683,10 @@ footer a:hover{color:#fff}
   }
   function chips() {
     const c = document.createElement('div'); c.className = 'chips';
-    CHIPS.forEach(t => { const b = document.createElement('button'); b.type = 'button'; b.textContent = t; b.onclick = () => ask(t); c.appendChild(b); });
+    T.chips.forEach(t => { const b = document.createElement('button'); b.type = 'button'; b.textContent = t; b.onclick = () => ask(t); c.appendChild(b); });
     body.appendChild(c);
   }
-  function reply(q) {
-    const hit = KB.find(x => x.k.test(q));
-    return hit ? hit.a : 'Buena pregunta. Para darte una respuesta precisa, lo mejor es que lo veamos juntos: escríbenos a <a href="mailto:contacto@kuper.media">contacto@kuper.media</a> y te respondemos en menos de 24 horas.';
-  }
+  function reply(q) { const hit = KB.find(x => x.k.test(q)); return hit ? hit.a : T.fallback; }
   function ask(q) {
     q = q.trim(); if (!q) return;
     body.querySelectorAll('.chips').forEach(c => c.remove());
@@ -665,7 +697,7 @@ footer a:hover{color:#fff}
   let started = false;
   function setOpen(o) {
     ai.classList.toggle('open', o); launch.setAttribute('aria-expanded', String(o));
-    if (o && !started) { started = true; add('¡Hola! 👋 Soy Kuper AI. Pregúntame lo que quieras sobre diseño web, SEO o agentes de IA.'); chips(); }
+    if (o && !started) { started = true; add(T.greeting); chips(); }
     if (o) setTimeout(() => input.focus({ preventScroll: true }), 300); else launch.focus({ preventScroll: true });
   }
   launch.addEventListener('click', () => setOpen(true));

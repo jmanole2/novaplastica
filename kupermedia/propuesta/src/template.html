@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="{{lang}}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{title}}</title>
+<meta name="description" content="{{description}}">
+<link rel="canonical" href="{{url}}">
+{{hreflang}}
+<meta name="theme-color" content="#03070d">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{title}}">
+<meta property="og:description" content="{{og_description}}">
+<meta property="og:url" content="{{url}}">
+<meta property="og:image" content="https://kuper.media/og-image.jpg">
+<meta property="og:locale" content="{{og_locale}}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{{jsonld}}
+</script>
+
+<style>
+{{styles}}
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js')</script>
+<!-- Filtros de contorno limpio: dilata la silueta de la letra y le resta el relleno,
+     dejando solo un anillo exterior del grosor indicado. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <filter id="kp-outline" x="-2%" y="-10%" width="104%" height="120%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="1.5" result="grow"/>
+    <feComposite in="grow" in2="SourceAlpha" operator="out" result="ring"/>
+    <feFlood flood-color="#fff" flood-opacity=".82"/>
+    <feComposite in2="ring" operator="in"/>
+  </filter>
+  <filter id="kp-outline-sm" x="-2%" y="-10%" width="104%" height="120%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="1" result="grow"/>
+    <feComposite in="grow" in2="SourceAlpha" operator="out" result="ring"/>
+    <feFlood flood-color="#fff" flood-opacity=".85"/>
+    <feComposite in2="ring" operator="in"/>
+  </filter>
+  <filter id="kp-outline-thin" x="-2%" y="-10%" width="104%" height="120%" color-interpolation-filters="sRGB">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="1" result="grow"/>
+    <feComposite in="grow" in2="SourceAlpha" operator="out" result="ring"/>
+    <feFlood flood-color="#fff" flood-opacity=".55"/>
+    <feComposite in2="ring" operator="in"/>
+  </filter>
+</svg>
+
+<header class="hdr" id="hdr">
+  <a class="logo" href="https://kuper.media/" aria-label="{{logo_aria}}">
+    <!-- wordmark reconstruido con los trazos reales del logo (chevron + UPER) -->
+    <svg viewBox="0 -10 3390 850" aria-hidden="true" fill="#fff">
+      <path d="M550.4 3.1 202.1 347.8H4L351.4 3.1Z"/><path d="M352.5 832.4 1.6 477.6h195.3l350.3 350.4Z"/>
+      <path d="M1304.8 483.6c0 95.2-33.1 177-101.5 244.3-67.3 67.3-150.1 100.4-244.4 100.4-94.2 0-176-33.1-243.3-100.4-67.3-67.3-100.4-150.1-100.4-244.4V0h137.7v483.6c0 57 19.7 105.6 59 144.9 40.4 41.4 90.1 61.1 147 61.1 56.9 0 105.6-20.7 146-61.1 40.4-40.4 62.1-89 62.1-144.9Z"/>
+      <path d="M2057.1 276.5c0 75.6-25.9 141.9-80.8 195.7-53.8 53.8-119.1 80.8-194.7 80.8h-276.4v275.4h-137.7V414.2h414.2c37.3 0 69.4-13.5 96.3-40.4 26.9-26.9 41.4-59 41.4-97.3 0-37.3-13.5-70.4-41.4-97.3-26.9-26.9-59-40.4-96.3-40.4h-276.5L1367.4 0h414.2c75.6 0 140.8 26.9 194.7 80.8 53.8 54.9 80.8 120.1 80.8 195.7Z"/>
+      <path d="M2256.4 689.6h414.2v138.8h-551.9V817Zm0-343.8h414.2v137.7h-551.9V345.8ZM2670.6 0v138.8h-414.2L2118.7 0Z"/>
+      <path d="m3203.3 531.2 169.8 297.2h-158.4l-240.2-415.2 123.2 1c37.3 0 69.4-13.5 96.3-40.4 28-26.9 41.4-60 41.4-98.4 0-37.3-13.5-69.4-41.4-96.3-26.9-26.9-59-40.4-96.3-40.4h-276.5l-15.5-15.5L2734.2 0h363.4c75.6 0 140.8 26.9 194.7 80.8 53.8 54.9 80.8 119.1 80.8 194.7 0 58-15.5 109.8-48.7 156.4-32.1 46.6-72.5 79.7-121.1 99.4Z"/>
+    </svg>
+    <small>MEDIA</small>
+  </a>
+  <div class="hdr-right">
+    <nav class="nav glass" aria-label="{{nav_aria}}">
+      <a href="https://kuper.media/#servicios">{{nav_services}}</a>
+      <a href="#proyectos">{{nav_work}}</a>
+      <a href="#proceso">{{nav_process}}</a>
+      <a href="#preguntas">{{nav_faq}}</a>
+      <a class="cta" href="#contacto">{{nav_cta}}</a>
+    </nav>
+    <!-- Selector de región/idioma: cada versión es una URL propia (indexable), no un cambio por JS -->
+    <nav class="lang glass" aria-label="{{lang_aria}}">
+{{switcher}}
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- ═════ HERO ═════ -->
+<section class="hero" aria-labelledby="h1">
+  <div class="aurora" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="flutes" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <div class="hero-grid">
+    <div>
+      <nav class="crumbs rv" aria-label="{{crumbs_aria}}"><a href="https://kuper.media/">{{crumb_home}}</a><span aria-hidden="true">/</span><span aria-current="page">{{crumb_page}}</span></nav>
+      <span class="eyebrow glass rv" style="--d:.05s"><span class="dot"></span>{{eyebrow}}</span>
+      <h1 class="h1 rv" id="h1" style="--d:.12s">{{h1a}}<span class="l2 outline">{{h1b}}</span></h1>
+      <p class="lead rv" style="--d:.2s">{{lead}}</p>
+      <div class="cta-row rv" style="--d:.28s">
+        <a class="btn btn-primary" href="#contacto">{{cta_primary}} <span class="arrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 6h10M6 1l5 5-5 5"/></svg></span></a>
+        <a class="btn btn-ghost" href="#proyectos">{{cta_secondary}}</a>
+      </div>
+    </div>
+
+    <div class="stage" aria-hidden="true">
+      <svg class="chev rv" style="--d:.2s" viewBox="-20 -20 600 880">
+        <defs>
+          <linearGradient id="gA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4d8ff" stop-opacity=".95"/><stop offset=".5" stop-color="#9fb6ff" stop-opacity=".55"/><stop offset="1" stop-color="#6c5cff" stop-opacity=".35"/></linearGradient>
+          <linearGradient id="gB" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#b9e4ff" stop-opacity=".9"/><stop offset=".55" stop-color="#6d8dff" stop-opacity=".5"/><stop offset="1" stop-color="#c46bff" stop-opacity=".3"/></linearGradient>
+          <linearGradient id="gEdge" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity=".15"/></linearGradient>
+        </defs>
+        <g class="bar"><path d="M550.4 3.1 202.1 347.8H4L351.4 3.1Z" fill="url(#gA)" stroke="url(#gEdge)" stroke-width="3"/></g>
+        <g class="bar"><path d="M352.5 832.4 1.6 477.6h195.3l350.3 350.4Z" fill="url(#gB)" stroke="url(#gEdge)" stroke-width="3"/></g>
+      </svg>
+
+      <span class="callout rv" style="--d:.5s">{{callout}}<span></span></span>
+
+      <article class="card-project glass rv" style="--d:.35s">
+        <div class="screen"><div class="bar-ui"><i></i><i></i><i></i></div><div class="big">Aemara</div></div>
+        <div class="meta"><div><b>Aemara</b><span>{{card_project_sub}}</span></div><a class="round" href="#proyectos" tabindex="-1"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 10 10 2M4 2h6v6"/></svg></a></div>
+      </article>
+
+      <div class="card-mini glass rv" style="--d:.45s">
+        <span class="label">{{mini_label}}</span>
+        <p>{{mini_text}}</p>
+        <div class="bars"><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+
+      <div class="card-chip glass rv" style="--d:.55s"><span class="av"><i></i><i></i><i></i></span>{{chip}}</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint" aria-hidden="true"><i><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></i>{{scroll_hint}}</div>
+</section>
+
+<!-- ═════ MARCAS ═════ -->
+<div class="clients" aria-label="{{clients_aria}}">
+  <span class="label">{{clients_label}}</span>
+  <div class="track" aria-hidden="true">
+    <span>Natalia Lafourcade</span><span class="sep">✦</span><span>Miami Ad School</span><span class="sep">✦</span><span>Señor Taco</span><span class="sep">✦</span><span>Aemara</span><span class="sep">✦</span><span>Dr. Raúl López Infante</span><span class="sep">✦</span>
+    <span>Natalia Lafourcade</span><span class="sep">✦</span><span>Miami Ad School</span><span class="sep">✦</span><span>Señor Taco</span><span class="sep">✦</span><span>Aemara</span><span class="sep">✦</span><span>Dr. Raúl López Infante</span><span class="sep">✦</span>
+  </div>
+  <p class="sr-only">{{clients_sr}}</p>
+</div>
+
+<!-- ═════ QUÉ INCLUYE ═════ -->
+<section class="blk" id="incluye" aria-labelledby="h-incluye">
+  <div class="sec-head">
+    <div class="rv"><span class="label">{{inc_label}}</span><h2 class="h2" id="h-incluye">{{inc_h2a}}<br><span class="outline">{{inc_h2b}}</span></h2></div>
+    <p class="rv" style="--d:.1s">{{inc_p}}</p>
+  </div>
+  <div class="features">
+    <article class="feat glass rv" style="--glow:rgba(250,71,184,.45)">
+      <span class="num">#01</span>
+      <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".6" fill="#fff"/></svg></div>
+      <h3>{{f1_t}}</h3>
+      <p>{{f1_p}}</p>
+      <div class="tags">{{f1_tags}}</div>
+    </article>
+    <article class="feat glass rv" style="--d:.08s;--glow:rgba(140,64,242,.5)">
+      <span class="num">#02</span>
+      <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><path d="M4 20 14 10M14 10l3-6 3 3-6 3Z"/><path d="M4 20l2-5 3 3Z"/></svg></div>
+      <h3>{{f2_t}}</h3>
+      <p>{{f2_p}}</p>
+      <div class="tags">{{f2_tags}}</div>
+    </article>
+    <article class="feat glass rv" style="--d:.16s;--glow:rgba(38,115,250,.55)">
+      <span class="num">#03</span>
+      <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><path d="M13 2 4 14h7l-1 8 9-12h-7Z"/></svg></div>
+      <h3>{{f3_t}}</h3>
+      <p>{{f3_p}}</p>
+      <div class="tags">{{f3_tags}}</div>
+    </article>
+    <article class="feat glass rv" style="--d:.24s;--glow:rgba(63,208,255,.45)">
+      <span class="num">#04</span>
+      <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></div>
+      <h3>{{f4_t}}</h3>
+      <p>{{f4_p}}</p>
+      <div class="tags">{{f4_tags}}</div>
+    </article>
+  </div>
+</section>
+
+<!-- ═════ PROCESO ═════ -->
+<section class="blk" id="proceso" aria-labelledby="h-proceso" style="padding-top:0">
+  <div class="sec-head">
+    <div class="rv"><span class="label">{{proc_label}}</span><h2 class="h2" id="h-proceso">{{proc_h2a}}<br><span class="outline">{{proc_h2b}}</span></h2></div>
+    <p class="rv" style="--d:.1s">{{proc_p}}</p>
+  </div>
+  <!-- TODO: confirmar que estas 4 etapas reflejan el proceso real del estudio -->
+  <ol class="process" role="list" style="list-style:none;margin:0;padding-left:0">
+    <li class="step rv"><span class="label">{{stage}} 01</span><h3>{{s1_t}}</h3><p>{{s1_p}}</p></li>
+    <li class="step rv" style="--d:.08s"><span class="label">{{stage}} 02</span><h3>{{s2_t}}</h3><p>{{s2_p}}</p></li>
+    <li class="step rv" style="--d:.16s"><span class="label">{{stage}} 03</span><h3>{{s3_t}}</h3><p>{{s3_p}}</p></li>
+    <li class="step rv" style="--d:.24s"><span class="label">{{stage}} 04</span><h3>{{s4_t}}</h3><p>{{s4_p}}</p></li>
+  </ol>
+</section>
+
+<!-- ═════ PROYECTOS ═════ -->
+<section class="blk" id="proyectos" aria-labelledby="h-proyectos" style="padding-top:0">
+  <div class="sec-head">
+    <div class="rv"><span class="label">{{proj_label}}</span><h2 class="h2" id="h-proyectos">{{proj_h2a}}<br><span class="outline">{{proj_h2b}}</span></h2></div>
+    <p class="rv" style="--d:.1s">{{proj_p}}</p>
+  </div>
+  <!-- TODO: sustituir los degradados por capturas o videos reales de cada proyecto -->
+  <div class="projects">
+    <a class="proj p1 rv" href="#" aria-label="Natalia Lafourcade, {{p1_pill}}">
+      <div class="img" aria-hidden="true"></div>
+      <div class="top"><span class="pill glass">{{p1_pill}}</span><span class="round glass" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="1.6"><path d="M2 10 10 2M4 2h6v6"/></svg></span></div>
+      <span class="word" aria-hidden="true">Natalia<br>Lafourcade</span>
+      <div class="ttl glass"><div><b>Natalia Lafourcade</b><span>{{p1_sub}}</span></div></div>
+    </a>
+    <a class="proj p2 rv" style="--d:.08s" href="#" aria-label="Miami Ad School, {{p2_pill}}">
+      <div class="img" aria-hidden="true"></div>
+      <div class="top"><span class="pill glass">{{p2_pill}}</span><span class="round glass" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="1.6"><path d="M2 10 10 2M4 2h6v6"/></svg></span></div>
+      <span class="word" aria-hidden="true">Miami<br>Ad School</span>
+      <div class="ttl glass"><div><b>Miami Ad School</b><span>{{p2_sub}}</span></div></div>
+    </a>
+    <a class="proj p3 rv" style="--d:.16s" href="#" aria-label="Señor Taco, {{p3_pill}}">
+      <div class="img" aria-hidden="true"></div>
+      <div class="top"><span class="pill glass">{{p3_pill}}</span><span class="round glass" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="1.6"><path d="M2 10 10 2M4 2h6v6"/></svg></span></div>
+      <span class="word" aria-hidden="true">Señor<br>Taco</span>
+      <div class="ttl glass"><div><b>Señor Taco</b><span>{{p3_sub}}</span></div></div>
+    </a>
+  </div>
+</section>
+
+<!-- ═════ PREGUNTAS ═════ -->
+<section class="blk" id="preguntas" aria-labelledby="h-faq" style="padding-top:0">
+  <div class="faq-wrap">
+    <div class="rv"><span class="label">{{faq_label}}</span><h2 class="h2" id="h-faq">{{faq_h2a}}<br><span class="outline">{{faq_h2b}}</span></h2></div>
+    <div class="faq">
+      <!-- TODO: completar precios y plazos reales (rangos o "desde") -->
+{{faq_items}}
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ═════ CTA FINAL ═════ -->
+<section class="cta-final" id="contacto" aria-labelledby="h-cta">
+  <div class="aurora" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="flutes" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <span class="label rv" style="color:rgba(255,255,255,.7)">{{cta_label}}</span>
+  <h2 class="rv" id="h-cta" style="--d:.08s">{{cta_h2}}</h2>
+  <div class="row rv" style="--d:.16s">
+    <p>{{cta_p}}</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="mailto:contacto@kuper.media">contacto@kuper.media <span class="arrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 6h10M6 1l5 5-5 5"/></svg></span></a>
+      <a class="btn btn-ghost" href="https://wa.me/34694221737" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>{{footer}}</span>
+  <nav aria-label="{{footer_aria}}"><a href="https://kuper.media/">{{crumb_home}}</a><a href="https://www.instagram.com/kupermedia" target="_blank" rel="noopener">Instagram</a><a href="https://www.linkedin.com/company/kupermedia" target="_blank" rel="noopener">LinkedIn</a><a href="https://www.facebook.com/kupermedia" target="_blank" rel="noopener">Facebook</a></nav>
+</footer>
+
+<!-- ═════ KUPER AI ═════ -->
+<div class="ai" id="ai">
+  <button class="ai-launch glass" id="ai-launch" aria-expanded="false" aria-controls="ai-panel">
+    <span class="orb" aria-hidden="true"></span>
+    <span class="txt">{{ai_launch}}<small>{{ai_launch_sub}}</small></span>
+  </button>
+  <div class="ai-panel glass" id="ai-panel" role="dialog" aria-modal="false" aria-labelledby="ai-title">
+    <div class="ai-head">
+      <span class="orb" aria-hidden="true"></span>
+      <div><b id="ai-title">Kuper AI</b><span><i></i>{{ai_status}}</span></div>
+      <button class="ai-close" id="ai-close" aria-label="{{ai_close}}"><svg width="12" height="12" viewBox="0 0 12 12" stroke="#fff" stroke-width="1.6"><path d="M1 1l10 10M11 1 1 11"/></svg></button>
+    </div>
+    <div class="ai-body" id="ai-body" aria-live="polite"></div>
+    <form class="ai-form" id="ai-form">
+      <label for="ai-input" class="sr-only">{{ai_input_label}}</label>
+      <input id="ai-input" autocomplete="off" placeholder="{{ai_placeholder}}">
+      <button aria-label="{{ai_send}}"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 12V2M2 7l5-5 5 5"/></svg></button>
+    </form>
+    <div class="ai-note">{{ai_note}}</div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // reveals
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12, rootMargin: '0px 0px -6% 0px' });
+  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+  // header al hacer scroll
+  const hdr = document.getElementById('hdr');
+  const onScroll = () => hdr.classList.toggle('scrolled', scrollY > 30);
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  // selector de región/idioma: transición suave antes de cambiar de página
+  document.querySelectorAll('.lang a:not([aria-current])').forEach(a => a.addEventListener('click', e => {
+    if (rm || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    e.preventDefault();
+    document.body.classList.add('leaving');
+    setTimeout(() => { location.href = a.href; }, 320);
+  }));
+  addEventListener('pageshow', () => document.body.classList.remove('leaving'));
+
+  // parallax suave del escenario del hero
+  const stage = document.querySelector('.stage');
+  if (stage && !rm && matchMedia('(pointer:fine)').matches) {
+    const layers = [['.chev', 14], ['.card-project', -22], ['.card-mini', 18], ['.card-chip', -12]].map(([s, k]) => [stage.querySelector(s), k]);
+    addEventListener('mousemove', e => {
+      const x = e.clientX / innerWidth - .5, y = e.clientY / innerHeight - .5;
+      layers.forEach(([el, k]) => { if (el && el.classList.contains('in')) el.style.translate = `${x * k}px ${y * k}px`; });
+    });
+  }
+
+  // ── Kuper AI (demo con respuestas guionizadas; en producción se conecta al agente real) ──
+  const T = {{ai_json}};
+  const ai = document.getElementById('ai'), launch = document.getElementById('ai-launch'),
+        closeBtn = document.getElementById('ai-close'), body = document.getElementById('ai-body'),
+        form = document.getElementById('ai-form'), input = document.getElementById('ai-input');
+  const KB = T.kb.map(([p, a]) => ({ k: new RegExp(p, 'i'), a }));
+
+  function add(html, who = 'bot') {
+    const m = document.createElement('div'); m.className = 'msg ' + who; m.innerHTML = html;
+    body.appendChild(m); body.scrollTop = body.scrollHeight; return m;
+  }
+  function chips() {
+    const c = document.createElement('div'); c.className = 'chips';
+    T.chips.forEach(t => { const b = document.createElement('button'); b.type = 'button'; b.textContent = t; b.onclick = () => ask(t); c.appendChild(b); });
+    body.appendChild(c);
+  }
+  function reply(q) { const hit = KB.find(x => x.k.test(q)); return hit ? hit.a : T.fallback; }
+  function ask(q) {
+    q = q.trim(); if (!q) return;
+    body.querySelectorAll('.chips').forEach(c => c.remove());
+    add(q.replace(/[<>&]/g, s => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[s])), 'me');
+    const t = add('<span class="typing"><i></i><i></i><i></i></span>'); t.style.padding = '0';
+    setTimeout(() => { t.remove(); add(reply(q)); }, rm ? 0 : 900);
+  }
+  let started = false;
+  function setOpen(o) {
+    ai.classList.toggle('open', o); launch.setAttribute('aria-expanded', String(o));
+    if (o && !started) { started = true; add(T.greeting); chips(); }
+    if (o) setTimeout(() => input.focus({ preventScroll: true }), 300); else launch.focus({ preventScroll: true });
+  }
+  launch.addEventListener('click', () => setOpen(true));
+  closeBtn.addEventListener('click', () => setOpen(false));
+  addEventListener('keydown', e => { if (e.key === 'Escape' && ai.classList.contains('open')) setOpen(false); });
+  form.addEventListener('submit', e => { e.preventDefault(); ask(input.value); input.value = ''; });
+  body.addEventListener('click', e => { if (e.target.closest('a[href^="#"]')) setOpen(false); });
+})();
+</script>
+</body>
+</html>
