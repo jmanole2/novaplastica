@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Tekae Lealtad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+/* Layout: control bar on top; the customer's phone on the left as the hero object, the operator panel on the right. Stacks under 960px. */
+:root{
+  --bg:#E9EDF1; --surface:#FFFFFF; --surface-2:#F4F6F8; --ink:#14202B; --muted:#5A6774; --line:#D3DAE1;
+  --accent:#0F8A3C; --accent-ink:#FFFFFF; --accent-soft:#DDF5E5;
+  --ok:#17804F; --ok-soft:#DFF3E8; --warn:#9A6312; --warn-soft:#FBEFD9; --bad:#B63A24; --bad-soft:#FBE3DE;
+  --f-display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --f-body:"Onest",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --r-s:8px; --r-m:14px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0E141A; --surface:#17202A; --surface-2:#1D2833; --ink:#E5EBF1; --muted:#93A0AD; --line:#2A3642;
+  --accent:#3BE06E; --accent-ink:#0E141A; --accent-soft:#16301F;
+  --ok:#4CC58A; --ok-soft:#173326; --warn:#E3A84B; --warn-soft:#3A2C14; --bad:#F07A63; --bad-soft:#3D1E18; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E141A; --surface:#17202A; --surface-2:#1D2833; --ink:#E5EBF1; --muted:#93A0AD; --line:#2A3642;
+  --accent:#3BE06E; --accent-ink:#0E141A; --accent-soft:#16301F;
+  --ok:#4CC58A; --ok-soft:#173326; --warn:#E3A84B; --warn-soft:#3A2C14; --bad:#F07A63; --bad-soft:#3D1E18; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5;margin:0}
+.wrap{max-width:1320px;margin:0 auto;padding-inline:20px;padding-block:20px 48px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.num{font-variant-numeric:tabular-nums}
+
+/* Top bar */
+.top{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;margin-bottom:20px}
+.logo{font-family:var(--f-display);font-weight:800;font-stretch:118%;font-size:21px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
+.logo i{width:22px;height:22px;border-radius:50%;background:conic-gradient(var(--accent) 0 72%,var(--line) 72% 100%);display:inline-block}
+.seg{display:inline-flex;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px;gap:2px;flex-wrap:wrap}
+.seg button{border:0;background:none;padding:7px 14px;border-radius:999px;cursor:pointer;font-weight:500;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.top .note{margin-left:auto;color:var(--muted);font-size:13px}
+.top .lbl{color:var(--muted);font-size:13px;margin-right:-14px}
+
+.grid{display:grid;grid-template-columns:380px minmax(0,1fr);gap:28px;align-items:start}
+@media (max-width:960px){.grid{grid-template-columns:minmax(0,1fr)}}
+
+/* Phone */
+.phone-col{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);display:flex;flex-direction:column;align-items:center;gap:10px}
+@media (max-width:960px){.phone-col{position:static}}
+.phone{width:min(360px,100%);aspect-ratio:9/18.5;max-width:100%;background:#0B0F13;border-radius:44px;padding:10px;box-shadow:0 30px 60px -30px rgba(10,20,40,.55),0 0 0 1px rgba(255,255,255,.06) inset}
+.screen{height:100%;border-radius:35px;overflow:hidden;background:#F6F7F5;color:#17201B;display:flex;flex-direction:column;position:relative;font-size:14px}
+.sbar{display:flex;justify-content:space-between;padding:12px 24px 4px;font-size:12px;font-weight:600;color:#17201B}
+.app-head{display:flex;align-items:center;gap:10px;padding:8px 18px 12px}
+.app-mark{width:34px;height:34px;border-radius:10px;background:var(--b);color:var(--b-ink);display:grid;place-items:center;font-family:var(--f-display);font-weight:800;font-size:15px}
+.app-name{font-family:var(--f-display);font-weight:700;font-stretch:110%;font-size:16px;line-height:1.1}
+.app-sub{font-size:11.5px;color:#5E6A63}
+.app-body{flex:1;overflow-y:auto;padding:4px 18px 18px;display:flex;flex-direction:column;gap:14px}
+.phone-caption{color:var(--muted);font-size:13px;text-align:center;max-width:340px}
+
+/* Pump-style counter: the one bold element */
+.pump{background:#0F1512;border-radius:16px;padding:14px 14px 12px;color:#C9D3CC}
+.pump-top{display:flex;justify-content:space-between;font-size:11px;letter-spacing:.06em;color:#8C9A91}
+.digits{display:flex;gap:4px;margin:8px 0 6px}
+.digits span{flex:1;background:#050807;border-radius:6px;font-family:var(--f-display);font-stretch:70%;font-weight:700;font-size:40px;line-height:1.15;text-align:center;color:var(--b-glow);text-shadow:0 0 14px color-mix(in srgb,var(--b-glow) 55%,transparent);font-variant-numeric:tabular-nums}
+.digits span.dim{color:#26302B;text-shadow:none}
+.pump-foot{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px}
+.pump-foot b{color:#F2F5F3;font-size:15px}
+.bump .digits span:not(.dim){animation:bump .5s ease}
+@keyframes bump{0%{transform:translateY(-6px);opacity:.3}100%{transform:none;opacity:1}}
+
+.progress{background:#E3E7E3;border-radius:99px;height:8px;overflow:hidden}
+.progress i{display:block;height:100%;background:var(--b);border-radius:99px;transition:width .6s ease}
+.p-card{background:#FFFFFF;border-radius:14px;padding:12px 14px;border:1px solid #E2E6E2}
+.p-row{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.p-muted{color:#5E6A63;font-size:12.5px}
+.p-btn{display:block;width:100%;border:0;border-radius:12px;padding:13px 14px;font-weight:600;cursor:pointer;background:var(--b);color:var(--b-ink);text-align:center}
+.p-btn.ghost{background:#E9ECE9;color:#17201B}
+.p-btn:disabled{opacity:.45;cursor:not-allowed}
+.p-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.p-input{width:100%;border:1.5px solid #CDD4CE;background:#fff;border-radius:12px;padding:12px;font-size:16px;color:#17201B;letter-spacing:.04em}
+.p-input:focus{border-color:var(--b);outline:none}
+.p-h{font-family:var(--f-display);font-weight:700;font-size:20px;font-stretch:105%;line-height:1.15}
+.p-msg{border-radius:10px;padding:10px 12px;font-size:13px}
+.p-msg.ok{background:#DCF2E5;color:#145C3A}.p-msg.bad{background:#FADFD8;color:#8E2B19}.p-msg.info{background:#E9ECE9;color:#33403A}
+.hist{display:flex;flex-direction:column}
+.hist div{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #ECEFEC;font-size:13px;gap:10px}
+.hist div:last-child{border-bottom:0}
+.plus{color:#17804F;font-weight:600}.minus{color:#8E2B19;font-weight:600}
+.prod{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#fff;border:1px solid #E2E6E2;border-radius:12px;padding:10px 12px;cursor:pointer;color:#17201B}
+.prod:disabled{opacity:.5;cursor:not-allowed}
+.prod .ic{width:36px;height:36px;border-radius:9px;display:grid;place-items:center;font-weight:700;font-size:11px;color:#fff;flex:none}
+.prod .t{flex:1;min-width:0}.prod .t b{display:block;font-size:14px}.prod .t small{color:#5E6A63}
+.prod .c{font-weight:700;font-size:13px;white-space:nowrap}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px dashed #AEB8B1;border-radius:8px;padding:4px 8px;font-size:12px;background:#fff;cursor:pointer;color:#17201B;font-variant-numeric:tabular-nums}
+.back{border:0;background:none;color:#5E6A63;cursor:pointer;padding:0;font-size:13px;align-self:flex-start}
+.spinner{width:34px;height:34px;border-radius:50%;border:3px solid #DDE2DE;border-top-color:var(--b);animation:spin .8s linear infinite;margin:30px auto 10px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.folio{font-family:var(--f-display);font-stretch:80%;font-size:26px;font-weight:700;letter-spacing:.04em;text-align:center}
+
+/* Panel */
+.panel{display:flex;flex-direction:column;gap:20px;min-width:0}
+.panel-head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px}
+.panel-head h1{font-size:30px;font-weight:750;font-stretch:112%;letter-spacing:-.01em;line-height:1.1}
+.panel-head p{margin:4px 0 0;color:var(--muted);max-width:60ch}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r-m);overflow:hidden}
+@media (max-width:700px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.kpi{background:var(--surface);padding:14px 16px}
+.kpi small{color:var(--muted);font-size:12.5px;display:block}
+.kpi b{font-family:var(--f-display);font-size:26px;font-weight:700;font-stretch:90%;font-variant-numeric:tabular-nums;line-height:1.2}
+.kpi em{font-style:normal;font-size:12px;color:var(--muted)}
+.sec{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);padding:18px 20px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.sec h2{font-size:18px;font-weight:700;font-stretch:105%}
+.sec .sub{color:var(--muted);font-size:13.5px;margin-top:-10px}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px}
+@media (max-width:1180px){.two{grid-template-columns:minmax(0,1fr)}}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:520px){.fields{grid-template-columns:minmax(0,1fr)}}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-size:12.5px;color:var(--muted);font-weight:500}
+.field input,.field select{border:1px solid var(--line);background:var(--surface-2);border-radius:var(--r-s);padding:9px 10px;width:100%}
+.rule-line{background:var(--accent-soft);border-radius:var(--r-s);padding:10px 12px;font-size:14px}
+.btn{border:1px solid var(--line);background:var(--surface-2);border-radius:var(--r-s);padding:8px 14px;cursor:pointer;font-weight:600;font-size:14px}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.sm{padding:5px 10px;font-size:13px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:end}
+.tbl-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th{font-weight:500;color:var(--muted);font-size:12.5px;text-align:left;padding:6px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:9px 10px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.r,th.r{text-align:right}
+.pill{display:inline-block;border-radius:99px;padding:2px 9px;font-size:12px;font-weight:600}
+.pill.ok{background:var(--ok-soft);color:var(--ok)}.pill.warn{background:var(--warn-soft);color:var(--warn)}.pill.bad{background:var(--bad-soft);color:var(--bad)}.pill.neutral{background:var(--surface-2);color:var(--muted);border:1px solid var(--line)}
+.checks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 16px}
+@media (max-width:520px){.checks{grid-template-columns:minmax(0,1fr)}}
+.checks label{display:flex;gap:8px;align-items:center;font-size:14px;padding:4px 0;cursor:pointer}
+.checks label span{margin-left:auto;color:var(--muted);font-size:12.5px;font-variant-numeric:tabular-nums}
+.log{display:flex;flex-direction:column;max-height:300px;overflow-y:auto}
+.log div{display:grid;grid-template-columns:52px minmax(0,1fr);gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.log div:last-child{border-bottom:0}
+.log time{color:var(--muted);font-variant-numeric:tabular-nums}
+.log .sev{border-left:3px solid var(--line);padding-left:8px}
+.log .sev.bad{border-color:var(--bad)}.log .sev.warn{border-color:var(--warn)}.log .sev.ok{border-color:var(--ok)}
+.empty{color:var(--muted);font-size:14px;padding:6px 0}
+
+/* Printable card preview */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.tcard{border-radius:10px;padding:12px;background:var(--tb);color:var(--tb-ink);display:flex;flex-direction:column;gap:6px;aspect-ratio:85/54;justify-content:space-between}
+.tcard .n{font-family:var(--f-display);font-weight:800;font-stretch:110%;font-size:13px}
+.tcard code{font-family:var(--f-display);font-stretch:85%;font-weight:700;font-size:17px;letter-spacing:.06em;background:rgba(255,255,255,.92);color:#111;border-radius:6px;padding:3px 6px;align-self:flex-start}
+.tcard small{font-size:10.5px;opacity:.9;line-height:1.3}
+
+/* Balance meter */
+.meter{height:10px;border-radius:99px;background:var(--surface-2);border:1px solid var(--line);position:relative;overflow:hidden}
+.meter i{position:absolute;inset:0 auto 0 0;background:var(--ok);border-radius:99px;transition:width .5s}
+.meter i.low{background:var(--warn)}
+.big{font-family:var(--f-display);font-size:34px;font-weight:700;font-stretch:90%;font-variant-numeric:tabular-nums;line-height:1.1}
+.code-note{font-size:13px;color:var(--muted)}
+.code-note code{background:var(--surface-2);border:1px solid var(--line);border-radius:5px;padding:1px 5px;font-size:12.5px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="logo"><i aria-hidden="true"></i>Tekae Lealtad</div>
+    <span class="lbl">Marca</span>
+    <div class="seg" id="tenantSeg" role="group" aria-label="Marca"></div>
+    <span class="lbl">Vista</span>
+    <div class="seg" id="viewSeg" role="group" aria-label="Vista del panel">
+      <button data-view="brand" aria-pressed="true">Panel de la marca</button>
+      <button data-view="platform" aria-pressed="false">Tekae (plataforma)</button>
+    </div>
+    <span class="note">Demo con datos de ejemplo. El canje con Tekae está simulado.</span>
+  </header>
+
+  <div class="grid">
+    <div class="phone-col">
+      <div class="phone"><div class="screen" id="screen"></div></div>
+      <p class="phone-caption" id="phoneCaption"></p>
+    </div>
+    <main class="panel" id="panel"></main>
+  </div>
+</div>
+
+<script>
+/* ============ Utilidades ============ */
+const $ = s => document.querySelector(s);
+const fmt = n => Math.round(n).toLocaleString('es-MX');
+const money = n => '$' + Number(n).toLocaleString('es-MX',{minimumFractionDigits:0,maximumFractionDigits:2});
+const now = () => new Date();
+const hhmm = d => d.toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit',hour12:false});
+const esc = s => String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ALPHA = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // sin 0/O/1/I para evitar confusiones al teclear
+function randChunk(n){const a=new Uint32Array(n);crypto.getRandomValues(a);return [...a].map(x=>ALPHA[x%ALPHA.length]).join('')}
+const sleep = ms => new Promise(r=>setTimeout(r,ms));
+
+/* ============ Proveedor de canje (adaptador intercambiable) ============
+   Hoy: simulación de Tekae. Mañana: TekaeApiProvider o BatchCodesProvider
+   con la misma interfaz. El resto de la plataforma no cambia. */
+const CATALOG = [
+  {sku:'TEL-50', name:'Recarga Telcel', value:50, kind:'recarga', color:'#1F4FA8'},
+  {sku:'TEL-100',name:'Recarga Telcel', value:100,kind:'recarga', color:'#1F4FA8'},
+  {sku:'ATT-50', name:'Recarga AT&T',   value:50, kind:'recarga', color:'#0E7FB8'},
+  {sku:'BAIT-50',name:'Recarga Bait',   value:50, kind:'recarga', color:'#C2185B'},
+  {sku:'MOV-50', name:'Recarga Movistar',value:50,kind:'recarga', color:'#2A8C4A'},
+  {sku:'CFE-100',name:'Pago de luz CFE',value:100,kind:'servicio',color:'#2E7D32'},
+  {sku:'IZZI-200',name:'Pago de internet Izzi',value:200,kind:'servicio',color:'#6A3FB5'},
+  {sku:'GP-100', name:'Tarjeta Google Play',value:100,kind:'giftcard',color:'#3C4043'},
+];
+const MockTekaeProvider = {
+  name:'Tekae (simulado)',
+  balance:18400, threshold:5000,
+  async listProducts(){ return CATALOG; },
+  async redeem({sku,amount,destination,idempotencyKey}){
+    await sleep(1100);
+    if(this.balance < amount) return {ok:false,error:'SALDO_INSUFICIENTE',message:'El saldo prepagado con el proveedor no alcanza. Recarga saldo en el panel de Tekae.'};
+    if(/0000$/.test(destination)) return {ok:false,error:'DESTINO_RECHAZADO',message:'El operador rechazó el número o la referencia. Revisa que esté completo.'};
+    this.balance -= amount;
+    return {ok:true,folio:'TK-'+randChunk(4)+'-'+randChunk(4),idempotencyKey};
+  },
+  async status(folio){ return {folio,status:'APLICADO'}; }
+};
+const provider = MockTekaeProvider;
+
+/* ============ Estado ============ */
+const T = {
+  mirador:{
+    id:'mirador', name:'Gasolinera El Mirador', short:'Mirador', mark:'M', giro:'Gasolinera', domain:'mirador.tekae.mx',
+    unit:'carga', unitHint:'por cada carga de $500 o más', prefix:'MIR',
+    b:'#26e35b', bInk:'#FFFFFF', glow:'#FFC531',
+    rules:{pointValue:0.10, ptsPerCode:100, dailyCap:2, expiryMonths:12},
+    catalog:new Set(['TEL-50','TEL-100','ATT-50','BAIT-50','MOV-50','CFE-100']),
+    base:{users:1284, issued:412600, redeemed:236000, redemptions:347},
+    batches:[], codes:new Map(), users:new Map(), log:[]
+  },
+  calnorte:{
+    id:'calnorte', name:'Cal Norte Materiales', short:'Cal Norte', mark:'C', giro:'Materiales para construcción', domain:'calnorte.tekae.mx',
+    unit:'bulto', unitHint:'por cada 10 bultos', prefix:'CAL',
+    b:'#2E6B47', bInk:'#FFFFFF', glow:'#9BF0B9',
+    rules:{pointValue:0.10, ptsPerCode:150, dailyCap:1, expiryMonths:6},
+    catalog:new Set(['TEL-50','BAIT-50','MOV-50','ATT-50','CFE-100','IZZI-200']),
+    base:{users:516, issued:131250, redeemed:64500, redemptions:118},
+    batches:[], codes:new Map(), users:new Map(), log:[]
+  }
+};
+const S = { tenant:'mirador', view:'brand', previewBatch:null, alerts:[], sessions:{} };
+const P = {}; // estado del teléfono por marca
+
+function phoneState(){ return P[S.tenant] ||= {screen:'login', phone:'4421234567', otpSent:false, otp:'', msg:null, fails:0, lockUntil:0, product:null, dest:'', result:null, bump:false}; }
+
+function createBatch(t, qty, pts){
+  const id = 'L-' + String(t.batches.length+1).padStart(3,'0');
+  const codes=[];
+  for(let i=0;i<qty;i++){
+    let c; do{ c = `${t.prefix}-${randChunk(4)}-${randChunk(4)}`; }while(t.codes.has(c));
+    t.codes.set(c,{pts,used:null,batch:id}); codes.push(c);
+  }
+  const b={id,date:now(),qty,pts,codes}; t.batches.unshift(b); return b;
+}
+function addLog(t,text,sev='ok'){ t.log.unshift({t:now(),text,sev}); }
+function addAlert(t,text,sev='warn'){ S.alerts.unshift({t:now(),tenant:t.short,text,sev}); addLog(t,text,sev); }
+
+/* Datos de ejemplo */
+(function seed(){
+  for(const t of Object.values(T)){
+    createBatch(t, 300, t.rules.ptsPerCode);
+    const b2=createBatch(t, 120, t.rules.ptsPerCode*2);
+    b2.note='Promoción doble';
+    // marcar algunos como usados
+    [...t.codes.values()].slice(0, t.id==='mirador'?137:58).forEach(c=>c.used=new Date(Date.now()-864e5*3));
+  }
+  const m=T.mirador;
+  m.users.set('4421234567',{pts:340,hist:[
+    {d:'28 sep',txt:'Código de carga',pts:100},{d:'24 sep',txt:'Código de carga',pts:100},
+    {d:'19 sep',txt:'Recarga Telcel $50',pts:-500},{d:'15 sep',txt:'Código de carga',pts:100},{d:'9 sep',txt:'Código de carga',pts:40}],
+    redeemedToday:0});
+  T.calnorte.users.set('4421234567',{pts:450,hist:[{d:'27 sep',txt:'Código por bultos',pts:150},{d:'20 sep',txt:'Código por bultos',pts:300}],redeemedToday:0});
+  addLog(m,'Lote L-002 generado: 120 códigos de 200 puntos');
+  addLog(m,'Cliente 55•••8812 canjeó Recarga AT&T $50');
+  addAlert(m,'3 códigos inválidos seguidos desde 33•••4410. Bloqueo de 60 s aplicado','warn');
+  addLog(T.calnorte,'Lote L-002 generado: 120 códigos de 300 puntos');
+})();
+
+/* ============ Lógica de negocio ============ */
+const tenant = () => T[S.tenant];
+const ptsCost = (t,p) => Math.round(p.value / t.rules.pointValue);
+function userOf(t,phone){ let u=t.users.get(phone); if(!u){u={pts:0,hist:[],redeemedToday:0}; t.users.set(phone,u);} return u; }
+function liveStats(t){
+  const used=[...t.codes.values()].filter(c=>c.used);
+  const active=[...t.codes.values()].filter(c=>!c.used).length;
+  let ptsLive=0; t.users.forEach(u=>ptsLive+=u.pts);
+  return {users:t.base.users+t.users.size, issued:t.base.issued, redeemed:t.base.redeemed, redemptions:t.base.redemptions, active,
+    outstanding:(t.base.issued-t.base.redeemed)+ptsLive};
+}
+
+function captureCode(raw){
+  const t=tenant(), ps=phoneState(), u=userOf(t,ps.phone);
+  const code=raw.toUpperCase().replace(/\s+/g,'').replace(/^([A-Z]{3})-?(\w{4})-?(\w{4})$/,'$1-$2-$3');
+  if(Date.now()<ps.lockUntil){ const s=Math.ceil((ps.lockUntil-Date.now())/1000); return {ok:false,msg:`Demasiados intentos. Intenta de nuevo en ${s} s.`}; }
+  const fail = (msg)=>{ ps.fails++; if(ps.fails>=3){ ps.lockUntil=Date.now()+60000; ps.fails=0;
+      addAlert(t,`3 códigos inválidos seguidos desde ${ps.phone.slice(0,2)}•••${ps.phone.slice(-4)}. Bloqueo de 60 s aplicado`,'warn');
+      return {ok:false,msg:msg+' Tu cuenta quedó en pausa 60 s por seguridad.'}; }
+    return {ok:false,msg}; };
+  if(!code) return {ok:false,msg:'Escribe el código que viene en tu tarjeta.'};
+  const c=t.codes.get(code);
+  if(!c) return fail(`No encontramos ese código en ${t.short}. Revisa que esté completo.`);
+  if(c.used) return fail(`Este código ya se usó el ${c.used.toLocaleDateString('es-MX',{day:'numeric',month:'short'})}.`);
+  c.used=now(); ps.fails=0; u.pts+=c.pts;
+  u.hist.unshift({d:'Hoy',txt:t.unit==='carga'?'Código de carga':'Código por bultos',pts:c.pts});
+  t.base.issued+=c.pts;
+  addLog(t,`Cliente ${ps.phone.slice(0,2)}•••${ps.phone.slice(-4)} sumó ${c.pts} puntos (${code})`);
+  return {ok:true,msg:`Sumaste ${c.pts} puntos.`};
+}
+
+async function redeem(){
+  const t=tenant(), ps=phoneState(), u=userOf(t,ps.phone), p=ps.product, cost=ptsCost(t,p);
+  if(u.redeemedToday>=t.rules.dailyCap){ ps.msg={k:'bad',t:`Llegaste al límite de ${t.rules.dailyCap} canje(s) por día. Vuelve mañana.`}; return render(); }
+  if(u.pts<cost){ ps.msg={k:'bad',t:'No tienes puntos suficientes.'}; return render(); }
+  ps.screen='processing'; render();
+  // Los puntos se descuentan solo cuando el proveedor confirma (no hay "puntos perdidos" si falla).
+  const res=await provider.redeem({sku:p.sku,amount:p.value,destination:ps.dest,idempotencyKey:crypto.randomUUID()});
+  if(res.ok){
+    u.pts-=cost; u.redeemedToday++; u.hist.unshift({d:'Hoy',txt:`${p.name} ${money(p.value)}`,pts:-cost});
+    t.base.redeemed+=cost; t.base.redemptions++;
+    addLog(t,`Canje aplicado: ${p.name} ${money(p.value)} · folio ${res.folio}`);
+    ps.result={ok:true,folio:res.folio}; ps.screen='done';
+  }else{
+    addAlert(t,`Canje rechazado por el proveedor (${res.error}): ${p.name} ${money(p.value)}`, res.error==='SALDO_INSUFICIENTE'?'bad':'warn');
+    ps.result={ok:false,msg:res.message}; ps.screen='done';
+  }
+  render();
+}
+
+/* ============ Render: teléfono ============ */
+function pump(t,u){
+  const s=String(Math.max(0,u.pts)).padStart(5,'0');
+  const lead=s.search(/[1-9]/); const digits=[...s].map((d,i)=>`<span class="${lead===-1&&i<4||lead>i?'dim':''}">${d}</span>`).join('');
+  return `<div class="pump${phoneState().bump?' bump':''}">
+    <div class="pump-top"><span>Tus puntos</span><span>1 pt = ${money(t.rules.pointValue)}</span></div>
+    <div class="digits num" aria-label="${u.pts} puntos">${digits}</div>
+    <div class="pump-foot"><span>Equivale a</span><b class="num">${money(u.pts*t.rules.pointValue)}</b></div>
+  </div>`;
+}
+function renderPhone(){
+  const t=tenant(), ps=phoneState(), scr=$('#screen');
+  scr.style.setProperty('--b',t.b); scr.style.setProperty('--b-ink',t.bInk); scr.style.setProperty('--b-glow',t.glow);
+  const head=`<div class="sbar"><span>9:41</span><span>●●● 5G ▮</span></div>
+   <div class="app-head"><div class="app-mark">${t.mark}</div><div><div class="app-name">${esc(t.name)}</div><div class="app-sub">${t.domain}</div></div></div>`;
+  let body='';
+  const msg = ps.msg?`<div class="p-msg ${ps.msg.k}" role="status">${esc(ps.msg.t)}</div>`:'';
+  const u = ps.screen!=='login'? userOf(t,ps.phone):null;
+
+  if(ps.screen==='login'){
+    body=`<div class="p-h">Junta puntos ${t.unitHint} y cámbialos por recargas y pagos.</div>
+      <div class="field"><label class="p-muted" for="pPhone">Tu celular</label>
+      <input class="p-input num" id="pPhone" inputmode="numeric" maxlength="10" value="${ps.phone}"></div>
+      ${ps.otpSent?`<div class="field"><label class="p-muted" for="pOtp">Código que te enviamos por SMS</label>
+        <input class="p-input num" id="pOtp" inputmode="numeric" maxlength="4" placeholder="4 dígitos" value="${ps.otp}"></div>
+        <div class="p-msg info">En la demo el código es <b>4821</b>.</div>`:''}
+      ${msg}
+      <button class="p-btn" data-a="${ps.otpSent?'verify':'sendOtp'}">${ps.otpSent?'Entrar':'Enviar código por SMS'}</button>
+      <p class="p-muted">Sin app que descargar. Tu número es tu cuenta.</p>`;
+  }
+  else if(ps.screen==='home'){
+    const cheapest=Math.min(...CATALOG.filter(p=>t.catalog.has(p.sku)).map(p=>ptsCost(t,p)));
+    const pct=Math.min(100,u.pts/cheapest*100);
+    const left=Math.max(0,cheapest-u.pts), unitsLeft=Math.ceil(left/t.rules.ptsPerCode);
+    body=`${pump(t,u)}
+      <div class="p-card"><div class="p-row"><b>${left?`Te faltan ${fmt(left)} pts`:'Ya puedes canjear'}</b><span class="p-muted num">${fmt(u.pts)}/${fmt(cheapest)}</span></div>
+        <div class="progress" style="margin-top:8px"><i style="width:${pct}%"></i></div>
+        <div class="p-muted" style="margin-top:6px">${left?`Unas ${unitsLeft} ${t.unit}${unitsLeft>1?'s':''} más para tu primera recarga.`:'Elige una recarga o un pago de servicio.'}</div></div>
+      ${msg}
+      <div class="p-actions"><button class="p-btn" data-a="toCapture">Sumar código</button><button class="p-btn ghost" data-a="toRedeem">Canjear</button></div>
+      <div class="p-card"><b>Movimientos</b><div class="hist">${u.hist.slice(0,5).map(h=>`<div><span>${esc(h.txt)} <span class="p-muted">· ${h.d}</span></span><span class="${h.pts>0?'plus':'minus'} num">${h.pts>0?'+':''}${fmt(h.pts)}</span></div>`).join('')||'<div class="p-muted">Aún no tienes movimientos.</div>'}</div></div>
+      <button class="back" data-a="logout">Cerrar sesión</button>`;
+  }
+  else if(ps.screen==='capture'){
+    const sample=[...t.codes.entries()].filter(([,c])=>!c.used).slice(0,3).map(([k])=>k);
+    const usedOne=[...t.codes.entries()].find(([,c])=>c.used)?.[0];
+    body=`<button class="back" data-a="home">← Volver</button>
+      <div class="p-h">Captura tu código</div>
+      <p class="p-muted" style="margin:0">Viene en la tarjeta que te dieron ${t.unit==='carga'?'al cargar':'con tu compra'}. Cada código se usa una sola vez.</p>
+      <input class="p-input num" id="pCode" placeholder="${t.prefix}-XXXX-XXXX" autocomplete="off" maxlength="14" value="">
+      ${msg}
+      <button class="p-btn" data-a="capture">Sumar puntos</button>
+      <div class="p-card"><div class="p-muted" style="margin-bottom:6px">Para probar la demo, toca un código:</div>
+        <div class="chips">${sample.map(c=>`<button class="chip" data-a="fill" data-v="${c}">${c}</button>`).join('')}
+        ${usedOne?`<button class="chip" data-a="fill" data-v="${usedOne}" title="Código ya usado">${usedOne} (usado)</button>`:''}
+        <button class="chip" data-a="fill" data-v="${t.prefix}-AAAA-BBBB">Código falso</button></div></div>`;
+  }
+  else if(ps.screen==='redeem'){
+    const items=CATALOG.filter(p=>t.catalog.has(p.sku));
+    body=`<button class="back" data-a="home">← Volver</button>
+      <div class="p-row"><div class="p-h">Canjear puntos</div><b class="num">${fmt(u.pts)} pts</b></div>
+      ${msg}
+      ${items.map(p=>{const c=ptsCost(t,p);return `<button class="prod" data-a="pick" data-v="${p.sku}" ${u.pts<c?'disabled':''}>
+        <span class="ic" style="background:${p.color}">${p.kind==='recarga'?'TA':p.kind==='servicio'?'PAGO':'GIFT'}</span>
+        <span class="t"><b>${esc(p.name)} ${money(p.value)}</b><small>${p.kind==='recarga'?'Tiempo aire a cualquier número':p.kind==='servicio'?'Pago con número de referencia':'Código digital'}</small></span>
+        <span class="c num">${fmt(c)} pts</span></button>`}).join('')}
+      <p class="p-muted">Tu marca decide qué productos ofrece y cuánto valen en puntos.</p>`;
+  }
+  else if(ps.screen==='confirm'){
+    const p=ps.product, c=ptsCost(t,p), isRef=p.kind==='servicio';
+    body=`<button class="back" data-a="toRedeem">← Cambiar producto</button>
+      <div class="p-h">${esc(p.name)} ${money(p.value)}</div>
+      <div class="field"><label class="p-muted" for="pDest">${isRef?'Número de referencia del recibo':'Número a recargar'}</label>
+      <input class="p-input num" id="pDest" inputmode="numeric" maxlength="${isRef?30:10}" value="${esc(ps.dest|| (isRef?'':ps.phone))}" placeholder="${isRef?'Ej. 015 123 456 789':'10 dígitos'}"></div>
+      <div class="p-card"><div class="p-row"><span>Costo</span><b class="num">${fmt(c)} pts</b></div>
+      <div class="p-row"><span class="p-muted">Te quedan</span><span class="p-muted num">${fmt(u.pts-c)} pts</span></div></div>
+      ${msg}
+      <button class="p-btn" data-a="redeem">Confirmar canje</button>
+      <p class="p-muted">Prueba un error: usa un número que termine en 0000.</p>`;
+  }
+  else if(ps.screen==='processing'){
+    body=`<div class="spinner" aria-hidden="true"></div><p style="text-align:center">Aplicando tu ${ps.product.kind==='servicio'?'pago':'recarga'}…</p>
+      <p class="p-muted" style="text-align:center">Tus puntos se descuentan solo cuando el proveedor confirma.</p>`;
+  }
+  else if(ps.screen==='done'){
+    const r=ps.result;
+    body= r.ok?`<div class="p-msg ok" style="margin-top:12px"><b>Listo.</b> ${esc(ps.product.name)} ${money(ps.product.value)} aplicada a ${esc(ps.dest)}.</div>
+        <div class="p-card"><div class="p-muted" style="text-align:center">Folio</div><div class="folio num">${r.folio}</div></div>
+        ${pump(t,u)}
+        <button class="p-btn" data-a="home">Volver al inicio</button>`
+      : `<div class="p-msg bad" style="margin-top:12px"><b>No se aplicó.</b> ${esc(r.msg)}</div>
+        <div class="p-msg info">Tus puntos siguen completos: ${fmt(u.pts)} pts.</div>
+        <button class="p-btn" data-a="toConfirm">Intentar de nuevo</button><button class="p-btn ghost" data-a="home">Volver al inicio</button>`;
+  }
+  scr.innerHTML=head+`<div class="app-body">${body}</div>`;
+  ps.bump=false;
+  $('#phoneCaption').textContent = `Lo que ve el cliente de ${t.short}: su navegador, con la marca de ${t.short}. Misma plataforma para todas las marcas.`;
+}
+
+/* ============ Render: panel de la marca ============ */
+function renderBrand(){
+  const t=tenant(), r=t.rules, st=liveStats(t);
+  const telcel=CATALOG.find(p=>p.sku==='TEL-50'), need=Math.ceil(ptsCost(t,telcel)/r.ptsPerCode);
+  const pv=S.previewBatch && t.batches.find(b=>b.id===S.previewBatch);
+  return `<div class="panel-head"><div><h1>${esc(t.name)}</h1><p>Programa de puntos de ${esc(t.giro.toLowerCase())}. Reglas, códigos impresos y catálogo de canje.</p></div>
+    <span class="pill neutral">${t.domain}</span></div>
+
+  <div class="kpis">
+    <div class="kpi"><small>Clientes registrados</small><b>${fmt(st.users)}</b></div>
+    <div class="kpi"><small>Puntos emitidos</small><b>${fmt(st.issued)}</b><em> = ${money(st.issued*r.pointValue)}</em></div>
+    <div class="kpi"><small>Canjes realizados</small><b>${fmt(st.redemptions)}</b></div>
+    <div class="kpi"><small>Puntos por canjear</small><b>${fmt(st.outstanding)}</b><em> = ${money(st.outstanding*r.pointValue)}</em></div>
+  </div>
+
+  <div class="two">
+    <section class="sec"><h2>Reglas del programa</h2>
+      <div class="fields">
+        <div class="field"><label for="rPv">Valor de 1 punto (MXN)</label><input id="rPv" type="number" step="0.01" min="0.01" value="${r.pointValue}" data-rule="pointValue"></div>
+        <div class="field"><label for="rPc">Puntos por ${t.unit}</label><input id="rPc" type="number" step="10" min="10" value="${r.ptsPerCode}" data-rule="ptsPerCode"></div>
+        <div class="field"><label for="rCap">Canjes por cliente al día</label><input id="rCap" type="number" min="1" max="10" value="${r.dailyCap}" data-rule="dailyCap"></div>
+        <div class="field"><label for="rExp">Vigencia de los puntos (meses)</label><input id="rExp" type="number" min="1" max="36" value="${r.expiryMonths}" data-rule="expiryMonths"></div>
+      </div>
+      <div class="rule-line">Cada ${t.unit} da ${fmt(r.ptsPerCode)} pts (${money(r.ptsPerCode*r.pointValue)}). Una recarga Telcel de $50 cuesta ${fmt(ptsCost(t,telcel))} pts: <b>${need} ${t.unit}${need>1?'s':''}</b>.</div>
+    </section>
+
+    <section class="sec"><h2>Catálogo de canje</h2>
+      <p class="sub">Productos que tus clientes pueden elegir. El costo en puntos se calcula con el valor del punto.</p>
+      <div class="checks">${CATALOG.map(p=>`<label><input type="checkbox" data-sku="${p.sku}" ${t.catalog.has(p.sku)?'checked':''}>${esc(p.name)} ${money(p.value)}<span>${fmt(ptsCost(t,p))} pts</span></label>`).join('')}</div>
+    </section>
+  </div>
+
+  <section class="sec"><h2>Lotes de códigos</h2>
+    <p class="sub">Códigos únicos de un solo uso para imprimir en tarjetas o tickets. El despachador entrega uno ${t.unitHint}.</p>
+    <div class="row">
+      <div class="field"><label for="bQty">Cantidad</label><input id="bQty" type="number" min="10" max="5000" step="10" value="500" style="width:120px"></div>
+      <div class="field"><label for="bPts">Puntos por código</label><input id="bPts" type="number" min="10" step="10" value="${r.ptsPerCode}" style="width:140px"></div>
+      <button class="btn primary" data-a="batch">Generar lote</button>
+    </div>
+    <div class="tbl-wrap"><table><thead><tr><th>Lote</th><th>Creado</th><th class="r">Códigos</th><th class="r">Usados</th><th class="r">Pts c/u</th><th class="r">Valor total</th><th></th></tr></thead><tbody>
+      ${t.batches.map(b=>{const used=b.codes.filter(c=>t.codes.get(c).used).length;return `<tr>
+        <td><b>${b.id}</b>${b.note?` <span class="pill neutral">${b.note}</span>`:''}</td><td>${b.date.toLocaleDateString('es-MX',{day:'numeric',month:'short'})}</td>
+        <td class="r">${fmt(b.qty)}</td><td class="r">${fmt(used)} <span style="color:var(--muted)">(${Math.round(used/b.qty*100)}%)</span></td>
+        <td class="r">${fmt(b.pts)}</td><td class="r">${money(b.qty*b.pts*r.pointValue)}</td>
+        <td class="r"><button class="btn sm" data-a="preview" data-v="${b.id}">${S.previewBatch===b.id?'Ocultar':'Ver tarjetas'}</button></td></tr>`}).join('')}
+    </tbody></table></div>
+    ${pv?`<div class="row" style="justify-content:space-between;align-items:center"><b>Tarjetas del lote ${pv.id} (primeras 6 de ${fmt(pv.qty)})</b><button class="btn sm" data-a="copyCodes" data-v="${pv.id}">Copiar códigos del lote</button></div>
+      <div class="cards" style="--tb:${t.b};--tb-ink:${t.bInk}">${pv.codes.slice(0,6).map(c=>`<div class="tcard"><div class="n">${esc(t.name)}</div><code>${c}</code><small>${fmt(pv.pts)} puntos. Captúralo en ${t.domain} y canjéalo por recargas y pagos.</small></div>`).join('')}</div>`:''}
+  </section>
+
+  <section class="sec"><h2>Actividad</h2>
+    <div class="log">${t.log.slice(0,30).map(l=>`<div><time>${hhmm(l.t)}</time><span class="sev ${l.sev}">${esc(l.text)}</span></div>`).join('')}</div>
+  </section>`;
+}
+
+/* ============ Render: plataforma Tekae ============ */
+function renderPlatform(){
+  const pct=Math.min(100,provider.balance/30000*100), low=provider.balance<provider.threshold;
+  return `<div class="panel-head"><div><h1>Tekae Lealtad</h1><p>Vista de la plataforma: todas las marcas, el saldo con el proveedor de canje y las alertas de seguridad.</p></div>
+    <span class="pill ${low?'warn':'ok'}">${low?'Saldo bajo':'Operando'}</span></div>
+
+  <div class="two">
+    <section class="sec"><h2>Saldo con el proveedor de canje</h2>
+      <p class="sub">Saldo prepagado en Tekae. Cada canje lo descuenta. Si alguien intentara abusar del sistema, nunca podría gastar más que este saldo.</p>
+      <div class="big">${money(provider.balance)}</div>
+      <div class="meter" aria-hidden="true"><i class="${low?'low':''}" style="width:${pct}%"></i></div>
+      <div class="row" style="justify-content:space-between;align-items:center">
+        <span style="color:var(--muted);font-size:13.5px">Alerta cuando baje de ${money(provider.threshold)}</span>
+        <div class="row"><button class="btn sm" data-a="drain">Simular saldo bajo</button><button class="btn sm primary" data-a="topup">Agregar $10,000</button></div>
+      </div>
+    </section>
+    <section class="sec"><h2>Proveedor de canje</h2>
+      <div class="tbl-wrap"><table><tbody>
+        <tr><td>Tekae API</td><td class="r"><span class="pill warn">Simulado, en espera de documentación</span></td></tr>
+        <tr><td>Códigos por lote (respaldo)</td><td class="r"><span class="pill neutral">Disponible</span></td></tr>
+        <tr><td>Operador móvil virtual</td><td class="r"><span class="pill neutral">Fase 2</span></td></tr>
+      </tbody></table></div>
+      <p class="code-note">Cada proveedor implementa la misma interfaz: <code>listProducts()</code>, <code>redeem()</code>, <code>status()</code>. Cambiar de proveedor no toca reglas, códigos ni la app del cliente.</p>
+    </section>
+  </div>
+
+  <section class="sec"><h2>Marcas</h2>
+    <div class="tbl-wrap"><table><thead><tr><th>Marca</th><th>Giro</th><th>Dominio</th><th class="r">Clientes</th><th class="r">Canjes</th><th class="r">Puntos por canjear</th><th class="r">Pasivo</th></tr></thead><tbody>
+    ${Object.values(T).map(t=>{const s=liveStats(t);return `<tr><td><b>${esc(t.name)}</b></td><td>${esc(t.giro)}</td><td>${t.domain}</td><td class="r">${fmt(s.users)}</td><td class="r">${fmt(s.redemptions)}</td><td class="r">${fmt(s.outstanding)}</td><td class="r">${money(s.outstanding*t.rules.pointValue)}</td></tr>`}).join('')}
+    </tbody></table></div>
+    <p class="code-note">El pasivo es lo que costaría si todos los clientes canjearan hoy. Cada marca fondea su bolsa antes de emitir puntos.</p>
+  </section>
+
+  <section class="sec"><h2>Alertas de seguridad</h2>
+    <p class="sub">Intentos con códigos falsos o repetidos, bloqueos y canjes rechazados. Prueba con un código falso tres veces en el teléfono.</p>
+    <div class="log">${S.alerts.length?S.alerts.slice(0,30).map(a=>`<div><time>${hhmm(a.t)}</time><span class="sev ${a.sev}"><b>${esc(a.tenant)}</b> · ${esc(a.text)}</span></div>`).join(''):'<p class="empty">Sin alertas.</p>'}</div>
+  </section>`;
+}
+
+/* ============ Render general ============ */
+function render(){
+  $('#tenantSeg').innerHTML=Object.values(T).map(t=>`<button data-tenant="${t.id}" aria-pressed="${S.tenant===t.id}">${esc(t.short)}</button>`).join('');
+  document.querySelectorAll('#viewSeg button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.view===S.view));
+  renderPhone();
+  const panel=$('#panel'), y=window.scrollY;
+  panel.innerHTML = S.view==='brand'?renderBrand():renderPlatform();
+  window.scrollTo(0,y);
+}
+
+/* ============ Eventos ============ */
+document.addEventListener('click', async e=>{
+  const tb=e.target.closest('[data-tenant]'); if(tb){S.tenant=tb.dataset.tenant;S.previewBatch=null;return render();}
+  const vb=e.target.closest('[data-view]'); if(vb){S.view=vb.dataset.view;return render();}
+  const el=e.target.closest('[data-a]'); if(!el) return;
+  const a=el.dataset.a, t=tenant(), ps=phoneState();
+  ps.msg=null;
+  switch(a){
+    case 'sendOtp':{ const v=$('#pPhone').value.replace(/\D/g,''); if(v.length!==10){ps.msg={k:'bad',t:'Escribe tu número a 10 dígitos.'};break;} ps.phone=v; ps.otpSent=true; break;}
+    case 'verify':{ const v=$('#pOtp').value.trim(); ps.otp=v; if(v!=='4821'){ps.msg={k:'bad',t:'El código no coincide. En la demo es 4821.'};break;} ps.screen='home'; ps.otpSent=false; ps.otp=''; userOf(t,ps.phone); addLog(t,`Inicio de sesión de ${ps.phone.slice(0,2)}•••${ps.phone.slice(-4)}`); break;}
+    case 'logout': ps.screen='login'; break;
+    case 'home': ps.screen='home'; break;
+    case 'toCapture': ps.screen='capture'; break;
+    case 'toRedeem': ps.screen='redeem'; break;
+    case 'toConfirm': ps.screen='confirm'; break;
+    case 'fill': render(); $('#pCode').value=el.dataset.v; $('#pCode').focus(); return;
+    case 'capture':{ const r=captureCode($('#pCode').value); if(r.ok){ps.screen='home';ps.bump=true;ps.msg={k:'ok',t:r.msg};} else ps.msg={k:'bad',t:r.msg}; break;}
+    case 'pick': ps.product=CATALOG.find(p=>p.sku===el.dataset.v); ps.dest=''; ps.screen='confirm'; break;
+    case 'redeem':{ const p=ps.product, v=$('#pDest').value.replace(/\D/g,'');
+      if(p.kind==='servicio'? v.length<8 : v.length!==10){ps.dest=v;ps.msg={k:'bad',t:p.kind==='servicio'?'La referencia parece incompleta.':'El número debe tener 10 dígitos.'};break;}
+      ps.dest=v; return redeem(); }
+    case 'batch':{ const q=Math.min(5000,Math.max(10,+$('#bQty').value||0)), p=Math.max(10,+$('#bPts').value||0); const b=createBatch(t,q,p); addLog(t,`Lote ${b.id} generado: ${fmt(q)} códigos de ${fmt(p)} puntos`); S.previewBatch=b.id; break;}
+    case 'preview': S.previewBatch = S.previewBatch===el.dataset.v?null:el.dataset.v; break;
+    case 'copyCodes':{ const b=t.batches.find(x=>x.id===el.dataset.v); const txt='codigo,puntos\n'+b.codes.map(c=>`${c},${b.pts}`).join('\n');
+      try{ await navigator.clipboard.writeText(txt); el.textContent='Copiados'; }catch{ el.textContent='No se pudo copiar'; } setTimeout(render,1500); return; }
+    case 'topup': provider.balance+=10000; S.alerts.unshift({t:now(),tenant:'Tekae',text:'Saldo con proveedor recargado: +$10,000',sev:'ok'}); break;
+    case 'drain': provider.balance=Math.min(provider.balance,3200); S.alerts.unshift({t:now(),tenant:'Tekae',text:`Saldo con proveedor por debajo de ${money(provider.threshold)}`,sev:'bad'}); break;
+  }
+  render();
+});
+document.addEventListener('change', e=>{
+  const t=tenant();
+  if(e.target.dataset.rule){ const k=e.target.dataset.rule; let v=+e.target.value; if(!(v>0)) return render();
+    t.rules[k]= k==='pointValue'? Math.round(v*100)/100 : Math.round(v); addLog(t,`Regla actualizada: ${e.target.previousElementSibling.textContent} = ${t.rules[k]}`); render(); }
+  if(e.target.dataset.sku){ e.target.checked?t.catalog.add(e.target.dataset.sku):t.catalog.delete(e.target.dataset.sku); render(); }
+});
+document.addEventListener('keydown', e=>{
+  if(e.key!=='Enter') return;
+  const map={pPhone:'sendOtp',pOtp:'verify',pCode:'capture',pDest:'redeem'}; const a=map[e.target.id];
+  if(a){ e.preventDefault(); document.querySelector(`[data-a="${a}"]`)?.click(); }
+});
+render();
+</script>
+</body>
+</html>

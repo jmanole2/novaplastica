@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<title>Tekae Lealtad — brag</title>
+<link rel="stylesheet" href="../app/fonts/fonts.css">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:1920px;height:1080px;overflow:hidden;background:#0E141A;color:#E5EBF1;font-family:Onest,sans-serif}
+#frame{position:absolute;inset:0;overflow:hidden;background:radial-gradient(ellipse at 70% 45%,#15202B 0%,#0E141A 60%)}
+#stage{position:absolute;left:0;top:0;width:1600px;height:1000px;transform-origin:0 0}
+#app{position:absolute;left:0;top:0;width:1600px;height:1000px;border:0;background:transparent}
+#spot{position:absolute;left:0;top:0;border-radius:16px;box-shadow:0 0 0 4000px rgba(14,20,26,.94);pointer-events:none;opacity:0}
+#scrimR{position:absolute;inset:0;background:linear-gradient(90deg,rgba(14,20,26,0) 72%,rgba(14,20,26,.96) 88%);pointer-events:none;opacity:0}
+#scrimT{position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,20,26,.97) 0%,rgba(14,20,26,.92) 24%,rgba(14,20,26,0) 42%);pointer-events:none;opacity:0}
+#scrimL{position:absolute;inset:0;background:linear-gradient(90deg,rgba(14,20,26,.97) 0%,rgba(14,20,26,.9) 40%,rgba(14,20,26,0) 56%);pointer-events:none;opacity:0}
+.cap{position:absolute;left:120px;top:0;width:960px;opacity:0}
+.eyebrow{font:700 22px/1 Onest,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#3BE06E;margin-bottom:24px}
+.title{font-family:Archivo,sans-serif;font-weight:800;font-stretch:112%;font-size:66px;line-height:1.08;letter-spacing:-.015em;color:#F4F7F9}
+.sub{font:500 32px/1.35 Onest,sans-serif;color:#A9B5C1;margin-top:22px;max-width:760px}
+#hooktxt{position:absolute;left:0;right:0;top:0;text-align:center;font-family:Archivo,sans-serif;font-weight:800;font-stretch:115%;font-size:84px;letter-spacing:-.015em;opacity:0}
+#hooktxt em{font-style:normal;color:#FFC531}
+#logo{display:flex;align-items:center;gap:26px;font-family:Archivo,sans-serif;font-weight:800;font-stretch:118%;font-size:92px;letter-spacing:-.01em;color:#F4F7F9;white-space:nowrap}
+#logo i{width:84px;height:84px;border-radius:50%;background:conic-gradient(#3BE06E 0 72%,#2A3642 72% 100%);display:inline-block;flex:none}
+#tap{position:absolute;left:0;top:0;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;background:rgba(255,255,255,.35);border:2.5px solid rgba(255,255,255,.95);box-shadow:0 6px 24px rgba(0,0,0,.35);opacity:0}
+#ring{position:absolute;left:0;top:0;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;border:3px solid rgba(255,255,255,.9);opacity:0}
+#vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 50%,rgba(0,0,0,0) 60%,rgba(0,0,0,.35) 100%)}
+</style></head>
+<body>
+<div id="frame">
+  <div id="stage"><iframe id="app" src="../app/index.html" scrolling="no"></iframe></div>
+  <div id="spot"></div>
+  <div id="scrimR"></div><div id="scrimT"></div><div id="scrimL"></div>
+  <div id="hooktxt">Junta puntos por <em>cada carga.</em></div>
+  <div class="cap" id="cap-reveal"><div class="eyebrow">Gasolinera El Mirador</div><div class="title">Tekae Lealtad</div><div class="sub">Puntos que se cambian por recargas y pagos.</div></div>
+  <div class="cap" id="cap1"><div class="eyebrow">Para el cliente</div><div class="title">Sin app que descargar.<br>Tu número es tu cuenta.</div></div>
+  <div class="cap" id="cap2"><div class="eyebrow">Canje</div><div class="title">Cámbialos por recargas<br>y pagos.</div><div class="sub">Tus puntos se descuentan solo cuando el proveedor confirma.</div></div>
+  <div class="cap" id="cap3"><div class="eyebrow">Panel de la marca</div><div class="title">Reglas, códigos impresos y catálogo de canje.</div></div>
+  <div class="cap" id="cap4"><div id="logo"><i></i>Tekae Lealtad</div><div class="sub" style="font-size:38px;color:#C9D3DC;margin-top:30px">Misma plataforma para todas las marcas.</div></div>
+  <div id="ring"></div><div id="tap"></div>
+  <div id="vignette"></div>
+</div>
+<script>
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)), lerp=(a,b,k)=>a+(b-a)*k, seg=(t,a,b)=>clamp((t-a)/(b-a));
+const eio=k=>k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2, eout=k=>1-Math.pow(1-k,3);
+const win=(t,a,b,i=.45,o=.3)=>Math.min(eout(seg(t,a,a+i)),1-eio(seg(t,b-o,b)));
+const $=id=>document.getElementById(id);
+let W,D; // iframe window / document
+const q=s=>D.querySelector(s);
+const rectOf=s=>{const e=typeof s==='string'?q(s):s; if(!e) return null; const b=e.getBoundingClientRect(); return {x:b.left,y:b.top,w:b.width,h:b.height,cx:b.left+b.width/2,cy:b.top+b.height/2};};
+
+// ── camera states (focus resolved live from the real DOM) ──
+const CAM={
+  pump:()=>{const r=rectOf('.pump')||rectOf('.phone');return {f:[r.cx,r.cy],s:3.3,g:[960,640]};},
+  phoneR:()=>{const r=rectOf('.phone');return {f:[r.cx,r.cy],s:1.22,g:[1390,540]};},
+  phoneZ:()=>{const r=rectOf('.phone');return {f:[r.cx,r.cy],s:1.38,g:[1380,540]};},
+  cards:()=>{const r=rectOf('.cards')||rectOf('.panel');return {f:[r.cx,r.cy],s:1.32,g:[1120,730]};},
+};
+const CAMKEYS=[[0,'pump'],[2.8,'pump'],[4.0,'phoneR'],[5.7,'phoneR'],[6.5,'phoneZ'],[15.9,'phoneZ'],[16.9,'cards'],[18.6,'cards'],[19.5,'phoneR']];
+function camAt(t){
+  let i=0; while(i<CAMKEYS.length-1 && t>=CAMKEYS[i+1][0]) i++;
+  const [t0,a]=CAMKEYS[i], nx=CAMKEYS[i+1]; const A=CAM[a]();
+  if(!nx||a===nx[1]) return fin(A,A,0);
+  return fin(A,CAM[nx[1]](),eio(seg(t,t0,nx[0])));
+}
+function fin(A,B,k){const s=Math.exp(lerp(Math.log(A.s),Math.log(B.s),k));const fx=lerp(A.f[0],B.f[0],k),fy=lerp(A.f[1],B.f[1],k),gx=lerp(A.g[0],B.g[0],k),gy=lerp(A.g[1],B.g[1],k);return {s,tx:gx-fx*s,ty:gy-fy*s};}
+const toScreen=(c,x,y)=>[x*c.s+c.tx,y*c.s+c.ty];
+
+// ── page scroll for the panel scene ──
+let cardsScroll=0;
+const scrollAt=t=>cardsScroll*Math.min(eio(seg(t,15.9,16.9)),1-eio(seg(t,18.6,19.5)));
+
+// ── app driving ──
+let CODE='';
+const click=sel=>{const e=typeof sel==='function'?sel():q(sel); if(e) e.click(); return e;};
+const ACTIONS=[
+  [6.25,()=>click('[data-a="toCapture"]')],
+  [8.65,()=>{const i=q('#pCode'); if(i) i.value=CODE; click('[data-a="capture"]');}],
+  [11.25,()=>click('[data-a="toRedeem"]')],
+  [12.0,()=>click('[data-a="pick"][data-v="TEL-50"]')],
+  [12.8,()=>click('[data-a="redeem"]')],
+  [14.05,()=>W.__release&&W.__release()],
+  [15.6,()=>{click('[data-a="preview"][data-v="L-002"]'); W.scrollTo(0,0); const r=rectOf('.cards'); cardsScroll=Math.max(0,r.cy-560);}],
+  [19.75,()=>click('[data-tenant="calnorte"]')],
+];
+const TAPS=[[6.25,'[data-a="toCapture"]'],[6.55,'#pCode'],[8.65,'[data-a="capture"]'],[11.25,'[data-a="toRedeem"]'],[12.0,'[data-a="pick"][data-v="TEL-50"]'],[12.8,'[data-a="redeem"]'],[19.75,'[data-tenant="calnorte"]']];
+const tapPos={}; // remembered target centres (iframe coords) at tap time
+let done=0, lastT=-1;
+function setPump(v){
+  const p=q('.pump'); if(!p) return;
+  const s=String(Math.max(0,Math.round(v))).padStart(5,'0'); const lead=s.search(/[1-9]/);
+  p.querySelectorAll('.digits span').forEach((sp,i)=>{sp.textContent=s[i]; sp.className=(lead===-1&&i<4||lead>i)?'dim':'';});
+  const b=p.querySelector('.pump-foot b'); if(b) b.textContent='$'+(Math.round(v)*0.1).toLocaleString('es-MX',{maximumFractionDigits:2});
+}
+
+window.seek=async function(t){
+  if(t<lastT) throw new Error('seek must be monotonic');
+  lastT=t;
+  // record tap targets slightly before their action, then run due actions
+  for(const [tt,sel] of TAPS) if(t>=tt-0.45 && !tapPos[tt]){const r=rectOf(sel); if(r) tapPos[tt]=[r.cx,r.cy];}
+  while(done<ACTIONS.length && t>=ACTIONS[done][0]){ ACTIONS[done][1](); done++; await new Promise(r=>setTimeout(r,0)); await new Promise(r=>setTimeout(r,0)); }
+  // typing into the real code field
+  const inp=q('#pCode'); if(inp){ const n=Math.round(clamp((t-6.9)/(8.25-6.9))*CODE.length); inp.value=CODE.slice(0,n); inp.style.borderColor=t>6.55?'var(--b)':''; }
+  // counter rolls (gas-pump style)
+  if(t<2.4) setPump(lerp(0,340,eio(seg(t,.35,2.1))));
+  if(t>=8.65&&t<9.7) setPump(lerp(340,540,eio(seg(t,8.75,9.6))));
+  // spinner
+  const sp=q('.spinner'); if(sp) sp.style.transform=`rotate(${t*420}deg)`;
+  W.scrollTo(0,scrollAt(t));
+
+  const c=camAt(t);
+  $('stage').style.transform=`translate(${c.tx}px,${c.ty}px) scale(${c.s})`;
+  // hook spotlight around the real pump counter
+  const pr=rectOf('.pump');
+  if(pr){const [x,y]=toScreen(c,pr.x,pr.y); $('spot').style.left=x+'px'; $('spot').style.top=y+'px'; $('spot').style.width=pr.w*c.s+'px'; $('spot').style.height=pr.h*c.s+'px'; $('spot').style.borderRadius=16*c.s+'px';}
+  $('spot').style.opacity=1-eio(seg(t,2.7,3.6));
+  $('hooktxt').style.opacity=win(t,.7,2.95,.45,.25); $('hooktxt').style.transform=`translateY(${150+(1-eout(seg(t,.7,1.15)))*20}px)`;
+  // scrims keep the captions legible
+  const phoneScene=Math.min(eout(seg(t,3.3,4.2)),1-eio(seg(t,15.8,16.4))) , outro=eout(seg(t,18.9,19.6));
+  $('scrimL').style.opacity=Math.max(phoneScene,outro);
+  $('scrimR').style.opacity=Math.max(phoneScene,outro);
+  $('scrimT').style.opacity=win(t,16.3,18.8,.4,.3);
+  // captions
+  const cap=(id,a,b,y)=>{const e=$(id);const v=win(t,a,b);e.style.opacity=v;e.style.transform=`translateY(${y-e.offsetHeight/2+(1-v)*22}px)`;};
+  cap('cap-reveal',3.5,6.1,540); cap('cap1',6.55,10.9,540); cap('cap2',11.25,15.75,540); cap('cap4',19.3,21.55,540);
+  const c3=$('cap3'); const v3=win(t,16.5,18.75); c3.style.opacity=v3; c3.style.width='1720px'; c3.style.transform=`translateY(${70+(1-v3)*18}px)`;
+  c3.querySelector('.title').style.fontSize='58px'; c3.querySelector('.title').style.whiteSpace='nowrap';
+  // touch indicator
+  let tv=0,tx=0,ty=0,press=0,rv=0,rs=1;
+  for(const [tt] of TAPS){ if(t>=tt-.4&&t<tt+.35&&tapPos[tt]){ const k=seg(t,tt-.4,tt-.1); tv=Math.min(eout(k),1-seg(t,tt+.15,tt+.35)); [tx,ty]=toScreen(c,tapPos[tt][0],tapPos[tt][1]); press=t>=tt-.08&&t<tt+.12?Math.sin(seg(t,tt-.08,tt+.12)*Math.PI):0; if(t>=tt&&t<tt+.45){const k2=seg(t,tt,tt+.45); rv=1-k2; rs=1+k2*1.3;} } }
+  $('tap').style.opacity=tv; $('tap').style.transform=`translate(${tx}px,${ty}px) scale(${1-.22*press})`;
+  $('ring').style.opacity=rv*.9; $('ring').style.transform=`translate(${tx}px,${ty}px) scale(${rs})`;
+};
+
+window.ready=new Promise(res=>{
+  $('app').addEventListener('load',async()=>{
+    W=$('app').contentWindow; D=W.document;
+    const st=D.createElement('style');
+    st.textContent=`html,body{background:transparent!important}
+      .top .logo,.panel-head h1{color:#F2F5F7}.top .lbl,.top .note,.panel-head p,.phone-caption{color:#93A0AD}
+      *{animation:none!important;transition:none!important;caret-color:transparent}
+      ::-webkit-scrollbar{display:none}`;
+    D.head.appendChild(st);
+    await D.fonts.ready;
+    // deterministic, gated provider call (same logic as the demo's success path)
+    W.eval(`MockTekaeProvider.redeem=async function({amount,idempotencyKey}){await new Promise(r=>window.__release=r);this.balance-=amount;return {ok:true,folio:'TK-'+randChunk(4)+'-'+randChunk(4),idempotencyKey};};
+      phoneState().screen='home'; render();`);
+    CODE=W.eval(`T.mirador.batches.find(b=>b.id==='L-002').codes[0]`);
+    await new Promise(r=>setTimeout(r,50));
+    res(true);
+  });
+});
+</script>
+</body></html>
