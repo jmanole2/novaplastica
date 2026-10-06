@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://redone.agency/</loc>
+    <xhtml:link rel="alternate" hreflang="es-MX" href="https://redone.agency/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://redone.agency/en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://redone.agency/"/>
+  </url>
+  <url>
+    <loc>https://redone.agency/en</loc>
+    <xhtml:link rel="alternate" hreflang="es-MX" href="https://redone.agency/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://redone.agency/en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://redone.agency/"/>
+  </url>
+  <url><loc>https://redone.agency/blog</loc></url>
+  <url><loc>https://redone.agency/blog/por-que-es-tan-importante-el-seo</loc></url>
+  <url><loc>https://redone.agency/blog/inside-the-trends-el-poder-del-marketing-sensorial</loc></url>
+  <url><loc>https://redone.agency/blog/el-ugc-la-herramienta-de-marketing-que-esta-redefiniendo-la-relacion-entre-las-marcas-y-las-personas</loc></url>
+  <url><loc>https://redone.agency/blog/crumbl-cookies-llega-a-mexico-como-una-galleta-se-convirtio-en-un-fenomeno-cultural-2</loc></url>
+  <url><loc>https://redone.agency/blog/mas-inversion-no-significa-mas-resultados</loc></url>
+</urlset>

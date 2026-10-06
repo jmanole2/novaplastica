@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="es-MX">
 
 <head>
 
@@ -7,15 +7,94 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords"
-        content="Red 1 México, agencia de marketing digital, diseño web, desarrollo web, SEO, branding, publicidad online, redes sociales, diseño gráfico, publicidad en México">
     <meta name="description"
-        content="Red 1 México es una agencia de marketing digital especializada en diseño web, SEO, redes sociales y estrategias de publicidad para empresas en crecimiento.">
-
-    <meta name="author" content="">
+        content="Red One es una agencia de marketing digital y comunicación en CDMX: estrategia de marca, pauta digital, relaciones públicas, influencer marketing y eventos.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="author" content="Red One">
+    <meta name="theme-color" content="#0f0f0f">
 
     <!-- Title  -->
-    <title>Agencia Red One</title>
+    <title>Agencia de marketing digital en CDMX | Red One</title>
+
+    <!-- URL canónica y versiones de idioma -->
+    <link rel="canonical" href="https://redone.agency/">
+    <link rel="alternate" hreflang="es-MX" href="https://redone.agency/">
+    <link rel="alternate" hreflang="en" href="https://redone.agency/en">
+    <link rel="alternate" hreflang="x-default" href="https://redone.agency/">
+
+    <!-- Open Graph / redes sociales -->
+    <!-- TODO: crear una imagen de 1200x630 px para compartir (p. ej. /assets/imgs/og-redone.jpg) y cambiar la ruta -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Red One">
+    <meta property="og:locale" content="es_MX">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta property="og:url" content="https://redone.agency/">
+    <meta property="og:title" content="Agencia de marketing digital en CDMX | Red One">
+    <meta property="og:description" content="Convertimos retos de negocio en estrategias que mueven y encienden marcas. Estrategia, publicidad digital, PR, influencer marketing y eventos.">
+    <meta property="og:image" content="https://redone.agency/assets/imgs/independent.jpg">
+    <meta property="og:image:alt" content="Red One, agencia de marketing y comunicación">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Agencia de marketing digital en CDMX | Red One">
+    <meta name="twitter:description" content="Convertimos retos de negocio en estrategias que mueven y encienden marcas.">
+    <meta name="twitter:image" content="https://redone.agency/assets/imgs/independent.jpg">
+
+    <!-- Datos estructurados: quién es la empresa (para Google y buscadores con IA) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": ["Organization", "ProfessionalService"],
+          "@id": "https://redone.agency/#organization",
+          "name": "Red One",
+          "alternateName": ["Red One México", "Red One Agency"],
+          "url": "https://redone.agency/",
+          "logo": "https://redone.agency/assets/imgs/logo-light.png",
+          "image": "https://redone.agency/assets/imgs/independent.jpg",
+          "description": "Agencia estratégica de comunicación omnicanal: estrategia de marca, publicidad digital, relaciones públicas, influencer marketing, contenido audiovisual, social media y experiencias de marca.",
+          "email": "provoc@redone.agency",
+          "telephone": "+525547273070",
+          "address": [
+            { "@type": "PostalAddress", "addressLocality": "Ciudad de México", "addressRegion": "CDMX", "addressCountry": "MX" },
+            { "@type": "PostalAddress", "addressLocality": "San Antonio", "addressRegion": "TX", "addressCountry": "US" }
+          ],
+          "areaServed": [
+            { "@type": "Country", "name": "México" },
+            { "@type": "Country", "name": "Estados Unidos" }
+          ],
+          "founder": { "@type": "Person", "name": "Luis Letayf", "jobTitle": "Director General" },
+          "employee": [
+            { "@type": "Person", "name": "Lillian Mezher", "jobTitle": "CEO" },
+            { "@type": "Person", "name": "Luis Letayf", "jobTitle": "Director General" }
+          ],
+          "knowsAbout": ["Marketing digital", "Estrategia de marca", "Relaciones públicas", "Influencer marketing", "Marketing experiencial", "Performance marketing", "Contenido audiovisual", "Social media", "Integración de CRM"],
+          "sameAs": [
+            "https://www.linkedin.com/company/redonemexico/",
+            "https://www.instagram.com/redonemx",
+            "https://www.facebook.com/RedOneMex",
+            "https://www.tiktok.com/@redonemx"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://redone.agency/#website",
+          "url": "https://redone.agency/",
+          "name": "Red One",
+          "inLanguage": "es-MX",
+          "publisher": { "@id": "https://redone.agency/#organization" }
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://redone.agency/#webpage",
+          "url": "https://redone.agency/",
+          "name": "Agencia de marketing digital en CDMX | Red One",
+          "isPartOf": { "@id": "https://redone.agency/#website" },
+          "about": { "@id": "https://redone.agency/#organization" },
+          "inLanguage": "es-MX"
+        }
+      ]
+    }
+    </script>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
@@ -27,6 +106,8 @@
 
     <!-- Google Fonts -->
     <!-- Google Fonts - Optimizado -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload"
         href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap"
         as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -154,6 +235,9 @@
 
 
 
+    <!-- TODO: hay DOS propiedades de GA4 (G-G6ZS92VGM4 y G-YTX7WXSJT4) además de GTM y Clarity.
+         Cada gtag.js pesa ~500 KB y probablemente duplica las visitas. Dejen una sola propiedad
+         y, de preferencia, cárguenla desde GTM. No la quité para no cortarles datos sin confirmar. -->
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-G6ZS92VGM4"></script>
     <script>
@@ -325,7 +409,7 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-pattern bg-img" data-background="assets/imgs/patterns/graph.png"></div>
+            <div class="bg-pattern bg-img"></div>
         </header>
 
         <!-- ==================== End Slider ==================== -->
@@ -533,7 +617,7 @@
                         </div>
                         <h6 class="mb-15">Echo Lab</h6>
                         <p>Hacemos que tu mensaje no solo se escuche, sino que resuene en las mentes y emociones de tu
-                            audiencia..</p>
+                            audiencia.</p>
                         <a href="#contacto" class="arrow mt-40">
                             <span class="circle">
                                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
@@ -732,7 +816,7 @@
                                     <div class="swiper-slide">
                                         <div class="item">
                                             <div class="img">
-                                                <img src="/assets/imgs/proyecto1-min.webp" alt="">
+                                                <img src="/assets/imgs/proyecto1-min.webp" alt="Expo Consuvino, experiencia inmersiva de Red One" loading="lazy">
                                                 <div class="cont">
                                                     <span class="mb-5">Experiencia Inmersiva</span>
                                                     <h6 class="fz-18">Expo Consuvino</h6>
@@ -744,7 +828,7 @@
                                     <div class="swiper-slide">
                                         <div class="item">
                                             <div class="img">
-                                                <img src="/assets/imgs/proyecto2-min.webp" alt="">
+                                                <img src="/assets/imgs/proyecto2-min.webp" alt="Activación de marca Santa Helena por Red One" loading="lazy">
                                                 <div class="cont">
                                                     <span class="mb-5">Influence grid / Experiencia Inmersiva</span>
                                                     <h6 class="fz-18">Activación Santa Helena</h6>
@@ -756,7 +840,7 @@
                                     <div class="swiper-slide">
                                         <div class="item">
                                             <div class="img">
-                                                <img src="/assets/imgs/proyecto5-min.webp" alt="">
+                                                <img src="/assets/imgs/proyecto5-min.webp" alt="Espacio Vogue, experiencia inmersiva de Red One" loading="lazy">
                                                 <div class="cont">
                                                     <span class="mb-5">Experiencia Inmersiva
                                                     </span>
@@ -769,7 +853,7 @@
                                     <div class="swiper-slide">
                                         <div class="item">
                                             <div class="img">
-                                                <img src="/assets/imgs/proyecto3-min.webp" alt="">
+                                                <img src="/assets/imgs/proyecto3-min.webp" alt="Activación de marca Gato Negro por Red One" loading="lazy">
                                                 <div class="cont">
                                                     <span class="mb-5">Activación de marca</span>
                                                     <h6 class="fz-18">Gato Negro
@@ -783,7 +867,7 @@
                                     <div class="swiper-slide">
                                         <div class="item">
                                             <div class="img">
-                                                <img src="/assets/imgs/proyecto4-min.webp" alt="">
+                                                <img src="/assets/imgs/proyecto4-min.webp" alt="Galardón Alebrijes, experiencia inmersiva de Red One" loading="lazy">
                                                 <div class="cont">
                                                     <span class="mb-5">Inmersiva</span>
                                                     <h6 class="fz-18">Galardón Alebrijes
@@ -886,86 +970,7 @@
 
 
 
-        <!-- ==================== Start Team ==================== 
-
-        <section class="team-box section-padding">
-            <div class="container">
-                <div class="sec-lg-head mb-80">
-                    <div class="row">
-                        <div class="col-lg-8">
-                            <div class="position-re">
-                                <h6 class="dot-titl mb-10">Selected Projects</h6>
-                                <h2 class="fz-70 fw-700">Featured Works</h2>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 d-flex align-items-center">
-                            <div class="text">
-                                <p>Nemo enim ipsam voluptatem quia voluptas sit odit aut fugit, sed quia.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row md-marg">
-                    <div class="col-lg-4">
-                        <div class="item md-mb50">
-                            <div class="img">
-                                <img src="assets/imgs/team/1.jpg" alt="">
-                            </div>
-                            <div class="info d-flex align-items-center">
-                                <div>
-                                    <div class="circle-50">
-                                        <img src="assets/imgs/team/1.jpg" alt="" class="circle-img">
-                                    </div>
-                                </div>
-                                <div class="cont ml-20">
-                                    <span class="fz-12 opacity-8">Co-Founder</span>
-                                    <h6 class="fz-16">Matt Smith</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="item md-mb50">
-                            <div class="img">
-                                <img src="assets/imgs/team/2.jpg" alt="">
-                            </div>
-                            <div class="info d-flex align-items-center">
-                                <div>
-                                    <div class="circle-50">
-                                        <img src="assets/imgs/team/2.jpg" alt="" class="circle-img">
-                                    </div>
-                                </div>
-                                <div class="cont ml-20">
-                                    <span class="fz-12 opacity-8">Co-Founder</span>
-                                    <h6 class="fz-16">Matt Smith</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="item">
-                            <div class="img">
-                                <img src="assets/imgs/team/3.jpg" alt="">
-                            </div>
-                            <div class="info d-flex align-items-center">
-                                <div>
-                                    <div class="circle-50">
-                                        <img src="assets/imgs/team/3.jpg" alt="" class="circle-img">
-                                    </div>
-                                </div>
-                                <div class="cont ml-20">
-                                    <span class="fz-12 opacity-8">Co-Founder</span>
-                                    <h6 class="fz-16">Matt Smith</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ==================== End Team ==================== -->
+        <!-- (bloque de plantilla sin usar eliminado) -->
 
 
 
@@ -1014,8 +1019,8 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="sec-lg-head mb-50">
-                                <h6 class="dot-titl mb-10">About the </h6>
-                                <h2 class="fz-70 fw-700">Agency</h2>
+                                <h6 class="dot-titl mb-10">Acerca de la</h6>
+                                <h2 class="fz-70 fw-700">Agencia</h2>
                                 <h6 class="mt-40 mb-10">Historia de la agencia</h6>
                                 <p>Red One Agency es una agencia estratégica de comunicación omnicanal, con 8 años de trayectoria, más de 70 proyectos realizados y más de 40 clientes atendidos, con oficinas en CDMX y San Antonio, Texas.</p>
                                 <h6 class="mt-30 mb-10">Misión</h6>
@@ -1039,7 +1044,7 @@
                             <div class="sec-lg-head text-center">
                                 <h6 class="dot-titl mb-10">Trabajemos juntos</h6>
                                 <h2 class="fz-70 fw-700">
-                                    <span>Tienes algún proyecto en mente?</span> <br>
+                                    <span>¿Tienes algún proyecto en mente?</span> <br>
                                     <span>Contáctanos.</span>
                                 </h2>
                                 <a href="#contacto"
@@ -1059,7 +1064,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="bg-pattern bg-img" data-background="assets/imgs/patterns/graph.png"></div>
+                <div class="bg-pattern bg-img"></div>
             </div>
 
         </section>
@@ -1068,95 +1073,13 @@
 
 
 
-        <!-- ==================== Start Blog ==================== 
-
-        <section class="blog-modern section-padding" id="videoBG">
-            <div class="container">
-                <div class="sec-lg-head mb-80">
-                    <div class="row">
-                        <div class="col-lg-8">
-                            <div class="position-re">
-                                <h6 class="dot-titl mb-10">Selected Projects</h6>
-                                <h2 class="fz-70 fw-700">Featured Works</h2>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 d-flex align-items-center">
-                            <div class="text">
-                                <p>Nemo enim ipsam voluptatem quia voluptas sit odit aut fugit, sed quia.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="blog-carsouel" data-carousel="swiper" data-items="3" data-loop="true" data-space="10"
-                    data-speed="1000">
-                    <div id="content-carousel-container-unq-blog" class="swiper-container" data-swiper="container">
-                        <div class="swiper-wrapper curs-scroll">
-                            <div class="swiper-slide wow fadeInUp" data-wow-delay=".1s">
-                                <div class="item">
-                                    <div class="img">
-                                        <video autoplay loop muted playsinline>
-                                            <source src="/assets/videos/Red_One_X_COOP.mp4" type="video/mp4">
-                                          </video>
-                                        <div class="date">
-                                            <a href="">30 Agosto 2021</a>
-                                        </div>
-                                    </div>
-                                    <div class="cont mt-30">
-                                        <h6>
-                                            <a href="">Red One X Coop</a>
-                                        </h6>
-                                       
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide wow fadeInUp" data-wow-delay=".3s">
-                                <div class="item">
-                                    <div class="img">
-                                        <video autoplay loop muted playsinline>
-                                            <source src="/assets/videos/AM_R1_Haagen.mp4" type="video/mp4">
-                                          </video>
-                                        <div class="date">
-                                            <a href="">30 Octubre 2024</a>
-                                        </div>
-                                    </div>
-                                    <div class="cont mt-30">
-                                        <h6>
-                                            <a href="">Häagen-Dazs</a>
-                                        </h6>
-                                       
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide wow fadeInUp" data-wow-delay=".5s">
-                                <div class="item">
-                                    <div class="img">
-                                        <img src="assets/imgs/blog/h3.jpg" alt="">
-                                        <div class="date">
-                                            <a href="">30 august 2021</a>
-                                        </div>
-                                    </div>
-                                    <div class="cont mt-30">
-                                        <h6>
-                                            <a href="">We create some things for your success in future
-                                                growth</a>
-                                        </h6>
-                                       
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ==================== End Blog ==================== -->
+        <!-- (bloque de plantilla sin usar eliminado) -->
 
         <!-- ==================== Start Contact ==================== -->
 
         <section id="video">
             <div class="video-wrapper container">
-                <video id="my-video" class="video-js vjs-default-skin" controls preload="auto">
+                <video id="my-video" class="video-js vjs-default-skin" controls preload="metadata">
                     <source src="/video/contacto/contacto.m3u8" type="application/x-mpegURL">
                 </video>
                 <button id="cta-btn" class="cta-overlay hidden">Agendar</button>
@@ -1190,7 +1113,7 @@
                             </fieldset>
                             <fieldset>
                                 <legend>2. ¿A qué se dedica tu empresa?</legend>
-                                <div class="form-group"><input type="text" name="giro" placeholder="Respuesta corta" maxlength="200" required></div>
+                                <div class="form-group"><input type="text" name="giro" placeholder="Respuesta corta" aria-label="¿A qué se dedica tu empresa?" maxlength="200" required></div>
                             </fieldset>
                             <fieldset>
                                 <legend>3. ¿Actualmente inviertes en publicidad digital?</legend>
@@ -1202,10 +1125,10 @@
                         <div class="col-lg-6">
                             <fieldset>
                                 <legend>4. Déjanos tus datos</legend>
-                                <div class="form-group mb-20"><input type="text" name="name" placeholder="Nombre" required></div>
-                                <div class="form-group mb-20"><input type="text" name="empresa" placeholder="Empresa" required></div>
-                                <div class="form-group mb-20"><input type="email" name="email" placeholder="Correo" required></div>
-                                <div class="form-group mb-20"><input type="tel" name="telefono" placeholder="Teléfono / WhatsApp" required></div>
+                                <div class="form-group mb-20"><input type="text" name="name" placeholder="Nombre" aria-label="Nombre" autocomplete="name" required></div>
+                                <div class="form-group mb-20"><input type="text" name="empresa" placeholder="Empresa" aria-label="Empresa" autocomplete="organization" required></div>
+                                <div class="form-group mb-20"><input type="email" name="email" placeholder="Correo" aria-label="Correo" autocomplete="email" required></div>
+                                <div class="form-group mb-20"><input type="tel" name="telefono" placeholder="Teléfono / WhatsApp" aria-label="Teléfono o WhatsApp" autocomplete="tel" required></div>
                             </fieldset>
                             <input type="text" name="website" value="" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
                             <button type="submit" class="butn butn-md butn-bord radius-30" id="send_message"><span class="text">Enviar</span></button>
@@ -1240,8 +1163,8 @@
                 <h3 id="nl-title">ENCENDEMOS IDEAS</h3>
                 <p class="lead">Contenido sobre estrategia, comunicación, marketing y tendencias para marcas que quieren hacer más que solo estar presentes.</p>
                 <form id="nl-form" method="post" action="/newsletter.php">
-                    <input type="text" name="name" placeholder="Nombre" required>
-                    <input type="email" name="email" placeholder="Correo electrónico" required>
+                    <input type="text" name="name" placeholder="Nombre" aria-label="Nombre" autocomplete="name" required>
+                    <input type="email" name="email" placeholder="Correo electrónico" aria-label="Correo electrónico" autocomplete="email" required>
                     <input type="text" name="website" value="" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
                     <?php if ($RECAPTCHA_SITE_KEY): ?>
                     <div class="g-recaptcha" data-sitekey="<?= htmlspecialchars($RECAPTCHA_SITE_KEY) ?>" style="margin-bottom:12px"></div>
@@ -1278,7 +1201,13 @@
         document.addEventListener('keydown',function(e){ if(e.key==='Escape') close(); });
         nf.addEventListener('submit',function(e){ e.preventDefault(); post(nf,nm,'¡Listo! Te suscribiste al newsletter.',function(){ setTimeout(close,1800); }); });
         var seen=0; try{seen=parseInt(localStorage.getItem('nl_seen')||'0',10);}catch(e){}
-        if(!seen || Date.now()-seen > 7*24*3600*1000){ setTimeout(function(){ ov.classList.add('open'); },1500); }
+        // Se abre cuando la persona ya recorrió la mitad de la página o tras 30 s, no a los 1.5 s:
+        // un popup inmediato en móvil cuenta como "intersticial intrusivo" para Google.
+        if(!seen || Date.now()-seen > 7*24*3600*1000){
+            var opened=false, openNl=function(){ if(opened) return; opened=true; ov.classList.add('open'); window.removeEventListener('scroll',onSc); };
+            var onSc=function(){ var h=document.documentElement; if((h.scrollTop+innerHeight)/h.scrollHeight>0.5) openNl(); };
+            window.addEventListener('scroll',onSc,{passive:true}); setTimeout(openNl,30000);
+        }
     })();
     </script>
 
