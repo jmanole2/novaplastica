@@ -24,7 +24,7 @@
                             <h6>Dirección CDMX</h6>
                         </div>
                         <div class="text">
-                            <p>Fuente de Emmanuel #9, Lomas de Tecamachalco.</p>
+                            <address class="mb-0" style="font-style:normal"><p>Fuente de Emmanuel #9, Lomas de Tecamachalco.</p></address>
                         </div>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                             <h6>Dirección USA</h6>
                         </div>
                         <div class="text">
-                            <p>21750 Hardy Oak Blvd. suite 102. San Antonio TX. </p>
+                            <address class="mb-0" style="font-style:normal"><p>21750 Hardy Oak Blvd. Suite 102, San Antonio, TX.</p></address>
                         </div>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                         <h6>Social</h6>
                     </div>
                     <ul class="rest social-icons">
-                        <li><a target="_blank" rel="noopener" href="https://www.instagram.com/redonemx?utm_source=ig_web_button_share_sheet&amp;igs" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7.3A4.7 4.7 0 1 0 12 16.7 4.7 4.7 0 0 0 12 7.3zm0 7.7a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm5-7.9a1.1 1.1 0 1 1-2.2 0 1.1 1.1 0 0 1 2.2 0zM21 8.1c-.1-1.5-.4-2.8-1.5-3.9S17.4 2.7 15.9 2.6C14.3 2.5 9.7 2.5 8.1 2.6 6.6 2.7 5.3 3 4.2 4.1S2.7 6.6 2.6 8.1c-.1 1.6-.1 6.2 0 7.8.1 1.5.4 2.8 1.5 3.9s2.4 1.4 3.9 1.5c1.6.1 6.2.1 7.8 0 1.5-.1 2.8-.4 3.9-1.5s1.4-2.4 1.5-3.9c.1-1.6.1-6.2.1-7.8zm-2 9.6a3.2 3.2 0 0 1-1.8 1.8c-1.3.5-4.3.4-5.7.4s-4.4.1-5.7-.4a3.2 3.2 0 0 1-1.8-1.8c-.5-1.3-.4-4.3-.4-5.7s-.1-4.4.4-5.7A3.2 3.2 0 0 1 6.3 4.5c1.3-.5 4.3-.4 5.7-.4s4.4-.1 5.7.4a3.2 3.2 0 0 1 1.8 1.8c.5 1.3.4 4.3.4 5.7s.1 4.4-.4 5.7z"/></svg></a></li>
+                        <li><a target="_blank" rel="noopener" href="https://www.instagram.com/redonemx" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7.3A4.7 4.7 0 1 0 12 16.7 4.7 4.7 0 0 0 12 7.3zm0 7.7a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm5-7.9a1.1 1.1 0 1 1-2.2 0 1.1 1.1 0 0 1 2.2 0zM21 8.1c-.1-1.5-.4-2.8-1.5-3.9S17.4 2.7 15.9 2.6C14.3 2.5 9.7 2.5 8.1 2.6 6.6 2.7 5.3 3 4.2 4.1S2.7 6.6 2.6 8.1c-.1 1.6-.1 6.2 0 7.8.1 1.5.4 2.8 1.5 3.9s2.4 1.4 3.9 1.5c1.6.1 6.2.1 7.8 0 1.5-.1 2.8-.4 3.9-1.5s1.4-2.4 1.5-3.9c.1-1.6.1-6.2.1-7.8zm-2 9.6a3.2 3.2 0 0 1-1.8 1.8c-1.3.5-4.3.4-5.7.4s-4.4.1-5.7-.4a3.2 3.2 0 0 1-1.8-1.8c-.5-1.3-.4-4.3-.4-5.7s-.1-4.4.4-5.7A3.2 3.2 0 0 1 6.3 4.5c1.3-.5 4.3-.4 5.7-.4s4.4-.1 5.7.4a3.2 3.2 0 0 1 1.8 1.8c.5 1.3.4 4.3.4 5.7s.1 4.4-.4 5.7z"/></svg></a></li>
                         <li><a target="_blank" rel="noopener" href="https://mx.linkedin.com/company/redonemexico" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 20.5h-3.6v-5.6c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9v5.7H9.4V9h3.4v1.6c.5-.9 1.6-1.8 3.4-1.8 3.6 0 4.3 2.4 4.3 5.5v6.2zM5.3 7.4a2.1 2.1 0 1 1 0-4.1 2.1 2.1 0 0 1 0 4.1zM7.1 20.5H3.6V9h3.5v11.5zM22.2 0H1.8C.8 0 0 .8 0 1.7v20.6c0 .9.8 1.7 1.8 1.7h20.4c1 0 1.8-.8 1.8-1.7V1.7C24 .8 23.2 0 22.2 0z"/></svg></a></li>
                         <li><a target="_blank" rel="noopener" href="https://www.facebook.com/RedOneMex" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12a12 12 0 1 0-13.9 11.9v-8.4H7.1V12h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9V12h3.4l-.5 3.5h-2.9v8.4A12 12 0 0 0 24 12z"/></svg></a></li>
                         <!-- TikTok: se retiró de la lista de redes del documento; el enlace anterior era https://www.tiktok.com/@redonemx -->
@@ -73,8 +73,8 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="logo">
-                            <a href="#0">
-                                <img src="assets/imgs/logo-light.png" alt="">
+                            <a href="/" aria-label="Red One, ir al inicio">
+                                <img src="/assets/imgs/logo-light.png" alt="Red One" loading="lazy">
                             </a>
                         </div>
                     </div>
@@ -83,7 +83,7 @@
                             <div class="ml-auto">
                                 
                                 <p class="fz-13"><a href="/terminos"> Términos y condiciones</a></p>
-                                <p class="fz-13">© <?php echo date("Y"); ?> Red One All rights reserved</p>
+                                <p class="fz-13">© <?php echo date("Y"); ?> Red One. Todos los derechos reservados.</p>
                             </div>
                         </div>
                     </div>
@@ -126,35 +126,52 @@
 <script src="/assets/js/lang.js"></script>
 
 
-<link href="https://vjs.zencdn.net/8.23.4/video-js.css" rel="stylesheet" />
-<script src="https://vjs.zencdn.net/8.23.4/video.min.js"></script>
 <script>
-    if (document.querySelector('#my-video')) {
-        const CTA_SHOW_AT = (3 * 60) + 47;
-        const CTA_HIDE_AT = CTA_SHOW_AT + 10;
+    (function () {
+        var videoEl = document.querySelector('#my-video');
+        if (!videoEl) return; // páginas sin video: no se descarga video.js
 
-        const player = videojs('my-video', {
-            fluid: true,
-            techOrder: ['html5'],
-        });
-        const ctaBtn = document.getElementById('cta-btn');
+        var CTA_SHOW_AT = (3 * 60) + 47;
+        var CTA_HIDE_AT = CTA_SHOW_AT + 10;
+        var loaded = false;
 
-        player.on('timeupdate', () => {
-            const t = player.currentTime();
+        function initPlayer() {
+            var player = videojs('my-video', { fluid: true, techOrder: ['html5'] });
+            var ctaBtn = document.getElementById('cta-btn');
 
-            if (t >= CTA_SHOW_AT && t < CTA_HIDE_AT) {
-                ctaBtn.classList.remove('hidden');
-            } else {
-                ctaBtn.classList.add('hidden');
-            }
-        });
+            player.on('timeupdate', function () {
+                var t = player.currentTime();
+                if (t >= CTA_SHOW_AT && t < CTA_HIDE_AT) ctaBtn.classList.remove('hidden');
+                else ctaBtn.classList.add('hidden');
+            });
 
-        ctaBtn.addEventListener('click', () => {
-            player.pause();
-            window.open(
-                'https://calendly.com/redonemx/discovery-call?month=2026-05',
-                '_blank'
-            );
-        });
-    }
+            ctaBtn.addEventListener('click', function () {
+                player.pause();
+                // Sin ?month=2026-05: con el mes fijo, Calendly abría un mes ya pasado
+                window.open('https://calendly.com/redonemx/discovery-call', '_blank');
+            });
+        }
+
+        function loadVideoJs() {
+            if (loaded) return;
+            loaded = true;
+            var css = document.createElement('link');
+            css.rel = 'stylesheet';
+            css.href = 'https://vjs.zencdn.net/8.23.4/video-js.css';
+            document.head.appendChild(css);
+            var js = document.createElement('script');
+            js.src = 'https://vjs.zencdn.net/8.23.4/video.min.js';
+            js.onload = initPlayer;
+            document.body.appendChild(js);
+        }
+
+        if ('IntersectionObserver' in window) {
+            var io = new IntersectionObserver(function (entries) {
+                if (entries.some(function (e) { return e.isIntersecting; })) { io.disconnect(); loadVideoJs(); }
+            }, { rootMargin: '800px 0px' });
+            io.observe(videoEl);
+        } else {
+            loadVideoJs();
+        }
+    })();
 </script>

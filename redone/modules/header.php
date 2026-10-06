@@ -2,8 +2,8 @@
     <div class="container">
 
         <!-- Logo -->
-        <a class="logo icon-img-100" href="/" aria-label="Red One México - Ir al inicio">
-            <img src="/assets/imgs/logo-light.png" alt="Red One México - Inicio">
+        <a class="logo icon-img-100" href="/" aria-label="Red One, ir al inicio">
+            <img src="/assets/imgs/logo-light.png" alt="Red One">
         </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -13,40 +13,40 @@
 
         <!-- navbar links -->
         <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-            <ul class="navbar-nav" role="menubar">
+            <ul class="navbar-nav">
 
-                <li class="nav-item" role="none">
-                    <a class="nav-link" href="#top" role="menuitem">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">
                         <span class="rolling-text">Inicio</span>
                     </a>
                 </li>
-                <li class="nav-item" role="none">
-                    <a class="nav-link" href="/#promesa" role="menuitem">
+                <li class="nav-item">
+                    <a class="nav-link" href="/#promesa">
                         <span class="rolling-text">Nuestra promesa</span>
                     </a>
                 </li>
-                <li class="nav-item" role="none">
-                    <a class="nav-link" href="/#servicios" role="menuitem">
+                <li class="nav-item">
+                    <a class="nav-link" href="/#servicios">
                         <span class="rolling-text">Servicios</span>
                     </a>
                 </li>
-                <li class="nav-item" role="none">
-                    <a class="nav-link" href="/#proyectos" role="menuitem">
+                <li class="nav-item">
+                    <a class="nav-link" href="/#proyectos">
                         <span class="rolling-text">Proyectos</span>
                     </a>
                 </li>
-                <li class="nav-item" role="none">
-                    <a class="nav-link" href="/#clientes" role="menuitem">
+                <li class="nav-item">
+                    <a class="nav-link" href="/#clientes">
                         <span class="rolling-text">Clientes</span>
                     </a>
                 </li>
-                <li class="nav-item" role="none">
-                    <a class="nav-link" href="/blog" role="menuitem">
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog">
                         <span class="rolling-text">Blog</span>
                     </a>
                 </li>
-                <li class="nav-item" role="none">
-                    <a class="nav-link" href="/#contacto" role="menuitem">
+                <li class="nav-item">
+                    <a class="nav-link" href="/#contacto">
                         <span class="rolling-text">Contacto</span>
                     </a>
                 </li>
@@ -54,7 +54,7 @@
         </div>
 
         <div class="search-form">
-            <a href="/en" aria-label="Cambiar idioma a inglés" lang="en">
+            <a href="/en" hreflang="en" lang="en" aria-label="Cambiar idioma a inglés">
                 <div class="search-icon">
                     EN
                 </div>

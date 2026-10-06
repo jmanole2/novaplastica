@@ -39,6 +39,8 @@
     <meta name="twitter:image" content="https://redone.agency/assets/imgs/independent.jpg">
 
     <!-- Datos estructurados: quién es la empresa (para Google y buscadores con IA) -->
+    <!-- TODO: completar en "address" el código postal y el municipio de cada oficina (no los inventé).
+         Ojo: Lomas de Tecamachalco está en el límite CDMX / Naucalpan (Edo. Méx.): confirmen cuál es. -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -55,8 +57,8 @@
           "email": "provoc@redone.agency",
           "telephone": "+525547273070",
           "address": [
-            { "@type": "PostalAddress", "addressLocality": "Ciudad de México", "addressRegion": "CDMX", "addressCountry": "MX" },
-            { "@type": "PostalAddress", "addressLocality": "San Antonio", "addressRegion": "TX", "addressCountry": "US" }
+            { "@type": "PostalAddress", "streetAddress": "Fuente de Emmanuel 9, Lomas de Tecamachalco", "addressCountry": "MX" },
+            { "@type": "PostalAddress", "streetAddress": "21750 Hardy Oak Blvd. Suite 102", "addressLocality": "San Antonio", "addressRegion": "TX", "addressCountry": "US" }
           ],
           "areaServed": [
             { "@type": "Country", "name": "México" },
@@ -71,8 +73,7 @@
           "sameAs": [
             "https://www.linkedin.com/company/redonemexico/",
             "https://www.instagram.com/redonemx",
-            "https://www.facebook.com/RedOneMex",
-            "https://www.tiktok.com/@redonemx"
+            "https://www.facebook.com/RedOneMex"
           ]
         },
         {

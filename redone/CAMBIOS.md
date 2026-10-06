@@ -5,6 +5,8 @@
 | Archivo | Dónde va | Qué hace |
 |---|---|---|
 | `index.php` | Raíz del sitio (reemplaza el actual) | Portada corregida (detalle abajo) |
+| `modules/header.php` | `/modules/` (reemplaza) | Menú corregido |
+| `modules/footer.php` | `/modules/` (reemplaza) | Pie corregido y video.js bajo demanda |
 | `robots.txt` | Raíz (reemplaza el actual) | Quita `Crawl-delay: 10` y declara el sitemap |
 | `sitemap.xml` | Raíz (nuevo) | Lista portada, `/en`, blog y artículos, con las versiones de idioma |
 | `htaccess-AGREGAR.txt` | **Pegar arriba** dentro del `.htaccess` existente; no lo reemplaces | Redirige `www`, `/index.php` y `/blog/`; agrega seguridad, caché y compresión |
@@ -33,6 +35,21 @@
 - **Código muerto eliminado:** dos bloques de plantilla comentados, con Lorem ipsum y los videos pesados.
 - Preconnect a Google Fonts.
 
+## Qué cambió en `modules/header.php`
+- "Inicio" apuntaba a `#top`, un ancla que no existe en ninguna página, así que no llevaba a ningún lado. Ahora apunta a `/`.
+- Quité `role="menubar"`/`menuitem`: obligan a navegar con flechas, cosa que este menú no hace. Un `<nav>` con lista ya es accesible.
+- Un solo nombre de marca en el logo ("Red One") y `hreflang="en"` en el botón EN.
+
+## Qué cambió en `modules/footer.php`
+- **video.js (unos 670 KB) ya no se carga en todas las páginas.** Solo se descarga si la página tiene el video, y cuando el video se acerca a la pantalla. Probado: al abrir la portada no se descarga; al bajar al video, sí, y el botón "Agendar" sigue funcionando.
+- El enlace de Calendly tenía fijo `?month=2026-05`, así que abría un mes ya pasado. Ahora abre el mes actual.
+- **Logo del pie:**
+  - Antes iba a `#0` y no llevaba a ningún lado; ahora lleva al inicio.
+  - Tenía `alt` vacío; ahora dice "Red One".
+  - Usaba una ruta relativa que daba 404 dentro de `/blog/…`; ahora es absoluta.
+- Direcciones marcadas como `<address>`, Instagram sin parámetros de rastreo en la URL y "Todos los derechos reservados" en español.
+- Las direcciones reales del footer se agregaron también a los datos estructurados de `index.php`.
+
 ## Pendientes (los marqué con `TODO` en el código o no están en este archivo)
 
 ### En `index.php`, requieren su decisión
@@ -42,7 +59,7 @@
 4. **Fotos del equipo.** Siguen pendientes (`lillian-mezher.jpg`, `luis-letayf.jpg`).
 5. **Fuentes.** Se cargan Poppins (9 pesos), Sora y Lexend Deca. Revisen en `style.css` cuáles se usan de verdad y quiten el resto.
 
-### En otros archivos que no me pasaste
+### En otros archivos que todavía no me pasaste
 6. **`/en` (versión en inglés):** agregar en su `<head>`:
    ```html
    <title>Marketing & Communications Agency in Mexico City | Red One</title>
@@ -57,7 +74,9 @@
    - Dejar un solo `<h1>` por artículo: "¿Por qué es tan importante el SEO?" tiene 8, varios vacíos. Los demás títulos internos deben ser `<h2>`.
    - Usar el mismo nombre de marca: hoy el blog firma "| Red1 Agency"; cambiarlo a "| Red One".
 8. **`/terminos`:** también tiene `lang="zxx"` y no tiene `<h1>`.
-9. **`modules/footer.php`:** ahí se cargan jQuery, plugins y video.js (671 KB). Lo ideal es cargar video.js solo en las páginas que tienen video.
+9. **Código postal y municipio** de cada oficina en el schema (`TODO` en `index.php`). Lomas de Tecamachalco está en el límite CDMX / Naucalpan: confirmen cuál es.
+10. **TikTok:** lo quitaron del footer, pero la sección de contacto de `index.php` todavía lo enlaza. Decidan si se queda o se va en los dos lugares.
+11. **`hscroll.js`:** se carga en el footer, pero `index.php` lo desactiva justo después con un script. Si ninguna otra página lo usa, quítenlo del footer.
 
 ## Después de subir
 1. Search Console → Sitemaps → enviar `https://redone.agency/sitemap.xml`.
