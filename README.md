@@ -20,3 +20,11 @@ node render.mjs --sheet --step 0.5 --from 7 --to 12   # contact sheet -> out/con
 - `fps`.
 
 Choreography lives in `src/anim.js`, authored on a 20 s base timeline (`mascotState`, `boardRect`, `ITEMS`, `CARD_*`, `ENVS`).
+
+# Kuper Media — "Tu Agente de IA en WhatsApp" (10 s promo)
+
+Same engine, separate scene: `src/kuper.js` / `src/kuper.html`, text, prices and background colour in `kuper.config.json`.
+
+```bash
+node render.mjs --page src/kuper.html --config kuper.config.json --out out/kuper-media.mp4
+```

@@ -4,7 +4,7 @@
 //   node render.mjs                       -> out/claude-academy.mp4
 //   node render.mjs --stills 0.5,3.6,9    -> out/stills/still_<t>.png
 //   node render.mjs --sheet               -> out/contact-sheet.png (1 frame / 0.5 s)
-//   options: --config file.json --out path.mp4 --workers N --fps N
+//   options: --page src/x.html --config file.json --out path.mp4 --workers N --fps N
 import { chromium } from 'playwright';
 import { spawn } from 'node:child_process';
 import fs from 'node:fs';
@@ -33,7 +33,7 @@ async function openPages(n) {
     const page = await browser.newPage({ viewport: { width: 600, height: 1000 } });
     page.on('pageerror', (e) => console.error('page error:', e.message));
     await page.addInitScript((c) => { window.ANIM_CONFIG = c; }, config);
-    await page.goto(pathToFileURL(path.join(ROOT, 'src/index.html')).href);
+    await page.goto(pathToFileURL(path.resolve(ROOT, opt('page', 'src/index.html'))).href);
     await page.evaluate(() => window.ANIM.ready);
     pages.push(page);
   }
@@ -65,7 +65,7 @@ async function stills(times, dir) {
 }
 
 async function video(out) {
-  const duration = Object.values(config.scenes).reduce((a, b) => a + b, 0);
+  const duration = (config.duration ?? Object.values(config.scenes).reduce((a, b) => a + b, 0));
   const fps = config.fps;
   const total = Math.round(duration * fps);
   const workers = Number(opt('workers', Math.max(1, Math.min(4, os.cpus().length))));
@@ -102,7 +102,7 @@ if (opt('stills')) {
   console.log(files.join('\n'));
 } else if (opt('sheet')) {
   const step = Number(opt('step', 0.5));
-  const duration = Object.values(config.scenes).reduce((a, b) => a + b, 0);
+  const duration = (config.duration ?? Object.values(config.scenes).reduce((a, b) => a + b, 0));
   const times = [];
   for (let t = Number(opt('from', 0)); t <= Number(opt('to', duration)) + 1e-6; t += step) times.push(Math.min(t, duration - 0.001));
   const cols = Number(opt('cols', 8));
