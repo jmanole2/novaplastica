@@ -115,24 +115,31 @@
     <link rel="preload"
         href="https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500;600;700;800&display=swap"
         as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload"
-        href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100;200;300;400;500;600;700;800;900&display=swap"
-        as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
         <link rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap">
         <link rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500;600;700;800&display=swap">
-        <link rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100;200;300;400;500;600;700;800;900&display=swap">
     </noscript>
 
 
-    <!-- Plugins -->
-    <link rel="stylesheet" href="assets/css/plugins.css">
+    <!-- Plugins: antes era plugins.css con 11 @import en cadena (bloqueaban el primer pintado).
+         Ahora se piden en paralelo; los de iconos, animaciones y popups no bloquean. -->
+    <link rel="stylesheet" href="/assets/css/plugins/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/plugins/slick.css">
+    <link rel="stylesheet" href="/assets/css/plugins/slick-theme.css">
+    <link rel="stylesheet" href="/assets/css/plugins/swiper.min.css">
+    <link rel="preload" href="/assets/css/plugins/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/assets/css/plugins/ionicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/assets/css/plugins/pe-icon-7-stroke.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/assets/css/plugins/fontawesome-all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/assets/css/plugins/justifiedGallery.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/assets/css/plugins/magnific-popup.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/assets/css/plugins/YouTubePopUp.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/assets/css/plugins/animate.min.css"><link rel="stylesheet" href="/assets/css/plugins/ionicons.min.css"><link rel="stylesheet" href="/assets/css/plugins/pe-icon-7-stroke.css"><link rel="stylesheet" href="/assets/css/plugins/fontawesome-all.min.css"><link rel="stylesheet" href="/assets/css/plugins/justifiedGallery.min.css"><link rel="stylesheet" href="/assets/css/plugins/magnific-popup.css"><link rel="stylesheet" href="/assets/css/plugins/YouTubePopUp.css"></noscript>
 
     <!-- Core Style Css -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
 
     <style>
         .btn_contact {width:50px;height:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;}
@@ -159,15 +166,32 @@
         @media(prefers-reduced-motion:reduce){.brands-track{animation:none}}
         /* Casos de éxito */
         .case-card{background:#1d1d1d;border:1px solid rgba(255,255,255,.1);border-radius:14px;overflow:hidden;height:100%;display:flex;flex-direction:column}
-        .case-card .case-img{height:210px;background:linear-gradient(135deg,#e30a20,#3a0006);display:flex;align-items:center;justify-content:center;background-size:cover;background-position:center}
+        .case-card .case-img{aspect-ratio:16/9;background:linear-gradient(135deg,#e30a20,#3a0006);display:flex;align-items:center;justify-content:center;background-size:cover;background-position:center}
         .case-card .case-img span{font-size:28px;font-weight:700;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.6);letter-spacing:1px}
         .case-card .case-body{padding:26px;display:flex;flex-direction:column;flex:1}
         .case-card h6{margin-bottom:10px}
         .case-card p{font-size:14px;opacity:.8}
         .case-card .tag{margin-top:auto;padding-top:16px;font-size:12px;text-transform:uppercase;letter-spacing:1px;color:#e30a20}
         .case-slider{position:relative;overflow:hidden;background:#1d1d1d!important}
-        .case-slider img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s}
+        .case-slider img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .8s;z-index:1}
+        .case-slider .blur{position:absolute;inset:-30px;background-size:cover;background-position:center;filter:blur(24px) brightness(.55);transition:background-image .8s}
         .case-slider img.on{opacity:1}
+        /* Menos espacio entre apartados (120px arriba y abajo se sumaban a 240px) */
+        #casos,#clientes,#equipo,#testimoniales{padding-top:70px!important;padding-bottom:70px!important}
+        #clientes .mb-60,#equipo .mb-60,#testimoniales .mb-60,#casos .mb-60{margin-bottom:40px!important}
+        .thecontainer .panel{padding:40px 0 60px!important}
+        .thecontainer .panel .mt-60{margin-top:20px!important}
+        .intro-pan .mb-80{margin-bottom:50px!important}
+        .intro-h2{font-size:clamp(26px,3.4vw,46px);line-height:1.25;font-weight:600;margin:0}
+        /* Botón circular "Contactar": blanco con texto negro; rojo al pasar el cursor */
+        .butn-circle.cta-white:before{content:'';position:absolute;inset:7%;border-radius:50%;background:#fff;z-index:0;transition:transform .4s;box-shadow:0 0 0 0 rgba(227,10,32,.55);animation:ctaPulse 2.4s infinite}
+        .butn-circle.cta-white:after{z-index:1;inset:7%;top:7%;left:7%;width:86%;height:86%}
+        .butn-circle.cta-white span{color:#111;font-weight:700}
+        .butn-circle.cta-white:hover span{color:#fff}
+        .butn-circle.cta-white .circle-star{z-index:1}
+        .butn-circle.cta-white .full-width{position:relative;z-index:2}
+        @keyframes ctaPulse{70%{box-shadow:0 0 0 22px rgba(227,10,32,0)}100%{box-shadow:0 0 0 0 rgba(227,10,32,0)}}
+        @media(prefers-reduced-motion:reduce){.butn-circle.cta-white:before{animation:none}}
         /* Equipo */
         .team-r .t-card{background:#1d1d1d;border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:30px;height:100%;display:flex;gap:24px;align-items:flex-start}
         .team-r .t-photo{flex:0 0 120px;width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,#e30a20,#3a0006);display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:700;color:#fff;overflow:hidden}
@@ -197,8 +221,16 @@
         /* Formulario leads */
         #lead-form fieldset{border:0;padding:0;margin:0 0 26px}
         #lead-form legend{font-size:15px;font-weight:600;margin-bottom:12px}
-        #lead-form .opt{display:block;margin-bottom:8px;font-size:14px;cursor:pointer}
-        #lead-form .opt input{margin-right:8px}
+        /* Opciones como botones: el CSS de la plantilla ponía los radio al 100% de ancho y quedaban separados de su texto */
+        #lead-form .opts{display:flex;flex-wrap:wrap;gap:10px}
+        #lead-form .opt{position:relative;display:inline-flex;align-items:center;margin:0;font-size:14px;cursor:pointer;padding:10px 16px;border:1px solid rgba(255,255,255,.25);border-radius:30px;transition:border-color .2s,background .2s}
+        #lead-form .opt:hover{border-color:#fff}
+        #lead-form .opt input{position:absolute;opacity:0;width:1px!important;height:1px;margin:0;padding:0;pointer-events:none}
+        #lead-form .opt:has(input:checked){background:#e30a20;border-color:#e30a20;color:#fff}
+        #lead-form .opt:has(input:focus-visible){outline:2px solid #fff;outline-offset:2px}
+        #lead-form #send_message{background:#e30a20;border-color:#e30a20;color:#fff;padding:16px 34px;font-weight:600}
+        #lead-form #send_message:hover{background:#fff;border-color:#fff;color:#111}
+        #lead-form #send_message:disabled{opacity:.6;cursor:wait}
         #lead-form input[type=text],#lead-form input[type=email],#lead-form input[type=tel]{width:100%}
     </style>
 
@@ -900,7 +932,7 @@
                 <div class="row"><div class="col-lg-6 mb-30"><div class="case-card"><div class="case-img"><span>ASICS</span></div><div class="case-body"><h6>ASICS — Posicionamiento y crecimiento de marca en México</h6><p>Estrategia de contenido y pauta digital para fortalecer el posicionamiento de ASICS, impulsar tráfico a tiendas y e-commerce y conectar con la audiencia mediante embajadores y experiencias de marca.</p><div class="tag">Contenido · Pauta digital</div></div></div></div>
 <div class="col-lg-6 mb-30"><div class="case-card"><div class="case-img"><span>Permobil</span></div><div class="case-body"><h6>Permobil — Estrategia regional y comunicación de producto</h6><p>Estrategia de contenidos y comunicación para Italia, Francia y España, integrando nuevos productos, mensajes comerciales y coordinación regional de marca.</p><div class="tag">Estrategia regional</div></div></div></div>
 <div class="col-lg-6 mb-30"><div class="case-card"><div class="case-img" style="background-image:url(/assets/imgs/casos/bepensa.jpg)"></div><div class="case-body"><h6>Bepensa — Reputación, posicionamiento y comunicación corporativa</h6><p>Estrategia integral de comunicación 360°, posicionamiento corporativo y reputación basada en social intelligence para fortalecer su presencia y percepción de marca.</p><div class="tag">Comunicación 360°</div></div></div></div>
-<div class="col-lg-6 mb-30"><div class="case-card"><div class="case-img case-slider"><img src="/assets/imgs/casos/coop-1.jpg" alt="COOP 1" loading="lazy" class="on"><img src="/assets/imgs/casos/coop-2.jpg" alt="COOP 2" loading="lazy"><img src="/assets/imgs/casos/coop-3.jpg" alt="COOP 3" loading="lazy"><img src="/assets/imgs/casos/coop-4.jpg" alt="COOP 4" loading="lazy"><img src="/assets/imgs/casos/coop-5.jpg" alt="COOP 5" loading="lazy"><img src="/assets/imgs/casos/coop-6.jpg" alt="COOP 6" loading="lazy"></div><div class="case-body"><h6>COOP — Experiencias que construyen marca</h6><p>Posicionamiento mediante experiencias, activaciones, alianzas estratégicas y gestión integral de eventos.</p><div class="tag">Eventos · Activaciones</div></div></div></div>
+<div class="col-lg-6 mb-30"><div class="case-card"><div class="case-img case-slider"><img src="/assets/imgs/casos/coop-1.jpg" alt="Evento COOP 1" loading="lazy" class="on"><img src="/assets/imgs/casos/coop-2.jpg" alt="Evento COOP 2" loading="lazy"><img src="/assets/imgs/casos/coop-3.jpg" alt="Evento COOP 3" loading="lazy"><img src="/assets/imgs/casos/coop-4.jpg" alt="Evento COOP 4" loading="lazy"><img src="/assets/imgs/casos/coop-5.jpg" alt="Evento COOP 5" loading="lazy"><img src="/assets/imgs/casos/coop-6.jpg" alt="Evento COOP 6" loading="lazy"></div><div class="case-body"><h6>COOP — Experiencias que construyen marca</h6><p>Posicionamiento mediante experiencias, activaciones, alianzas estratégicas y gestión integral de eventos.</p><div class="tag">Eventos · Activaciones</div></div></div></div>
 </div>
             </div>
         </section>
@@ -912,8 +944,8 @@
             <div class="container">
                 <div class="row justify-content-center mb-60">
                     <div class="col-lg-8 text-center">
-                        <h6 class="dot-titl mb-10">Marcas que han confiado en nosotros</h6>
                         <h2 class="fz-70 fw-700">Clientes</h2>
+                        <p class="fz-18 mt-10 opacity-8">Marcas que han confiado en nosotros</p>
                     </div>
                 </div>
             </div>
@@ -932,7 +964,7 @@
             <div class="container">
                 <div class="sec-lg-head mb-60">
                     <h6 class="dot-titl mb-10">Equipo</h6>
-                    <h2 class="fz-70 fw-700">Las personas detrás de Red One</h2>
+                    <h2 class="fz-70 fw-700">Personas detrás de Red One</h2>
                 </div>
                 <div class="row">
                     <div class="col-lg-6 mb-30"><div class="t-card">
@@ -982,10 +1014,9 @@
             <div class="panel o-hidden intro-pan sub-bg">
                 <div class="container o-hidden rest mt-60">
                     <div class="row mb-80 rest">
-                        <div class="col-lg-5 rest">
+                        <div class="col-lg-9 rest">
                             <div class="text valign">
-                                <p class="fz-14">Hacemos que las marcas se vean, se sientan y, sobre todo, se recuerden.
-                                </p>
+                                <h2 class="intro-h2">Hacemos que las marcas se vean, se sientan y, sobre todo, se recuerden.</h2>
                             </div>
                         </div>
                     </div>
@@ -1049,7 +1080,7 @@
                                     <span>Contáctanos.</span>
                                 </h2>
                                 <a href="#contacto"
-                                    class="butn-circle colorbg-2 d-flex align-items-center text-center mt-50 m-auto">
+                                    class="butn-circle colorbg-2 cta-white d-flex align-items-center text-center mt-50 m-auto">
                                     <div class="full-width">
                                         <span><svg width="18" height="18" viewBox="0 0 18 18" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -1105,12 +1136,12 @@
                         <div class="col-lg-6">
                             <fieldset>
                                 <legend>1. ¿Cuál es el principal reto que quieres resolver?</legend>
-                                <label class="opt"><input type="radio" name="reto" value="Estrategia de marketing" required>Estrategia de marketing</label>
+<div class="opts"><label class="opt"><input type="radio" name="reto" value="Estrategia de marketing" required>Estrategia de marketing</label>
                                 <label class="opt"><input type="radio" name="reto" value="Generación de ventas">Generación de ventas</label>
                                 <label class="opt"><input type="radio" name="reto" value="Pauta digital">Pauta digital</label>
                                 <label class="opt"><input type="radio" name="reto" value="PR & Influencer Marketing">PR &amp; Influencer Marketing</label>
                                 <label class="opt"><input type="radio" name="reto" value="Eventos y experiencias de marca">Eventos y experiencias de marca</label>
-                                <label class="opt"><input type="radio" name="reto" value="Otro">Otro</label>
+                                <label class="opt"><input type="radio" name="reto" value="Otro">Otro</label></div>
                             </fieldset>
                             <fieldset>
                                 <legend>2. ¿A qué se dedica tu empresa?</legend>
@@ -1118,9 +1149,9 @@
                             </fieldset>
                             <fieldset>
                                 <legend>3. ¿Actualmente inviertes en publicidad digital?</legend>
-                                <label class="opt"><input type="radio" name="inversion" value="Sí" required>Sí</label>
+<div class="opts"><label class="opt"><input type="radio" name="inversion" value="Sí" required>Sí</label>
                                 <label class="opt"><input type="radio" name="inversion" value="No">No</label>
-                                <label class="opt"><input type="radio" name="inversion" value="Quiero comenzar a hacerlo">Quiero comenzar a hacerlo</label>
+                                <label class="opt"><input type="radio" name="inversion" value="Quiero comenzar a hacerlo">Quiero comenzar a hacerlo</label></div>
                             </fieldset>
                         </div>
                         <div class="col-lg-6">
@@ -1132,7 +1163,8 @@
                                 <div class="form-group mb-20"><input type="tel" name="telefono" placeholder="Teléfono / WhatsApp" aria-label="Teléfono o WhatsApp" autocomplete="tel" required></div>
                             </fieldset>
                             <input type="text" name="website" value="" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
-                            <button type="submit" class="butn butn-md butn-bord radius-30" id="send_message"><span class="text">Enviar</span></button>
+                            <button type="submit" class="butn butn-md butn-bord radius-30" id="send_message"><span class="text">Solicitar llamada estratégica</span></button>
+                            <p class="fz-14 mt-20 opacity-8">¿Prefieres hablar ya? <a href="https://wa.me/5215547273070?text=Hola%2C%20quiero%20una%20llamada%20estrat%C3%A9gica" target="_blank" rel="noopener" style="color:#25d366;text-decoration:underline">Escríbenos por WhatsApp</a> o llama al <a href="tel:+525547273070" style="text-decoration:underline">55 4727 3070</a>.</p>
                         </div>
                     </div>
                 </form>
@@ -1180,6 +1212,16 @@
 
     <script>
     (function(){
+        // Envía conversiones a GA4 y GTM para saber cuántos leads llegan y por dónde
+        function track(name,params){ params=params||{}; try{ if(window.gtag) gtag('event',name,params); (window.dataLayer=window.dataLayer||[]).push(Object.assign({event:name},params)); }catch(e){} }
+        window.roTrack=track;
+        document.addEventListener('click',function(e){
+            var a=e.target.closest&&e.target.closest('a'); if(!a) return; var h=a.getAttribute('href')||'';
+            if(/wa\.me|whatsapp/i.test(h)) track('whatsapp_click',{link_url:h});
+            else if(/^tel:/i.test(h)) track('phone_click',{link_url:h});
+            else if(/^mailto:/i.test(h)) track('email_click',{link_url:h});
+            else if(/calendly|book-a-call|calendar\.google/i.test(h)) track('schedule_click',{link_url:h});
+        });
         function post(form, msgEl, okText, done){
             var btn=form.querySelector('button[type=submit]'); if(btn) btn.disabled=true;
             fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}})
@@ -1193,14 +1235,14 @@
         }
         // Formulario de leads
         var lf=document.getElementById('lead-form');
-        if(lf){ lf.addEventListener('submit',function(e){ e.preventDefault(); post(lf, lf.querySelector('.messages'), '¡Gracias! Recibimos tu información y te contactaremos pronto.'); }); }
+        if(lf){ lf.addEventListener('submit',function(e){ e.preventDefault(); post(lf, lf.querySelector('.messages'), '¡Gracias! Recibimos tu información y te contactaremos pronto.', function(){ track('generate_lead',{form:'contacto'}); }); }); }
         // Newsletter
         var ov=document.getElementById('nl-overlay'), nf=document.getElementById('nl-form'), nm=document.getElementById('nl-msg');
         function close(){ ov.classList.remove('open'); try{localStorage.setItem('nl_seen',String(Date.now()));}catch(e){} }
         document.getElementById('nl-close').addEventListener('click',close);
         ov.addEventListener('click',function(e){ if(e.target===ov) close(); });
         document.addEventListener('keydown',function(e){ if(e.key==='Escape') close(); });
-        nf.addEventListener('submit',function(e){ e.preventDefault(); post(nf,nm,'¡Listo! Te suscribiste al newsletter.',function(){ setTimeout(close,1800); }); });
+        nf.addEventListener('submit',function(e){ e.preventDefault(); post(nf,nm,'¡Listo! Te suscribiste al newsletter.',function(){ track('sign_up',{form:'newsletter'}); setTimeout(close,1800); }); });
         var seen=0; try{seen=parseInt(localStorage.getItem('nl_seen')||'0',10);}catch(e){}
         // Se abre cuando la persona ya recorrió la mitad de la página o tras 30 s, no a los 1.5 s:
         // un popup inmediato en móvil cuenta como "intersticial intrusivo" para Google.
@@ -1233,7 +1275,10 @@
     <script>
     document.querySelectorAll('.case-slider').forEach(function(sl){
         var im=sl.querySelectorAll('img'),i=0; if(im.length<2) return;
-        setInterval(function(){ im[i].classList.remove('on'); i=(i+1)%im.length; im[i].classList.add('on'); },3500);
+        var bg=document.createElement('div'); bg.className='blur'; sl.insertBefore(bg,sl.firstChild);
+        function paint(){ bg.style.backgroundImage='url('+(im[i].currentSrc||im[i].src)+')'; }
+        paint();
+        setInterval(function(){ im[i].classList.remove('on'); i=(i+1)%im.length; im[i].classList.add('on'); paint(); },3500);
     });
     </script>
 </body>

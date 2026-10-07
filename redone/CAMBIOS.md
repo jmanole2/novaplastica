@@ -1,5 +1,60 @@
 # Cambios SEO para redone.agency
 
+## Ronda 2 (7 oct 2026): ajustes del cliente, leads y PageSpeed
+
+### Ajustes del docx del cliente (en `index.php`)
+- **Casos de éxito:**
+  - Las imágenes ya no se recortan en computadora. El recuadro ahora tiene la proporción de las fotos (16:9) en lugar de 210 px fijos.
+  - En COOP, las fotos verticales se ven completas, con un fondo desenfocado de la misma foto.
+- **Clientes:** ahora va primero el título "Clientes" y debajo "Marcas que han confiado en nosotros".
+- **Menos espacio entre apartados:** cada sección tenía 120 px arriba y abajo, que se sumaban a 240 px entre una y otra. Ahora tienen 70 px.
+- **Signo de apertura:** "¿Tienes algún proyecto en mente?" ya lo tenía desde la ronda 1.
+- **Botón circular "Contactar":** fondo blanco con letra negra y un pulso rojo suave. Al pasar el cursor se llena de rojo, igual que antes.
+- **H2:** "Hacemos que las marcas se vean, se sientan y, sobre todo, se recuerden." ahora es un `<h2>` en tamaño grande.
+- **Equipo:** "Las personas detrás de Red One" → "Personas detrás de Red One".
+
+### Leads
+- **El formulario se veía roto.** El CSS de la plantilla estiraba los círculos de opción al 100 % de ancho, así que aparecían sueltos al centro y lejos de su texto, en celular y en computadora. Ahora cada opción es un botón que se marca en rojo al elegirla.
+- **Botón de envío:** "Enviar" con solo un contorno pasa a ser un botón rojo sólido que dice "Solicitar llamada estratégica".
+- **Debajo del botón:** "¿Prefieres hablar ya? Escríbenos por WhatsApp o llama al 55 4727 3070".
+- **Medición de conversiones en GA4 y GTM.** Antes ningún envío se registraba como conversión. Ahora se mandan estos eventos:
+  - `generate_lead`: formulario enviado con éxito.
+  - `sign_up`: suscripción al newsletter.
+  - `whatsapp_click`, `phone_click`, `email_click` y `schedule_click`.
+
+  En GA4, marquen `generate_lead` y `whatsapp_click` como **eventos clave**. En Google Ads, impórtenlos como conversiones.
+- **Lo que no puedo ver yo: `lead.php`.** Probé `https://redone.agency/lead.php` y valida bien los campos, pero no sé si el correo realmente llega. Si usa `mail()` de PHP, es muy común que caiga en spam o que nunca salga. Hagan un envío de prueba real o pásenme `lead.php` y lo reviso.
+
+### PageSpeed (rendimiento 53)
+- **CSS en cadena:** `plugins.css` cargaba 11 archivos CSS con `@import`, uno detrás de otro, antes de pintar la página. Esto es casi todo el "bloqueo de renderizado" de 750 ms.
+  - Ahora se piden en paralelo.
+  - Bootstrap, Slick y Swiper siguen bloqueando, porque definen el layout.
+  - Los íconos, las animaciones y los popups ya no bloquean.
+- **Fuente Lexend Deca:** se quitó porque no la usa ningún CSS del sitio.
+- **Lo que falta y no está en estos archivos:**
+  - Los logos de clientes y las fotos en JPG/PNG pesan unos 830 KB que se pueden ahorrar convirtiéndolos a WebP.
+  - JavaScript que no se usa: jQuery, plugins y GSAP en `footer.php`.
+
+### `.htaccess` (reemplaza completo al que me pasaste)
+Con el archivo que subieron, **ninguna redirección funcionaba**. Lo comprobé en vivo: `www.redone.agency`, `/index.php` e `/index_en.php` siguen respondiendo 200, y `/blog/` da 404. Tampoco salen los encabezados de seguridad.
+- **Orden de las reglas:** las redirecciones estaban al final, después de las reescrituras del blog. Ahora van primero.
+- **Redirecciones nuevas:**
+  - `/en/` → `/en`, que antes duplicaba la página.
+  - `/blog/artículo/` → `/blog/artículo`, que antes daba 404.
+  - `/terminos/` → `/terminos`.
+  - Las rutas internas (`/templates/...php`, `/index_en.php`) → su URL limpia.
+- **Caché de CSS y JS:** tenían un año con `immutable`. Eso significa que quien ya visitó el sitio **no ve los cambios de `style.css` hasta dentro de un año**. Ahora es una semana. Imágenes, video y fuentes siguen con un año.
+- **Bloques duplicados:** había bloques de caché y compresión repetidos y contradictorios. Ahora hay uno de cada uno, y la compresión incluye el HTML.
+- **Seguridad:** se bloquea la descarga de `.env`, `.htaccess`, `.sql`, `.log` y respaldos.
+- **Lo probé en un Apache local con las mismas rutas:** las 23 URLs respondieron como debían, sin bucles.
+- **Después de subirlo:**
+  - `curl -I https://www.redone.agency/` debe dar 301.
+  - `curl -I https://redone.agency/blog/` debe dar 301.
+
+---
+
+## Ronda 1
+
 ## Archivos de esta carpeta y dónde van
 
 | Archivo | Dónde va | Qué hace |
@@ -9,7 +64,7 @@
 | `modules/footer.php` | `/modules/` (reemplaza) | Pie corregido y video.js bajo demanda |
 | `robots.txt` | Raíz (reemplaza el actual) | Quita `Crawl-delay: 10` y declara el sitemap |
 | `sitemap.xml` | Raíz (nuevo) | Lista portada, `/en`, blog y artículos, con las versiones de idioma |
-| `htaccess-AGREGAR.txt` | **Pegar arriba** dentro del `.htaccess` existente; no lo reemplaces | Redirige `www`, `/index.php` y `/blog/`; agrega seguridad, caché y compresión |
+| `.htaccess` | Raíz. **Reemplaza completo** al actual | Redirecciones, reescrituras del sitio, seguridad, caché y compresión (detalle abajo) |
 | `llms.txt` | Raíz (nuevo) | Resumen del sitio para asistentes de IA |
 
 **Importante:** este `index.php` es más nuevo que el que está publicado. En el publicado los videos de 254 MB y 56 MB siguen en reproducción automática; en este ya estaban comentados y ahora los eliminé del código. Con solo publicar este archivo, la portada deja de descargar unos 310 MB.
