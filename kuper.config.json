@@ -3,16 +3,65 @@
   "height": 1920,
   "fps": 60,
   "duration": 10,
-  "colors": { "background": "#1E3B2F" },
+  "colors": {
+    "background": "#1E3B2F"
+  },
   "text": {
-    "banner": ["Tu Agente de IA", "en WhatsApp"],
-    "bannerBy": "by Kuper Media",
-    "checklist": [["01.", "Cuentas"], ["02.", "Infraestructura"], ["03.", "Info Negocio"], ["04.", "Pago"]],
+    "banner": [
+      "Tu Agente de IA",
+      "en WhatsApp"
+    ],
+    "bannerBy": "by KUPER y AGENCIA BE",
+    "checklist": [
+      [
+        "01.",
+        "Cuentas"
+      ],
+      [
+        "02.",
+        "Infraestructura"
+      ],
+      [
+        "03.",
+        "Info Negocio"
+      ],
+      [
+        "04.",
+        "Pago"
+      ]
+    ],
     "chatName": "Agente IA",
     "chatStatus": "en línea",
-    "chat": [["in", "¡Hola! Soy tu agente de IA."], ["out", "¿Cuánto cuesta?"], ["in", "Te comparto los precios:"]],
-    "prices": [["Configuración inicial", "$5,499", ""], ["Mantenimiento y soporte", "$499", "/mes"]],
-    "title": "Kuper Media",
+    "chat": [
+      [
+        "in",
+        "¡Hola! Soy tu agente de IA."
+      ],
+      [
+        "out",
+        "¿Cuánto cuesta?"
+      ],
+      [
+        "in",
+        "Te comparto los precios:"
+      ]
+    ],
+    "prices": [
+      [
+        "Configuración inicial",
+        "$5,499",
+        ""
+      ],
+      [
+        "Mantenimiento y soporte",
+        "$499",
+        "/mes"
+      ]
+    ],
+    "title": [
+      "KUPER",
+      "y AGENCIA BE"
+    ],
     "titleSub": "Agentes de IA",
     "subtitle": "Arrancamos en cuanto lo tengamos"
   }

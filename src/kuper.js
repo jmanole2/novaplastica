@@ -447,7 +447,7 @@
   const CHAT = { x: 600, y: 610, w: 700, h: 560 };
   const PRICE = [{ x: 610, y: 1045 }, { x: 610, y: 1240 }];
   const PRICE_W = 660, PRICE_H = 178;
-  const PLAQUE = { x: 540, y: 1080, w: 880, h: 360 };
+  const PLAQUE = { x: 540, y: 1080, w: 880, h: Array.isArray(CFG.text.title) ? 440 : 360 };
   const checkAt = (i) => 2.75 + i * 0.36;
 
   // ---------------------------------------------------------------- background
@@ -718,36 +718,42 @@
     at(x, y, 0, 1, Math.max(0.02, sy), () => paper({
       w, h, r: 12, color: C.cream, seed: 129, elev: 1.6, fold: 1 - clamp(sy),
       inner: () => {
-        // title letters
+        // title letters (one or more lines: [text, size, baseline])
+        const titleLines = Array.isArray(TXT.title)
+          ? TXT.title.map((s, i) => [s, i === 0 ? 128 : 80, i === 0 ? -70 : 30])
+          : [[TXT.title, 128, -4]];
         ctx.save();
         ctx.letterSpacing = '2px';
-        let size = 128;
-        ctx.font = font(size, 'Fraunces', 800);
-        const tw = ctx.measureText(TXT.title).width;
-        if (tw > w - 100) { size *= (w - 100) / tw; ctx.font = font(size, 'Fraunces', 800); }
         ctx.textBaseline = 'alphabetic'; ctx.textAlign = 'left';
-        let xx = -ctx.measureText(TXT.title).width / 2;
         let k = 0;
-        for (const ch of TXT.title) {
-          const cw = ctx.measureText(ch).width;
-          const a = 8.35 + k * 0.04, lp = seg(t, a, a + 0.35);
-          if (lp > 0) {
-            const e = E.outBack(lp);
-            ctx.save();
-            ctx.globalAlpha *= clamp(lp * 3);
-            ctx.translate(xx + cw / 2, -4 + (1 - e) * 40);
-            ctx.scale(lerp(0.6, 1, e), lerp(0.6, 1, e));
-            ctx.fillStyle = 'rgba(80,40,20,0.14)'; ctx.fillText(ch, -cw / 2 + 2, 4);
-            ctx.fillStyle = C.charcoal; ctx.fillText(ch, -cw / 2, 0);
-            ctx.restore();
+        titleLines.forEach(([str, size0, base], li) => {
+          let size = size0;
+          ctx.font = font(size, 'Fraunces', 800);
+          const tw = ctx.measureText(str).width;
+          if (tw > w - 100) { size *= (w - 100) / tw; ctx.font = font(size, 'Fraunces', 800); }
+          let xx = -ctx.measureText(str).width / 2;
+          for (const ch of str) {
+            const cw = ctx.measureText(ch).width;
+            const a = 8.35 + k * 0.035, lp = seg(t, a, a + 0.35);
+            if (lp > 0) {
+              const e = E.outBack(lp);
+              ctx.save();
+              ctx.globalAlpha *= clamp(lp * 3);
+              ctx.translate(xx + cw / 2, base + (1 - e) * 40);
+              ctx.scale(lerp(0.6, 1, e), lerp(0.6, 1, e));
+              ctx.fillStyle = 'rgba(80,40,20,0.14)'; ctx.fillText(ch, -cw / 2 + 2, 4);
+              ctx.fillStyle = li === 0 ? C.charcoal : C.charcoalL; ctx.fillText(ch, -cw / 2, 0);
+              ctx.restore();
+            }
+            xx += cw; k++;
           }
-          xx += cw; k++;
-        }
+        });
         ctx.restore();
         const sp2 = E.out(seg(t, 8.6, 8.95));
         if (sp2 > 0) {
-          rrect(-60 * sp2, 72, 120 * sp2, 4, 2, C.orange);
-          text(TXT.titleSub, 0, 128 + (1 - sp2) * 20, { font: 'Fraunces', weight: 600, size: 62, color: C.terracotta, alpha: sp2, maxW: w - 120 });
+          const two = Array.isArray(TXT.title);
+          rrect(-60 * sp2, two ? 84 : 72, 120 * sp2, 4, 2, C.orange);
+          text(TXT.titleSub, 0, (two ? 148 : 128) + (1 - sp2) * 20, { font: 'Fraunces', weight: 600, size: 62, color: C.terracotta, alpha: sp2, maxW: w - 120 });
         }
       },
     }));
