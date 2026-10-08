@@ -1,0 +1,29 @@
+{
+  "width": 1080,
+  "height": 1920,
+  "fps": 60,
+  "scenes": {
+    "problema": 3,
+    "negocio": 4,
+    "agente": 4,
+    "final": 4
+  },
+  "expressiveness": {
+    "surprise": 1.0,
+    "hopHeight": 1.0
+  },
+  "text": {
+    "line1": "Nos cuentas de tu negocio…",
+    "line2": "…y creamos tu agente\na la medida.",
+    "title": [
+      "AGENTES DE IA",
+      "A LA MEDIDA"
+    ],
+    "subtitle": "Kuper Media",
+    "cards": [
+      "Tu negocio",
+      "Horarios",
+      "Servicios"
+    ]
+  }
+}

@@ -28,3 +28,12 @@ Same engine, separate scene: `src/kuper.js` / `src/kuper.html`, text, prices and
 ```bash
 node render.mjs --page src/kuper.html --config kuper.config.json --out out/kuper-media.mp4
 ```
+
+# Kuper Media — "Agentes de IA a la medida" (15 s explainer)
+
+`src/agent.js` / `src/agent.html`, timings per scene + all text in `agent.config.json`.
+The logo (`assets/kuper-logo.png`) is embedded via `assets/kuper-logo.js` and drawn unmodified on a paper plaque.
+
+```bash
+node render.mjs --page src/agent.html --config agent.config.json --out out/kuper-agente.mp4
+```

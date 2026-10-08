@@ -2,3 +2,4 @@ node_modules/
 out/*
 !out/claude-academy.mp4
 !out/kuper-media.mp4
+!out/kuper-agente.mp4
