@@ -450,7 +450,7 @@
     pink: '#E8B3A6', pinkL: '#F2CFC5', pinkD: '#D48F84',
     purple: '#8A78B0', purpleL: '#C6BAE0', purpleD: '#5E4E78',
     charcoal: '#2C2522', charcoalL: '#5A4F49', ink: '#221B18',
-    skin: '#EBB99A', skinD: '#D9A07E', hair: '#3A2E2A',
+    skin: '#F1DEC0', skinD: '#DCC3A0', hair: '#4A5668', hairL: '#5B687B', hairD: '#36404E', fold0: '#FDFBF7', fold1: '#F1EDE6', fold2: '#E3DED5', fold3: '#D3CDC2',
     waGreen: '#2E7D57', bubbleOut: '#DCEFD2', chatBg: '#EFE6D6',
     mascot: '#D6774B',
   };
@@ -459,11 +459,11 @@
   // ---------------------------------------------------------------- layout
   const DESK_Y = 1420;
   const PHONE = { x: 458, y: 1080, w: 370, h: 660 };
-  const OWNER = { x: 152, headY: 1125 };
+  const OWNER = { x: 152, headY: 1100 };
   const MASCOT_X = 870, MASCOT_S = 0.72;
   const STACK = [712, DESK_Y];
   const CARD_W = 150, CARD_H = 140;
-  const SAY = [258, 885];
+  const SAY = [232, 1000];
   const BUBBLES = [[330, 540, -0.08, 3], [620, 470, 0.06, 5], [850, 600, -0.05, 2], [190, 680, 0.07, 4]];
   const ASSEMBLE = [720, 1205];
   const CAL = { x: 760, y: 800, w: 190, h: 190 };
@@ -639,89 +639,98 @@
       happy: seg(t, 9.4, 9.8),
     };
   }
+  // Faceted origami figure, modelled on reference/owner.jpg: white folded paper,
+  // slate wavy hair, pointed face with two dot eyes. Drawn small.
+  const OWNER_S = 0.7;
+  function poly(pts, col, shade) {
+    ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]);
+    for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+    ctx.closePath();
+    if (shade) { ctx.save(); setShadow(shade); ctx.fillStyle = col; ctx.fill(); ctx.restore(); }
+    else { ctx.fillStyle = col; ctx.fill(); }
+  }
   function drawOwner(t) {
     const md = ownerMood(t);
-    const hx = OWNER.x, hy = OWNER.headY + Math.sin(t * 2) * 3;
-    const shake = md.worried * Math.sin(t * 9) * 0.05 + md.talk * Math.sin(t * 7) * 0.03;
-    // torso
-    at(hx, DESK_Y - 90, 0, 1, 1, () => {
-      ctx.save(); setShadow(1);
-      ctx.beginPath();
-      ctx.moveTo(-95, -150); ctx.quadraticCurveTo(0, -178, 95, -150);
-      ctx.lineTo(118, 110); ctx.lineTo(-118, 110); ctx.closePath();
-      ctx.fillStyle = C.purple; ctx.fill(); ctx.restore();
-      ctx.save(); ctx.clip(); ctx.fillStyle = GRAIN; ctx.fillRect(-130, -180, 260, 300); ctx.restore();
-      // collar
-      ctx.beginPath(); ctx.moveTo(-30, -166); ctx.lineTo(0, -126); ctx.lineTo(30, -166); ctx.closePath();
-      ctx.fillStyle = C.cream; ctx.fill();
-    });
+    const sway = Math.sin(t * 1.8) * 2;
+    const headTilt = md.worried * Math.sin(t * 9) * 0.06 + md.talk * Math.sin(t * 6) * 0.04 + md.happy * 0.1;
+    ctx.save();
+    // local units: head centre at origin, desk top at y = 330
+    ctx.translate(OWNER.x, DESK_Y - 330 * OWNER_S);
+    ctx.scale(OWNER_S, OWNER_S);
+    // --- dress / torso facets
+    ctx.save(); setShadow(1.2);
+    poly([[-82, 128], [-14, 112], [14, 112], [82, 128], [92, 360], [-92, 360]], C.fold1);
+    ctx.restore();
+    poly([[-82, 128], [-14, 112], [0, 200], [-40, 236], [-66, 200]], C.fold0);
+    poly([[82, 128], [14, 112], [0, 200], [40, 236], [70, 196]], C.fold2);
+    poly([[-40, 236], [0, 200], [40, 236], [0, 262]], C.fold3);
+    poly([[-66, 200], [-40, 236], [0, 262], [-6, 360], [-92, 360], [-80, 250]], C.fold0);
+    poly([[70, 196], [40, 236], [0, 262], [-6, 360], [92, 360], [84, 250]], C.fold2);
     // neck
-    rrect(hx - 18, hy + 40, 36, 40, 8, C.skinD);
-    // head
-    at(hx, hy, shake, 1, 1, () => {
-      paper({ w: 124, h: 132, r: 60, color: C.skin, seed: 180, elev: 1, amp: 0.8 });
-      // hair
-      ctx.save();
-      ctx.beginPath(); ctx.ellipse(0, -36, 66, 40, 0, Math.PI, 0); ctx.lineTo(66, -20); ctx.quadraticCurveTo(20, -42, -66, -12); ctx.closePath();
-      ctx.fillStyle = C.hair; ctx.fill();
-      ctx.restore();
-      const lx = md.talk * 6 + md.worried * 4, ly = md.worried * -3;
-      const blink = blinkAt(t + 0.33);
-      for (const s of [-1, 1]) {
-        // eyes
-        const eh = 12 * (1 - 0.85 * blink) * (1 - md.happy * 0.55 * bell(seg(t, 9.5, 10.4)));
-        rrect(s * 22 - 5 + lx, 4 - eh / 2 + ly, 10, eh, 5, C.ink);
-        // brows: worried = inner ends up
-        ctx.save();
-        ctx.strokeStyle = C.hair; ctx.lineWidth = 5; ctx.lineCap = 'round';
-        const tilt = md.worried * 0.4 - md.happy * 0.1;
-        ctx.translate(s * 22 + lx * 0.5, -16 - md.happy * 3);
-        ctx.rotate(-s * tilt);
-        ctx.beginPath(); ctx.moveTo(-11, 0); ctx.lineTo(11, 0); ctx.stroke();
-        ctx.restore();
-      }
-      // cheeks
-      circle(-36, 26, 9, 'rgba(214,120,110,0.35)'); circle(36, 26, 9, 'rgba(214,120,110,0.35)');
-      // mouth
-      ctx.save();
-      ctx.strokeStyle = C.ink; ctx.lineWidth = 4.5; ctx.lineCap = 'round';
-      if (md.talk > 0.5) {
-        const o = 4 + 7 * Math.abs(Math.sin(t * 14));
-        ctx.beginPath(); ctx.ellipse(lx * 0.5, 40, 10, o, 0, 0, Math.PI * 2); ctx.fillStyle = C.ink; ctx.fill();
+    poly([[-16, 62], [16, 62], [20, 116], [0, 128], [-20, 116]], C.fold2);
+    poly([[-16, 62], [0, 70], [0, 128], [-20, 116]], C.fold1);
+    // --- head (hair back, face, hair front)
+    ctx.save();
+    ctx.translate(sway, 0);
+    ctx.rotate(headTilt);
+    const back = [[0, -118], [70, -100], [100, -52], [108, 0], [96, 42], [118, 84], [100, 122], [122, 166], [74, 150], [54, 104], [-54, 104], [-74, 150], [-122, 166], [-100, 122], [-118, 84], [-96, 42], [-108, 0], [-100, -52], [-70, -100]];
+    poly(back, C.hair, 1);
+    poly([[0, -118], [70, -100], [100, -52], [108, 0], [96, 42], [118, 84], [100, 122], [122, 166], [74, 150], [54, 104], [0, 104]], C.hairD);
+    ctx.save(); ctx.globalAlpha = 0.5; ctx.beginPath(); back.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.closePath(); ctx.clip();
+    ctx.fillStyle = GRAIN_DARK; ctx.fillRect(-130, -130, 260, 310); ctx.restore();
+    // face: pointed kite, two facets
+    ctx.save(); setShadow(0.6);
+    poly([[-60, -46], [0, -76], [62, -46], [54, 26], [0, 78], [-54, 26]], C.fold0);
+    ctx.restore();
+    poly([[0, -76], [62, -46], [54, 26], [0, 78]], C.fold1);
+    poly([[-54, 26], [0, 78], [54, 26], [0, 40]], C.fold2);
+    // hood-like front folds of the hair
+    poly([[0, -118], [-70, -100], [-66, -20], [-46, -48], [0, -86]], C.hairL, 0.5);
+    poly([[0, -118], [70, -100], [68, -24], [48, -50], [0, -86]], C.hairD, 0.5);
+    // eyes
+    const blink = blinkAt(t + 0.33);
+    const happyEyes = md.happy * bell(seg(t, 9.5, 10.6));
+    const lx = md.talk * 5 + md.worried * 3, ly = md.worried * -2;
+    for (const sx of [-1, 1]) {
+      const ex = sx * 22 + lx, ey = -10 + ly;
+      if (happyEyes > 0.5) {
+        ctx.save(); ctx.strokeStyle = C.ink; ctx.lineWidth = 4; ctx.lineCap = 'round';
+        ctx.beginPath(); ctx.arc(ex, ey + 4, 7, Math.PI * 1.1, Math.PI * 1.9); ctx.stroke(); ctx.restore();
       } else {
-        const curve = lerp(-8 * md.worried, 12, md.happy);
-        ctx.beginPath(); ctx.moveTo(-14, 40 - curve * 0.3); ctx.quadraticCurveTo(0, 40 + curve, 14, 40 - curve * 0.3); ctx.stroke();
+        ctx.beginPath(); ctx.ellipse(ex, ey, 5.5, 7.5 * (1 - 0.85 * blink), 0, 0, Math.PI * 2); ctx.fillStyle = C.ink; ctx.fill();
       }
-      ctx.restore();
-      // sweat drop
-      if (md.worried > 0.3 && t < 3.4) {
-        const sp = (t * 0.9) % 1;
-        ctx.save(); ctx.globalAlpha = md.worried * (1 - sp);
-        ctx.translate(58, -20 + sp * 30);
-        ctx.beginPath(); ctx.moveTo(0, -12); ctx.quadraticCurveTo(10, 4, 0, 8); ctx.quadraticCurveTo(-10, 4, 0, -12);
-        ctx.fillStyle = '#FFFFFF'; ctx.fill(); ctx.strokeStyle = 'rgba(44,37,34,0.5)'; ctx.lineWidth = 2; ctx.stroke();
-        ctx.restore();
-      }
-    });
-    // arms
-    const sh = [hx - 88, DESK_Y - 222], sh2 = [hx + 88, DESK_Y - 222];
-    const worriedL = [hx - 62, hy + 30], worriedR = [hx + 62, hy + 30];
-    const restL = [hx - 40, DESK_Y - 16], restR = [hx + 80, DESK_Y - 18];
-    const gest = [hx + 150 + Math.sin(t * 6) * 10, hy + 20 + Math.sin(t * 8) * 14];
-    const wl = clamp(md.worried * 1.4 - 0.4), tk = md.talk;
-    const handL = mix(restL, worriedL, wl);
-    let handR = mix(restR, worriedR, wl);
-    handR = mix(handR, gest, tk);
-    for (const [s, hnd] of [[sh, handL], [sh2, handR]]) {
-      const el = [(s[0] + hnd[0]) / 2 + (hnd[0] > s[0] ? 10 : -14), Math.max(s[1], hnd[1]) + 40];
-      ctx.save();
-      ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-      setShadow(0.6);
-      ctx.strokeStyle = C.purpleD; ctx.lineWidth = 36;
-      ctx.beginPath(); ctx.moveTo(s[0], s[1]); ctx.quadraticCurveTo(el[0], el[1], hnd[0], hnd[1]); ctx.stroke();
-      ctx.restore();
-      circle(hnd[0], hnd[1], 19, C.skin);
     }
+    // worry: sweat drop
+    if (md.worried > 0.3 && t < 3.4) {
+      const sp = (t * 0.9) % 1;
+      ctx.save(); ctx.globalAlpha = md.worried * (1 - sp);
+      ctx.translate(70, -30 + sp * 40);
+      ctx.beginPath(); ctx.moveTo(0, -14); ctx.quadraticCurveTo(12, 5, 0, 10); ctx.quadraticCurveTo(-12, 5, 0, -14);
+      ctx.fillStyle = '#FFFFFF'; ctx.fill(); ctx.strokeStyle = 'rgba(44,37,34,0.45)'; ctx.lineWidth = 2.5; ctx.stroke();
+      ctx.restore();
+    }
+    ctx.restore();
+    // --- folded paper arms: shoulder -> elbow -> pointed hand
+    const shL = [-76, 140], shR = [76, 140];
+    const rest = { eL: [-92, 236], hL: [36, 262], eR: [92, 232], hR: [-34, 256] };
+    const worried = { eL: [-128, 150], hL: [-96, 30], eR: [128, 150], hR: [96, 30] };
+    const gest = { eR: [128, 196], hR: [196 + Math.sin(t * 6) * 10, 118 + Math.sin(t * 8) * 16] };
+    const wl = clamp(md.worried * 1.4 - 0.4), tk = md.talk;
+    const eL = mix(rest.eL, worried.eL, wl), hL = mix(rest.hL, worried.hL, wl);
+    const eR = mix(mix(rest.eR, worried.eR, wl), gest.eR, tk), hR = mix(mix(rest.hR, worried.hR, wl), gest.hR, tk);
+    const arm = (sh, el, hd, light) => {
+      const seg2 = (a, b, w0, w1, col) => {
+        const an = Math.atan2(b[1] - a[1], b[0] - a[0]), nx = -Math.sin(an), ny = Math.cos(an);
+        poly([[a[0] + nx * w0, a[1] + ny * w0], [b[0] + nx * w1, b[1] + ny * w1], [b[0] - nx * w1, b[1] - ny * w1], [a[0] - nx * w0, a[1] - ny * w0]], col, 0.6);
+      };
+      seg2(sh, el, 17, 14, light ? C.fold0 : C.fold1);
+      seg2(el, hd, 14, 9, light ? C.fold1 : C.fold2);
+      const an = Math.atan2(hd[1] - el[1], hd[0] - el[0]);
+      poly([[hd[0] - Math.sin(an) * 10, hd[1] + Math.cos(an) * 10], [hd[0] + Math.cos(an) * 24, hd[1] + Math.sin(an) * 24], [hd[0] + Math.sin(an) * 10, hd[1] - Math.cos(an) * 10]], C.fold0, 0.4);
+    };
+    arm(shR, eR, hR, false);
+    arm(shL, eL, hL, true);
+    ctx.restore();
   }
   function drawSay(t) {
     const p = seg(t, 3.3, 3.6), q = seg(t, 6.35, 6.65);
